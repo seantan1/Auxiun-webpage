@@ -54,6 +54,7 @@ const Navbar = (props) => {
 
                         <div className="nav navbar-links">
                             <a style={{ color: fontColor }} href="/">Home</a>
+                            <a style={{ color: fontColor }} href="/market">Market</a>
                             <a style={{ color: fontColor }} href="/login">Login</a>
                             <a style={{ color: fontColor }} href="/register">Register</a>
                             <a style={{ color: fontColor }} href="/info">Info</a>
