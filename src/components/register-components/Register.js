@@ -76,8 +76,8 @@ export default function Register() {
 
     return (
         <div className="register-page">
-            <div>
-                <h1 className="title-text">Register as a User</h1>
+            <div className="content">
+                <h1 className="title-text">Sign Up Today!</h1>
                 <Grid container className="sign-up__outer" justify="center" spacing={2}>
                     <Grid item xs={12} s={6} md={2} className="sign-up__inner1">
                         <CssTextField className="text-field" label="First Name" variant="outlined" /><br></br><br></br>
@@ -88,7 +88,7 @@ export default function Register() {
                         <CssTextField className="text-field" label="Password" type="password" variant="outlined" onChange={userPasswordLoginFormHandler} /><br></br><br></br>
                         <CssTextField className="text-field" label="Confirm Password" type="password" variant="outlined" onChange={userPasswordLoginFormHandler} /><br></br><br></br>
 
-                        <Grid container spacing={1}>
+                        <Grid container spacing={1} justify="center">
                             <Grid item>
                                 <Button id="sign-up-button" className="sign-up-button" variant="contained" color="primary" onClick={register}>Register</Button>
                             </Grid>
