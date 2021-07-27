@@ -77,8 +77,11 @@ export default function Register() {
         <div className="register-page">
             <h1 className="title-text">Register as a user</h1>
             <p>TODO: change the variable names below</p>
-            <CssTextField className="text-field" label="Username" variant="outlined" onChange={userEmailLoginFormHandler} /><br></br><br></br>
+            <CssTextField className="text-field" label="First Name" variant="outlined" /><br></br><br></br>
+            <CssTextField className="text-field" label="Last Name" variant="outlined" /><br></br><br></br>
+            <CssTextField className="text-field" label="Email" variant="outlined" onChange={userEmailLoginFormHandler} /><br></br><br></br>
             <CssTextField className="text-field" label="Password" type="password" variant="outlined" onChange={userPasswordLoginFormHandler} /><br></br><br></br>
+            <CssTextField className="text-field" label="Confirm Password" type="password" variant="outlined" onChange={userPasswordLoginFormHandler} /><br></br><br></br>
 
             <Button id="donate-button" variant="contained" color="primary" onClick={register}>Register</Button>
             <br></br>
