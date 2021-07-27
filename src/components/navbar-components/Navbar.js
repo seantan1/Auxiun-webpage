@@ -203,56 +203,6 @@ const Navbar = (props) => {
                   </StyledMenuItem>
                 </a>
               </StyledMenu>
-              {/* Dot Menu */}
-              {/* <Button
-                 aria-controls="simple-menu"
-                aria-haspopup="true"
-                onClick={handleClick}
-              >
-                <MoreHorizRoundedIcon className="horiz-icon" />
-              </Button>
-
-              <Menu
-                id="simple-menu"
-                anchorEl={anchorEl}
-                keepMounted
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-              >
-                <MenuItem onClick={props.toggleProfileWindow}>
-                  <a className="dot-links" href="/login">
-                    <PersonRoundedIcon className="dot-icon" fontSize="small" />
-                    PROFILE
-                  </a>
-                </MenuItem>
-                <MenuItem onClick={handleClose}>
-                  <a className="dot-links" href="/login">
-                    <LocalMallRoundedIcon
-                      className="dot-icon"
-                      fontSize="small"
-                    />
-                    INVENTORY
-                  </a>
-                </MenuItem>
-                <MenuItem onClick={handleClose}>
-                  <a className="dot-links" href="/login">
-                    <FavoriteRoundedIcon
-                      className="dot-icon"
-                      fontSize="small"
-                    />
-                    WISHLIST
-                  </a>
-                </MenuItem>
-                <MenuItem onClick={handleClose}>
-                  <a className="dot-links" href="/login">
-                    <ExitToAppRoundedIcon
-                      className="dot-icon"
-                      fontSize="small"
-                    />
-                    LOGIN/REGISTER
-                  </a>
-                </MenuItem>
-              </Menu> */}
             </div>
           </div>
         </div>

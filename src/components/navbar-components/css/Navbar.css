@@ -5,9 +5,12 @@
   -moz-transition: background-color 0.5s ease-out;
   -o-transition: background-color 0.5s ease-out;
   transition: background-color 0.5s ease-out;
+  /* background-color: white; */
 }
 
 .navbar-inner {
+  /* background-color: grey; */
+
   margin: auto;
   width: 90%;
   display: inline-flex;
@@ -17,7 +20,7 @@ MenuItem {
   color: white;
 }
 .brand-image {
-  height: 80px;
+  height: 55px;
 }
 
 .Brand {
@@ -30,17 +33,19 @@ MenuItem {
 }
 
 .navbar-links {
+  /* background-color: black; */
   cursor: default;
   /* width: 50%; */
   margin: auto;
-  margin-left: 10px;
+  margin-left: 33%;
+  font-size: 10px;
 }
 
 .navbar-links a {
   padding-left: 1em;
   padding-right: 1em;
   text-decoration: none;
-  font-size: 1rem;
+  font-size: 2rem;
 }
 
 .navbar-links a:hover {
@@ -64,7 +69,7 @@ MenuItem {
 
 .connect-wallet-button-container {
   position: fixed;
-  top: 25px;
+  top: 22px;
   right: 25px;
 }
 
@@ -82,45 +87,42 @@ MenuItem {
   margin: 4px 2px;
   cursor: pointer;
   border-radius: 50px;
-  
 }
 
 .connect-wallet-button {
   background-color: rgb(26, 83, 255);
   font-size: 10px;
   text-transform: uppercase;
-  color: rgb(0, 45, 179); 
+  color: rgb(0, 45, 179);
 }
 
-.nav-title{
-    color: rgb(0, 45, 179); 
-    text-transform: uppercase;
-    font-weight: bolder;
-    /* font-size: 100px; */
-    /* font-size: 0.5rem; */
-     
+.nav-title {
+  color: rgb(0, 45, 179);
+  text-transform: uppercase;
+  font-weight: bolder;
+  /* font-size: 100px; */
+  /* font-size: 0.5rem; */
 }
-.horiz-icon{
-    font-size: 16px;
-    background-color: rgb(64, 64, 64);
-    color: white;
-    border-radius: 25px;
-    padding: 5px;
-    width: 100px;
-    height: 5px;
-}
-
-.dot-menu{
-    background-color: rgb(51, 51, 51);
-}
-.dot-icon{
-    margin-right: 30px;
-}
-.dot-links{
-    font-size: 10px;
-    text-decoration: none;
+.horiz-icon {
+  font-size: 16px;
+  background-color: rgb(64, 64, 64);
+  color: white;
+  border-radius: 25px;
+  padding: 5px;
+  width: 100px;
+  height: 5px;
 }
 
+.dot-menu {
+  background-color: rgb(51, 51, 51);
+}
+.dot-icon {
+  margin-right: 30px;
+}
+.dot-links {
+  font-size: 10px;
+  text-decoration: none;
+}
 
 #loading-gif {
   height: 20px;
@@ -136,7 +138,7 @@ MenuItem {
 .profile-image {
   height: 50px;
 }
- 
+
 /* Responsive NavBar */
 /* navbar links font incremental adjustments*/
 @media (max-width: 1300px) {
