@@ -1,0 +1,21 @@
+.footer {
+    background-color: black;
+    padding:20px;
+}
+
+.footer-links-container {
+    color: white;
+    margin:auto;
+    text-align: center;
+}
+
+.footer-links-container a {
+    color: white;
+    text-decoration: none;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.footer-links-container a:hover {
+    color: pink;
+}
