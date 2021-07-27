@@ -7,6 +7,12 @@ import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import FacebookIcon from "@material-ui/icons/Facebook";
+import TelegramIcon from "@material-ui/icons/Telegram";
+import InstagramIcon from "@material-ui/icons/Instagram";
+import YouTubeIcon from "@material-ui/icons/YouTube";
+import LinkedInIcon from "@material-ui/icons/LinkedIn";
+import TwitterIcon from "@material-ui/icons/Twitter";
 
 import "./css/Footer.css";
 function Copyright() {
@@ -102,7 +108,7 @@ export default function Pricing() {
           ))}
         </Grid>
         <hr />
-{/* NEED TO ALIGN SUBSCRIBE BTN PROPERLY */}
+        {/* NEED TO ALIGN SUBSCRIBE BTN PROPERLY */}
         <Grid container spacing={3}>
           <Grid item xs={12} sm={5}>
             <Typography variant="h6">Stay Up To Date</Typography>
@@ -117,11 +123,38 @@ export default function Pricing() {
               variant="outlined"
               helperText="We will never share your email with anyone else"
             />
-            <Button className="subscribe-btn" variant="contained" color="primary">
+
+            <Button
+              className="subscribe-btn"
+              variant="contained"
+              color="primary"
+            >
               Subscribe
             </Button>
           </Grid>
         </Grid>
+
+        <hr />
+        <div className="social-media-icons">
+          <a href="">
+            <FacebookIcon />
+          </a>
+          <a href="">
+            <LinkedInIcon />
+          </a>
+          <a href="">
+            <YouTubeIcon />
+          </a>
+          <a href="">
+            <TwitterIcon />
+          </a>
+          <a href="">
+            <InstagramIcon />
+          </a>
+          <a href="">
+            <TelegramIcon />
+          </a>
+        </div>
         <Box mt={5}>
           <Copyright />
         </Box>
