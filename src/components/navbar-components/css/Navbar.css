@@ -1,4 +1,6 @@
 .navbar {
+  position: fixed;
+  top: 0px;
   padding: 1em;
 
   -webkit-transition: background-color 0.5s ease-out;
