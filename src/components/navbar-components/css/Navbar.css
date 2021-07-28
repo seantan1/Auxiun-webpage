@@ -1,132 +1,170 @@
 .navbar {
-    padding: 1em;
-    
-    -webkit-transition: background-color 0.5s ease-out;
-    -moz-transition: background-color 0.5s ease-out;
-    -o-transition: background-color 0.5s ease-out;
-    transition: background-color 0.5s ease-out;
+  position: fixed;
+  top: 0px;
+  padding: 1em;
+
+  -webkit-transition: background-color 0.5s ease-out;
+  -moz-transition: background-color 0.5s ease-out;
+  -o-transition: background-color 0.5s ease-out;
+  transition: background-color 0.5s ease-out;
+  /* background-color: white; */
 }
 
 .navbar-inner {
-    margin:auto;
-    width: 90%;
-    display:inline-flex;
-    /* height: 100%; */
-    
-}
+  /* background-color: grey; */
 
+  margin: auto;
+  width: 90%;
+  display: inline-flex;
+  /* height: 100%; */
+}
+MenuItem {
+  color: white;
+}
 .brand-image {
-    height:80px;
+  height: 55px;
 }
 
 .Brand {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .brand-container {
-    width: fit-content;
-    cursor: pointer;
+  width: fit-content;
+  cursor: pointer;
 }
 
 .navbar-links {
-    cursor: default;
-    /* width: 50%; */
-    margin: auto;
-    margin-left : 10px;
+  /* background-color: black; */
+  cursor: default;
+  /* width: 50%; */
+  margin: auto;
+  margin-left: 33%;
+  font-size: 10px;
 }
 
 .navbar-links a {
-    padding-left: 1em;
-    padding-right: 1em;
-    text-decoration: none;
-    font-size: 1.8em;
+  padding-left: 1em;
+  padding-right: 1em;
+  text-decoration: none;
+  font-size: 2rem;
 }
 
 .navbar-links a:hover {
-    color:green !important;
+  color: rgba(252, 252, 252, 0.654) !important;
 }
 
 .nav-bar-links-display-in-mobile {
-    display: none;
+  display: none;
 }
 
 .tx-pending-container {
-    position:fixed;
-    display:inline-flex;
-    top:68px;
-    right:38px;
+  position: fixed;
+  display: inline-flex;
+  top: 68px;
+  right: 38px;
 }
 .tx-pending-container img {
-    margin: auto;
-    padding-right: 5px;
+  margin: auto;
+  padding-right: 5px;
 }
 
 .connect-wallet-button-container {
-    position:fixed;
-    top:25px;
-    right:25px;
+  position: fixed;
+  top: 22px;
+  right: 25px;
 }
 
 .connect-wallet-button {
-    margin-right: 20px;
-    background-color: #f1f1f1;
-    font-weight:700;
-    border: none;
-    color: rgb(0, 0, 0);
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 50px;
+  margin-right: 20px;
+  background-color: #f1f1f1;
+  font-weight: 700;
+  border: none;
+  /* color: rgb(0, 0, 0); */
+  padding: 13px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 50px;
 }
 
-.connect-wallet-button:hover {
-    background-color:green;
+.connect-wallet-button {
+  background-color: rgb(26, 83, 255);
+  font-size: 10px;
+  text-transform: uppercase;
+  color: rgb(0, 45, 179);
+}
+
+.nav-title {
+  color: rgb(0, 45, 179);
+  text-transform: uppercase;
+  font-weight: bolder;
+  /* font-size: 100px; */
+  /* font-size: 0.5rem; */
+}
+.horiz-icon {
+  font-size: 16px;
+  background-color: rgb(64, 64, 64);
+  color: white;
+  border-radius: 25px;
+  padding: 5px;
+  width: 100px;
+  height: 5px;
+}
+
+.dot-menu {
+  background-color: rgb(51, 51, 51);
+}
+.dot-icon {
+  margin-right: 30px;
+}
+.dot-links {
+  font-size: 10px;
+  text-decoration: none;
 }
 
 #loading-gif {
-    height: 20px;
+  height: 20px;
 }
 
 .profile-container {
-    position:fixed;
-    top:27px;
-    right:225px;
-    cursor: pointer;
+  position: fixed;
+  top: 27px;
+  right: 225px;
+  cursor: pointer;
 }
 
 .profile-image {
-    height: 50px;
+  height: 50px;
 }
-
 
 /* Responsive NavBar */
 /* navbar links font incremental adjustments*/
 @media (max-width: 1300px) {
-    .navbar-links a {
-        font-size: 1.5em;
-    }
+  .navbar-links a {
+    font-size: 1.5em;
+  }
 }
 
 @media (max-width: 1100px) {
-    .navbar-links a {
-        /* padding-left: 1em;
+  .navbar-links a {
+    /* padding-left: 1em;
         padding-right: 1em; */
-        font-size: 1.3em;
-    }
+    font-size: 1.3em;
+  }
 }
 /* hide navbar links */
 @media (max-width: 990px) {
-    .navbar-links {
-        display:none;
-    }
+  .navbar-links {
+    display: none;
+  }
 }
 /* hide profile button */
 @media (max-width: 450px) {
-    .profile-container {
-        display:none;
-    }
+  .profile-container {
+    display: none;
+  }
 }
