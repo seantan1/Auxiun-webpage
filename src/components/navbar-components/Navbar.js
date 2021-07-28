@@ -124,13 +124,13 @@ const Navbar = (props) => {
             </div>
 
             <div className="nav navbar-links title">
-              <a className="nav-title" href="/">
+              <a className="nav-title" href="/about">
                 about
               </a>
-              <a className="nav-title" href="/">
+              <a className="nav-title" href="/marketplace">
                 marketplace
               </a>
-              <a className="nav-title" href="/">
+              <a className="nav-title" href="/team">
                 team
               </a>
             </div>
@@ -194,7 +194,7 @@ const Navbar = (props) => {
                   </StyledMenuItem>
                 </a>
 
-                <a className="dot-links" href="/">
+                <a className="dot-links" href="/login">
                   <StyledMenuItem>
                     <ListItemIcon>
                       <ExitToAppRoundedIcon fontSize="small" />
