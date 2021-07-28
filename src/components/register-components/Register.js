@@ -93,7 +93,7 @@ export default function Register() {
                                 <Button id="sign-up-button" className="sign-up-button" variant="contained" color="primary" onClick={register}>Register</Button>
                             </Grid>
                             <Grid item>
-                                <Button id="return-button" variant="contained" color="secondary">Log In</Button>
+                                <Button id="return-button" variant="contained" color="secondary" href="/login">Log In</Button>
                             </Grid>
                         </Grid>
                     </Grid>
