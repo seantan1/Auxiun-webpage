@@ -5,4 +5,11 @@
 
 .content {
     text-align: center;
+    
+}
+
+@media only screen and (max-width: 1024px) {
+    .content {
+        transform: scale(1.2);
+    }
 }
