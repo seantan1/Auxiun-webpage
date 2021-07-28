@@ -1,21 +1,11 @@
-.footer {
-    background-color: black;
-    padding:20px;
+.subscribe-btn {
+  margin: 0;
+  margin-top: 3%;
+  margin-left: 3%;
+  color: grey;
+  background-color: black;
 }
 
-.footer-links-container {
-    color: white;
-    margin:auto;
-    text-align: center;
-}
-
-.footer-links-container a {
-    color: white;
-    text-decoration: none;
-    padding-left: 5px;
-    padding-right: 5px;
-}
-
-.footer-links-container a:hover {
-    color: pink;
+.social-media-icons {
+  
 }
