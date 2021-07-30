@@ -12,6 +12,6 @@ export const sampleData = [
         "price": 10000.00,
         "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCWaNB_7X3tIJdsvkt8biN2Yo1Xa1X_R7g_Q&usqp=CAU",
         "description": "Pure and shiny, mined by me so it is mine",
-    }
+    },
 
 ]

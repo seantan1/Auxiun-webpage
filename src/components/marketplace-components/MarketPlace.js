@@ -13,6 +13,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import TreeItem from '@material-ui/lab/TreeItem';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { sampleData } from './samepleData'
+import Pagination from '@material-ui/lab/Pagination';
 function MarketPlace() {
     const theme = useTheme();
     const xs = useMediaQuery(theme.breakpoints.down('sm'));
@@ -65,6 +66,10 @@ function MarketPlace() {
             whiteSpace: "nowrap",
         }
     }));
+    const totalPageCount = () => {
+        return Math.ceil(sampleData.length/25)
+
+    }
     const handleChange = (name, event) => {
         setFilters({ ...filters, [name]: { ...filters[name], [event.target.name]: event.target.checked } });
     };
@@ -81,7 +86,6 @@ function MarketPlace() {
     }
     const loadFilters = () => {
         const list = [];
-
         return (
             <TreeView
                 defaultCollapseIcon={<ExpandMoreIcon />}
@@ -93,12 +97,9 @@ function MarketPlace() {
             >
                 <Grid
                     container>
-                    <Grid item xs={4} md={12}>
+                    <Grid item >
                         {(() => {
-
-
                             for (const data in filters) {
-
                                 // Get sub item of catergory
                                 list.push(<TreeItem nodeId={data} label={data} className={classes.treeItem}>
                                     <FormGroup>
@@ -139,6 +140,7 @@ function MarketPlace() {
 
 
                 <Grid item xs={12} sm={12} md={11}>
+                <Pagination count={totalPageCount()} showFirstButton showLastButton />
                     <Grid
                         container
                         spacing={1}
