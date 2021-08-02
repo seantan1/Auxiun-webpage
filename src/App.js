@@ -245,7 +245,7 @@ function App() {
             <Route exact path="/">
               <HomeBanner />
             </Route>
-            <Route exact path='/Market'>
+            <Route exact path='/marketplace'>
               <MarketPlace />
             </Route>
             <Route exact path="/login">
