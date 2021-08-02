@@ -14,6 +14,9 @@ import TreeItem from '@material-ui/lab/TreeItem';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { sampleData } from './samepleData'
 import Pagination from '@material-ui/lab/Pagination';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
 function MarketPlace() {
     const theme = useTheme();
     const xs = useMediaQuery(theme.breakpoints.down('sm'));
@@ -64,10 +67,18 @@ function MarketPlace() {
         treeItem: {
             marginBottom: "1rem",
             whiteSpace: "nowrap",
+        },
+        // pagination: {
+        //     display: "flex",
+        //     justifyContent: "center",
+        //     marginBottom: "1rem"
+        // },
+        selectEmpty: {
+            minWidth: "10rem",
         }
     }));
     const totalPageCount = () => {
-        return Math.ceil(sampleData.length/25)
+        return Math.ceil(sampleData.length / 25)
 
     }
     const handleChange = (name, event) => {
@@ -129,18 +140,39 @@ function MarketPlace() {
     const classes = useStyles();
     return (
         <div className="marketplace-container">
-            <Grid container spacing={3} className={classes.gridContainer}>
-                <Grid item xs={12} className={classes.search}>
-                    {xs ? <TextField id="market-search" label="Search" style={{ minWidth: "100%" }} /> : <TextField id="market-search" label="Search" />}
-
-                </Grid>
+            <Grid container spacing={3} className={classes.gridContainer} >
+               
                 <Grid item xs={12} sm={"auto"} md={1}>
                     {loadFilters()}
                 </Grid>
 
 
                 <Grid item xs={12} sm={12} md={11}>
-                <Pagination count={totalPageCount()} showFirstButton showLastButton />
+                    <Grid
+                        container
+                        flex
+                        className={classes.top}>
+
+
+                        <FormControl  style={{ display:" flex",flex: 1, justifyContent: 'flex-start', alignItems: 'flex-start'  }}>
+                            <Select
+                                value={"Sample"}
+                                onChange={handleChange}
+                                displayEmpty
+                                className={classes.selectEmpty}
+                            >
+                                <MenuItem value="">
+                                    <em>None</em>
+                                </MenuItem>
+                                <MenuItem value={10}>Ten</MenuItem>
+                                <MenuItem value={20}>Twenty</MenuItem>
+                                <MenuItem value={30}>Thirty</MenuItem>
+                            </Select>
+                        </FormControl>
+                        <Pagination count={totalPageCount()} showFirstButton showLastButton  style={{ display:" flex",flex: 1, justifyContent: 'center', alignItems: 'center'  }}/>
+                    {xs ? <TextField id="market-search" label="Search" style={{ display:" flex", flex: 1, justifyContent: 'flex-end' }} /> : <TextField id="market-search" label="Search" style={{ display:" flex",flex: 1, justifyContent: 'flex-end'  }}/>}
+
+                    </Grid>
                     <Grid
                         container
                         spacing={1}
