@@ -1,8 +1,8 @@
 .banner {
-    background-color: black;
-    padding-top: 4em;
+    /* background-color: rgba(128, 128, 128, 0.482); */
+    padding-top: 25%;
     padding-bottom: 4em;
-    color: white;
+    /* color: white; */
 }
 
 .banner-image-container {
@@ -26,30 +26,24 @@
     margin-right: 30px;
 }
 
-.banner-text-highlight {
-    color:pink;
-    font-weight: 700;
+.homepage-title{
+    margin-bottom: 1em;
+}
+.homepage-caption{
+    margin-bottom: 3rem; 
 }
 
-.buy-now-button {
-    margin-right: 20px;
-    background-color: #f1f1f1;
-    font-weight:700;
-    border: none;
-    color: rgb(0, 0, 0);
-    padding: 15px 32px;
-    text-align: center;
+.explore-btn{
+
+}
+
+a{
     text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 50px;
+    color: white;
+    /* background-color: black; */
 }
-
-.buy-now-button:hover {
-    background-color:pink;
-}
+ 
+ 
 
 /* Responsive */
 @media (max-width: 1000px) {
