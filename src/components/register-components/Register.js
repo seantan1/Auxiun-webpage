@@ -41,37 +41,34 @@ export default function Register() {
 
     // TODO: change variable names to register
     // login form
-    const [userEmailLoginForm, setuserEmailLoginForm] = useState('');
-    const [userPasswordLoginForm, setUserPasswordLoginForm] = useState('');
+    const [userEmailRegisterForm, setuserEmailRegisterForm] = useState('');
+    const [userPasswordRegisterForm, setUserPasswordRegisterForm] = useState('');
 
     // event handler for username
-    const userEmailLoginFormHandler = (event) => {
-        setuserEmailLoginForm(event.target.value);
+    const userEmailRegisterFormHandler = (event) => {
+        setuserEmailRegisterForm(event.target.value);
     }
     // event handler for password
-    const userPasswordLoginFormHandler = (event) => {
-        setUserPasswordLoginForm(event.target.value);
+    const userPasswordRegisterFormHandler = (event) => {
+        setUserPasswordRegisterForm(event.target.value);
     }
 
     const register = () => {
-        // TODO: modify this 
-        // axios.post(process.env.REACT_APP_API_STREAMER_REGISTER_URL, {
-        //     apikey: String(process.env.REACT_APP_PRIVATE_API_KEY),
-        //     username: String(streamerUsername),
-        //     password_hash: String(streamerPassword),
-        //     wallet_address: String(streamerWallet),
-        //     profile_image_link: String(streamerImage)
-        // }).then(function (data) {
-        //     if(data.data.errors) {
-        //         setAlert("Username has been taken.", false);
-        //     }
-        //     else if (data.status === 200) {
-        //         setAlert("Registration successful!", true);
-        //     }
-        //     else {
-        //         setAlert("Unknown error occured. Please try again.", false);
-        //     }
-        // })
+        axios.post(process.env.REACT_APP_DATABASE_API_REGISTER_URL, {
+            apikey: String(process.env.REACT_APP_DATABASE_API_KEY),
+            email: String(userEmailRegisterForm),
+            password_hash: String(userPasswordRegisterForm),
+        }).then(function (data) {
+            if(data.data.errors) {
+                console.log("Email has been taken.");
+            }
+            else if (data.status === 200) {
+                console.log("Registration successful!");
+            }
+            else {
+                console.log("Unknown error occured. Please try again.");
+            }
+        })
     }
 
     return (
@@ -87,7 +84,6 @@ export default function Register() {
                     <Grid item xs={12} s={6} md={2} className="sign-up__inner2">
                         <CssTextField className="text-field" label="Password" type="password" variant="outlined" onChange={userPasswordLoginFormHandler} /><br></br><br></br>
                         <CssTextField className="text-field" label="Confirm Password" type="password" variant="outlined" onChange={userPasswordLoginFormHandler} /><br></br><br></br>
-
                         <Grid container spacing={1} justify="center">
                             <Grid item>
                                 <Button id="sign-up-button" className="sign-up-button" variant="contained" color="primary" onClick={register}>Register</Button>
