@@ -30,7 +30,7 @@ export default function NavlinksWindow(props) {
                                     <p className="navlinks-text">Home</p>
                                 </div>
                             </a>
-                            <a href="/market">
+                            <a href="/marketplace">
                                 <div className="navlinks-option-container">
                                     <p className="navlinks-text">Market</p>
                                 </div>
