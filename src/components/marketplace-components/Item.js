@@ -51,6 +51,7 @@ function Item(props) {
                     <Divider className={classes.divider} light />
                     <Typography variant="overline" display="block" align="right" gutterBottom>
                         {"$" + Number(props.data.price).toLocaleString()}
+
                     </Typography>
                 </CardContent>
             </CardActionArea>
