@@ -112,17 +112,15 @@ const Navbar = (props) => {
           style={{ backgroundColor: backgroundColor, opacity: navBarOpacity }}
         >
           <div className="navbar-inner">
-            {/* <div
+            <div
               className="brand-container"
               onMouseEnter={() => setHoverBrandImage(true)}
               onMouseLeave={() => setHoverBrandImage(false)}
-              onClick={props.toggleNavlinksWindow} */}
-            {/* > */}
-            <div>
-              <a href="/">
+              onClick={props.toggleNavlinksWindow}
+            >
+              <div>
                 <img className="brand-image" src={BrandLogo} alt="axiun"></img>
-              </a>
-              {/* </div> */}
+              </div>
             </div>
 
             <div className="nav navbar-links title">
@@ -205,15 +203,13 @@ const Navbar = (props) => {
                   </StyledMenuItem>
                 </a>
 
+                
                 <a className="dot-links" href="/logout">
                   <StyledMenuItem>
                     <ListItemIcon>
                       <ExitToAppRoundedIcon fontSize="small" />
                     </ListItemIcon>
-                    <ListItemText
-                      primary="Logout"
-                      classes={{ primary: "logoutButton" }}
-                    />
+                    <ListItemText primary="Logout" classes={{primary: 'logoutButton'}}/>
                   </StyledMenuItem>
                 </a>
               </StyledMenu>
