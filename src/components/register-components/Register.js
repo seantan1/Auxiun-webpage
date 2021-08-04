@@ -37,7 +37,8 @@ const CssTextField = withStyles({
     }
 })(TextField);
 
-export default function Register() {
+export default function Register(props) {
+    console.log(props)
 
     // TODO: change variable names to register
     // login form
@@ -61,12 +62,15 @@ export default function Register() {
         }).then(function (data) {
             if (data.data.errors) {
                 console.log("Email has been taken.");
+                props.showAlert("User Taken", "Email is already registered in the system", "", "error");
             }
             else if (data.status === 200) {
                 console.log("Registration successful!");
+                props.showAlert("Success", "User has been successfully created", "", "success");
             }
             else {
                 console.log("Unknown error occured. Please try again.");
+                props.showAlert("Unknown", "An Unknown Error has Occured, Please Try Again", "", "error");
             }
         })
     }

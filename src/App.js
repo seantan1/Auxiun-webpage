@@ -252,7 +252,7 @@ function App() {
               <Login />
             </Route>
             <Route exact path="/register">
-              <Register />
+              <Register showAlert={showAlert}/>
             </Route>
             <Route exact path="/info">
               <Info />
