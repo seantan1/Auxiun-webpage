@@ -249,7 +249,7 @@ function App() {
               <MarketPlace />
             </Route>
             <Route exact path="/login">
-              <Login />
+              <Login showAlert={showAlert} />
             </Route>
             <Route exact path="/register">
               <Register showAlert={showAlert}/>
