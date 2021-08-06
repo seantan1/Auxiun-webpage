@@ -17,21 +17,27 @@ import Pagination from '@material-ui/lab/Pagination';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import Filters from './Filters';
 function MarketPlace() {
     const theme = useTheme();
     const xs = useMediaQuery(theme.breakpoints.down('sm'));
+    const [sortByFilter, setSortByFilter] = useState('Most Popular');
     const [filters, setFilters] = useState({
-        "Filter 1": {
-            "Black": false,
-            "Orange": false,
-            "Blue": false,
+        "Sort By": {
+            "FilterType": 'Select',
+            "List": ["Most Popular", "Least Popular", "A-Z", "Z-A"],
+            "Default": 'Most Popular',
         },
-        "Filter 2": {
+        "Color": {
+            "FilterType": 'Checkbox',
             "Black": false,
             "option5": false,
             "option6": false,
         },
         "Filter 3": {
+            "FilterType": 'Checkbox',
             "option7": false,
             "option8": false,
             "option9": false,
@@ -95,83 +101,27 @@ function MarketPlace() {
         }
         return items;
     }
-    const loadFilters = () => {
-        const list = [];
-        return (
-            <TreeView
-                defaultCollapseIcon={<ExpandMoreIcon />}
-                defaultExpandIcon={<ChevronRightIcon />}
-                expanded={expanded}
-                selected={selected}
-                onNodeToggle={handleToggle}
-                onNodeSelect={handleSelect}
-            >
-                <Grid
-                    container>
-                    <Grid item >
-                        {(() => {
-                            for (const data in filters) {
-                                // Get sub item of catergory
-                                list.push(<TreeItem nodeId={data} label={data} className={classes.treeItem}>
-                                    <FormGroup>
-                                        {(() => {
-                                            const filterItem = [];
-                                            for (const filter in filters[data]) {
-                                                filterItem.push(<FormControlLabel
-                                                    control={<Checkbox checked={filters[data][filter]} onChange={(e) => handleChange(data, e)} name={filter} className={classes.label} />}
-                                                    label={filter}
-                                                />)
-                                            }
-                                            return filterItem
-                                        })()}
-                                    </FormGroup>
-                                </TreeItem>)
-                            }
-                        })()
-                        }
-                        {list}
-                    </Grid>
-                </Grid>
-            </TreeView>
 
-        )
-    }
+
 
     const classes = useStyles();
     return (
         <div className="marketplace-container">
             <Grid container spacing={3} className={classes.gridContainer} >
-               
-                <Grid item xs={12} sm={"auto"} md={1}>
-                    {loadFilters()}
+
+                <Grid item xs={12} sm={"auto"} md={2}>
+                    <Filters/>
                 </Grid>
 
 
-                <Grid item xs={12} sm={12} md={11}>
+                <Grid item xs={12} sm={12} md={10}>
                     <Grid
                         container
                         flex
                         className={classes.top}>
-
-
-                        <FormControl  style={{ display:" flex",flex: 1, justifyContent: 'flex-start', alignItems: 'flex-start'  }}>
-                            <Select
-                                value={"Sample"}
-                                onChange={handleChange}
-                                displayEmpty
-                                className={classes.selectEmpty}
-                            >
-                                <MenuItem value="">
-                                    <em>None</em>
-                                </MenuItem>
-                                <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem>
-                            </Select>
-                        </FormControl>
-                        <Pagination count={totalPageCount()} showFirstButton showLastButton  style={{ display:" flex",flex: 1, justifyContent: 'center', alignItems: 'center'  }}/>
-                    {xs ? <TextField id="market-search" label="Search" style={{ display:" flex", flex: 1, justifyContent: 'flex-end' }} /> : <TextField id="market-search" label="Search" style={{ display:" flex",flex: 1, justifyContent: 'flex-end'  }}/>}
-
+                        <Grid item xs={12}>
+                            <Pagination count={totalPageCount()} showFirstButton showLastButton style={{ display: " flex", justifyContent: 'center', alignItems: 'center' }} />
+                        </Grid>
                     </Grid>
                     <Grid
                         container
