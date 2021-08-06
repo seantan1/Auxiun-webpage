@@ -87,7 +87,7 @@ const Navbar = (props) => {
       setfontColor((prevState) => (prevState = "blue"));
     } else {
       setbackgroundColor(
-        (prevState) => (prevState = "rgba(255, 255, 255, 0.7)")
+        (prevState) => (prevState = "rgb(242, 242, 242")
       );
       setfontColor((prevState) => (prevState = "black"));
     }
@@ -127,13 +127,13 @@ const Navbar = (props) => {
 
             <div className="nav navbar-links title">
               <a className="nav-title" href="/about">
-                about
+                About
               </a>
               <a className="nav-title" href="/marketplace">
-                marketplace
+                Marketplace
               </a>
               <a className="nav-title" href="/team">
-                team
+                Team
               </a>
             </div>
 
