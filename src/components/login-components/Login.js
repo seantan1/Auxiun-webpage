@@ -158,16 +158,17 @@ const Login = (props) => {
             .then(function (data) {
                 if (data.data.message === "fail") {
                     console.log("Email or password is incorrect");
-                    // TODO: set alert using props from App.js
+                    props.showAlert("Incorrect Details", "Your Username or Password is incorrect", "", "error");
                 } else if (data.data.message === "success") {
                     console.log("Login successful!");
+                    props.showAlert("Success", "Login Successful!", "", "success");
                     // TODO: set alert using props from App.js, set authenticated useStates from App.js
                     // setUserId(data.data.data[0]._id);
                     // setUserUsername(data.data.data[0].username);
                     // setAuthenticated(true);
                 } else {
                     console.log("Unknown error occured. Please try again.");
-                    // TODO: set alert using props from App.js
+                    props.showAlert("Unknown", "An Unknown Error has Occured, Please Try Again", "", "error");
                 }
             });
     };
