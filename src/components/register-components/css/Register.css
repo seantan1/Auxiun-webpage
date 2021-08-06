@@ -1,15 +1,8 @@
 .register-page {
-  /* remove this padding later */
-  padding-top: 200px;
   overflow-x: hidden !important;
 }
 
 .content {
+  padding-top: 180px;
   text-align: center;
-}
-
-@media only screen and (max-width: 1024px) and (min-width: 500px) {
-  .content {
-    transform: scale(1.5);
-  }
 }

@@ -59,7 +59,7 @@ export default function Register() {
             email: String(userEmailRegisterForm),
             password_hash: String(userPasswordRegisterForm),
         }).then(function (data) {
-            if(data.data.errors) {
+            if (data.data.errors) {
                 console.log("Email has been taken.");
             }
             else if (data.status === 200) {
@@ -75,23 +75,17 @@ export default function Register() {
         <div className="register-page">
             <div className="content">
                 <h1 className="title-text">Sign Up Today!</h1>
-                <Grid container className="sign-up__outer" justify="center" spacing={2}>
-                    <Grid item xs={12} s={6} md={2} className="sign-up__inner1">
-                        <CssTextField className="text-field" label="First Name" variant="outlined" /><br></br><br></br>
-                        <CssTextField className="text-field" label="Last Name" variant="outlined" /><br></br><br></br>
-                        <CssTextField className="text-field" label="Email" variant="outlined" onChange={userEmailRegisterFormHandler} /><br></br><br></br>
+                <CssTextField className="text-field" label="First Name" variant="outlined" /><br></br><br></br>
+                <CssTextField className="text-field" label="Last Name" variant="outlined" /><br></br><br></br>
+                <CssTextField className="text-field" label="Email" variant="outlined" onChange={userEmailRegisterFormHandler} /><br></br><br></br>
+                <CssTextField className="text-field" label="Password" type="password" variant="outlined" onChange={userPasswordRegisterFormHandler} /><br></br><br></br>
+                <CssTextField className="text-field" label="Confirm Password" type="password" variant="outlined" onChange={userPasswordRegisterFormHandler} /><br></br><br></br>
+                <Grid container spacing={1} justify="center">
+                    <Grid item>
+                        <Button id="sign-up-button" className="sign-up-button" variant="contained" color="primary" onClick={register}>Register</Button>
                     </Grid>
-                    <Grid item xs={12} s={6} md={2} className="sign-up__inner2">
-                        <CssTextField className="text-field" label="Password" type="password" variant="outlined" onChange={userPasswordRegisterFormHandler} /><br></br><br></br>
-                        <CssTextField className="text-field" label="Confirm Password" type="password" variant="outlined" onChange={userPasswordRegisterFormHandler} /><br></br><br></br>
-                        <Grid container spacing={1} justify="center">
-                            <Grid item>
-                                <Button id="sign-up-button" className="sign-up-button" variant="contained" color="primary" onClick={register}>Register</Button>
-                            </Grid>
-                            <Grid item>
-                                <Button id="return-button" variant="contained" color="secondary" href="/login">Log In</Button>
-                            </Grid>
-                        </Grid>
+                    <Grid item>
+                        <Button id="return-button" variant="contained" color="secondary" href="/login">Back</Button>
                     </Grid>
                 </Grid>
             </div>
