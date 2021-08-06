@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./css/Navbar.css";
 import "../../../node_modules/font-awesome/css/font-awesome.css";
-import BrandLogo from "../../assets/temp-logo.png";
+import BrandLogo from "../../assets/auxiun-logo.png";
 import { withStyles } from "@material-ui/core/styles";
 
 import AccessAlarmIcon from "@material-ui/icons/AccessAlarm";

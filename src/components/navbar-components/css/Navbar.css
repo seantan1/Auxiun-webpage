@@ -6,13 +6,13 @@
     -moz-transition: background-color 0.5s ease-out;
     -o-transition: background-color 0.5s ease-out;
     transition: background-color 0.5s ease-out;
-    /* background-color: white; */
+    /* background-color: grey; */
 }
 
 .navbar-inner {
     /* background-color: grey; */
     margin: auto;
-    width: 100%;
+    width: 92.5%;
     display: inline-flex;
     /* height: 100%; */
 }
@@ -22,7 +22,7 @@ MenuItem {
 }
 
 .brand-image {
-    height: 55px;
+    height: 70px;
 }
 
 .Brand {
