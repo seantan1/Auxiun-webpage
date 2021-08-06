@@ -67,11 +67,11 @@ const useStyles = makeStyles((theme) => ({
 
 const footers = [
   {
-    title: "PRODUCTS",
+    title: "Products",
     description: ["Platform", "Wallet", "Marketplace"],
   },
   {
-    title: "SOLUTIONS",
+    title: "Solutions",
     description: ["Gaming", "Cryptocurrency", "Software", "Developer"],
   },
   {
