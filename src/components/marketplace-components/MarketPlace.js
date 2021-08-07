@@ -20,7 +20,18 @@ import FormControl from '@material-ui/core/FormControl';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import Filters from './Filters';
-function MarketPlace() {
+
+// web3 and axios for NFT data & metadata
+import Web3 from 'web3';
+// contract data
+import {
+    TOKEN_CONTRACT_ADDRESS,
+    TOKEN_CONTRACT_ABI
+} from "../../contract-data/token-contract-data";
+// axios
+const axios = require('axios');
+
+function MarketPlace(props) {
     const theme = useTheme();
     const xs = useMediaQuery(theme.breakpoints.down('sm'));
     const [sortByFilter, setSortByFilter] = useState('Most Popular');
@@ -102,15 +113,42 @@ function MarketPlace() {
         return items;
     }
 
-
-
     const classes = useStyles();
+
+    // useEffect
+    useEffect(() => {
+        if (props.authorised) {
+            let web3 = new Web3(window.ethereum);
+            let contract = new web3.eth.Contract(TOKEN_CONTRACT_ABI, TOKEN_CONTRACT_ADDRESS);
+            contract.methods.multiCallNFTsOnMarket().call()
+                .then(function (result) {
+                    console.log(result);
+                    // TODO: might want to change this to your liking
+                    // currently there should be 3 NFT in total listed on sale
+                    fetchMetadata(result[1][0]);
+                    fetchMetadata(result[1][1]);
+                    fetchMetadata(result[1][2]);
+                    // price needs to be converted from wei to ethers using the web3.utils.fromWei function
+                    console.log("Price: " + String(web3.utils.fromWei(result[2][0])) + " ethers"); // example
+                });
+        }
+    }, [props.authorised]);
+
+    // TEST function: axios call function
+    const fetchMetadata = (uri) => {
+        // axios fetching metadata of NFT
+        axios.get(uri).then(response => {
+            console.log(response);
+        });
+    }
+
+
     return (
         <div className="marketplace-container">
             <Grid container spacing={3} className={classes.gridContainer} >
 
                 <Grid item xs={12} sm={"auto"} md={2}>
-                    <Filters/>
+                    <Filters />
                 </Grid>
 
 
