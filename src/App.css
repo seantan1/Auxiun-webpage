@@ -46,14 +46,13 @@
     z-index: 50;
 }
 
-
 .page-content-container {
     transition: margin-right 0.2s;
 }
 
 .tx-alert {
     width: 300px;
-    margin:auto;
+    margin: auto;
     margin-top: 20px;
     margin-right: 20px;
 }
