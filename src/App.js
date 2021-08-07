@@ -246,7 +246,7 @@ function App() {
               <HomeBanner />
             </Route>
             <Route exact path='/marketplace'>
-              <MarketPlace />
+              <MarketPlace authorised={authorised} />
             </Route>
             <Route exact path="/login">
               <Login showAlert={showAlert} />
