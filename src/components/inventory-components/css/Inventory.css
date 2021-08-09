@@ -1,0 +1,10 @@
+.inventory-content {
+  padding-top: 120px;
+  text-align: center;
+  width: 80%;
+  margin: auto;
+}
+
+.selector-switch__button {
+  margin: 1% !important;
+}
