@@ -1,3 +1,7 @@
+.inventory-page {
+    overflow-x: hidden;
+}
+
 .inventory-content {
   padding-top: 120px;
   text-align: center;
@@ -6,21 +10,21 @@
 }
 
 .selector-switch__button {
-  margin: 1% !important;
+  margin: 0.5% !important;
 }
 
 .inventory-items {
-    padding: 2%;
+  padding: 2%;
 }
 
 @media only screen and (max-width: 1024px) {
-    .selector-switch {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
+  .selector-switch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
-    .selector-switch__button {
-        width: 40%;
-      }
+  .selector-switch__button {
+    width: 40%;
+  }
 }

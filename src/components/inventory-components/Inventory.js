@@ -1,28 +1,39 @@
 import './css/Inventory.css';
 
-import { Button, Card, Grid } from '@material-ui/core';
+import { Button, Card, Chip, Grid } from '@material-ui/core';
 import { useState } from 'react';
 
 import Item from '../marketplace-components/Item';
 
 const Inventory = () => {
 
-    const [item, setItem] = useState([])
+    const [item, setItem] = useState([]);
+
+    const handleDelete = () => {
+        console.info('You clicked the delete icon.');
+      };
 
     return (
         <div className="inventory-page">
             <div className='inventory-content'>
-                <div className='selector-switch'>
-                    <Button variant="outlined" color="primary" className='selector-switch__button'>
-                        Bought
-                    </Button>
-                    <Button variant="outlined" color="primary" className='selector-switch__button'>
-                        Selling
-                    </Button>
-                    <Button variant="outlined" color="primary" className='selector-switch__button'>
-                        Sold
-                    </Button>
-                    <br></br><br></br><br></br>
+                <div className='inventory-header'>
+                    <div className='selector-switch'>
+                        <Button variant="contained" color="primary" className='selector-switch__button'>
+                            Bought
+                        </Button>
+                        <Button variant="contained" color="primary" className='selector-switch__button'>
+                            Selling
+                        </Button>
+                        <Button variant="contained" color="primary" className='selector-switch__button'>
+                            Sold
+                        </Button>
+                        <br></br><br></br>
+                    </div>
+                    <div className='inventory-status'>
+                        <Chip label="Showing Bought" onDelete={handleDelete} color="primary" variant="outlined" className='selector-switch__button' />
+                        <Chip label="Showing Selling" onDelete={handleDelete} color="primary" variant="outlined" className='selector-switch__button' />
+                        <br></br><br></br><br></br>
+                    </div>
                 </div>
 
                 <Card>
