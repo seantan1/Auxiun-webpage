@@ -1,10 +1,13 @@
 import './css/Inventory.css';
 
 import { Button, Card, Grid } from '@material-ui/core';
+import { useState } from 'react';
 
 import Item from '../marketplace-components/Item';
 
 const Inventory = () => {
+
+    const [item, setItem] = useState([])
 
     return (
         <div className="inventory-page">
@@ -22,9 +25,18 @@ const Inventory = () => {
                 </div>
 
                 <Card>
-                    <Grid container spacing={2}>
+                    <Grid container spacing={2} className='inventory-items'>
                         <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
-                            <Item />
+                            <Card>Item<br></br><br></br><br></br><br></br></Card>
+                        </Grid>
+                        <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
+                            <Card>Item<br></br><br></br><br></br><br></br></Card>
+                        </Grid>
+                        <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
+                            <Card>Item<br></br><br></br><br></br><br></br></Card>
+                        </Grid>
+                        <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
+                            <Card>Item<br></br><br></br><br></br><br></br></Card>
                         </Grid>
                     </Grid>
                 </Card>

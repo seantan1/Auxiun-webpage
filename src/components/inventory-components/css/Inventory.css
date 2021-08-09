@@ -8,3 +8,7 @@
 .selector-switch__button {
   margin: 1% !important;
 }
+
+.inventory-items {
+    padding: 2%;
+}
