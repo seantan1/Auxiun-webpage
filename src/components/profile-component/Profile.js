@@ -5,9 +5,9 @@ import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import { withStyles } from "@material-ui/core/styles";
-import Avatar from '@material-ui/core/Avatar';
-
-
+ import Gravatar from "react-gravatar";
+import FileCopyIcon from '@material-ui/icons/FileCopy';
+ 
 const useStyles = makeStyles((theme) => ({
   button: {
     margin: theme.spacing(1),
@@ -16,6 +16,12 @@ const useStyles = makeStyles((theme) => ({
   },
   input: {
     display: "none",
+  },
+
+  chip: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
 }));
 const StyledButton = withStyles({
@@ -40,14 +46,31 @@ const Profile = () => {
   return (
     <div>
       <div className="profile-banner profile-text">
-        <h1>Profile Page</h1>
-        <Avatar  alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+        <div className="profile-banner-background"></div>
+
+        {/* user email goes in email */}
+        <Gravatar email="" size={100} rounded />
+        <button className="edit-btn">Edit Profile</button>
 
         <div className="user-title">[Username]</div>
-        <div className="email-title">[EMAIL]</div>
-        <div className="wallet-title" >[Wallet Address]</div>
 
-        <button>Edit Profile</button>
+{/* need to style copy icon */}
+        <div className="wallet-title">[Wallet Address] <button className="copy-icon"> <FileCopyIcon fontSize="small"/></button></div> 
+ 
+        <div className="email-title">[EMAIL]</div>
+
+        <div className="link-btn">
+          Link the following platforms to your profile
+          <br />
+          <button className="game-icon">
+            {" "}
+            <i className="steam icon"></i>
+          </button>
+          <button className="game-icon">
+            {" "}
+            <i className="steam icon"></i>
+          </button>
+        </div>
       </div>
 
       <Container className="bottom-list">
