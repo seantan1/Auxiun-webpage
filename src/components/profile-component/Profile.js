@@ -54,8 +54,7 @@ const Profile = () => {
 
         <div className="user-title">[Username]</div>
 
-{/* need to style copy icon */}
-        <div className="wallet-title">[Wallet Address] <button className="copy-icon"> <FileCopyIcon fontSize="small"/></button></div> 
+         <div className="wallet-title">[Wallet Address]</div> 
  
         <div className="email-title">[EMAIL]</div>
 
