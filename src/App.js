@@ -261,7 +261,7 @@ function App() {
               <Info />
             </Route>
             <Route exact path="/inventory">
-              <Inventory />
+              <Inventory authorised={authorised} />
             </Route>
             <Route render={() => <Redirect to={{ pathname: "/" }} />} />
           </Switch>
