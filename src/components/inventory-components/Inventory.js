@@ -22,6 +22,7 @@ const Inventory = () => {
                     <Button variant="outlined" color="primary" className='selector-switch__button'>
                         Sold
                     </Button>
+                    <br></br><br></br><br></br>
                 </div>
 
                 <Card>
