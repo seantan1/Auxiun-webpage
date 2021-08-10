@@ -33,6 +33,10 @@ import Register from "./components/register-components/Register";
 // info
 import Info from "./components/info-components/Info";
 
+// mint token page
+// import CreateTokens from "./components/createTokens-components/CreateTokens";
+import CreateTokens from "./components/createTokens-component/CreateTokens";
+
 // rinkeby testnet
 import {
   RINKEBY_TEST_NET_VERSION,
@@ -262,6 +266,9 @@ function App() {
             </Route>
             <Route exact path="/info">
               <Info />
+            </Route>
+            <Route exact path="/createTokens">
+              <CreateTokens showAlert={showAlert}/>
             </Route>
             <Route render={() => <Redirect to={{ pathname: "/" }} />} />
           </Switch>
