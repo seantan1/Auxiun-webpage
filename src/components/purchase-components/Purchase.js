@@ -17,7 +17,7 @@ const Purchase = (props) => {
         const contract = new web3.eth.Contract(TOKEN_CONTRACT_ABI, TOKEN_CONTRACT_ADDRESS);
         contract.methods.purchaseNFT(tokenId).call()
         .then((result) => {
-            const timestamp = new Date().toISOString()
+            const timestamp = new Date().getTime().toString()
             const transaction = {
                 'transaction_id': timestamp + tokenId,
                 'buyer': result[0], 
