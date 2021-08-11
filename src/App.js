@@ -33,6 +33,9 @@ import Register from "./components/register-components/Register";
 // info
 import Info from "./components/info-components/Info";
 
+//inventory
+import Inventory from "./components/inventory-components/Inventory";
+
 // rinkeby testnet
 import {
   RINKEBY_TEST_NET_VERSION,
@@ -262,6 +265,9 @@ function App() {
             </Route>
             <Route exact path="/info">
               <Info />
+            </Route>
+            <Route exact path="/inventory">
+              <Inventory authorised={authorised} />
             </Route>
             <Route render={() => <Redirect to={{ pathname: "/" }} />} />
           </Switch>
