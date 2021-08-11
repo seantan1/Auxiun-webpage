@@ -21,6 +21,9 @@ import HomeBanner from "./components/home-components/Banner";
 // market
 import MarketPlace from './components/marketplace-components/MarketPlace';
 
+// profile
+import Profile from "./components/profile-component/Profile";
+
 // login
 import Login from "./components/login-components/Login";
 
@@ -256,6 +259,9 @@ function App() {
             </Route>
             <Route exact path="/register">
               <Register showAlert={showAlert}/>
+            </Route>
+            <Route exact path="/profile">
+              <Profile showAlert={showAlert}/>
             </Route>
             <Route exact path="/info">
               <Info />
