@@ -53,10 +53,10 @@ function App() {
     const [loadOnce, setLoadOnce] = useState(false);
 
     // session user's email
-    const [loggedInEmail, setLoggedInEmail] = useState('')
+    const [userSessionData, setUserSessionData] = useState('')
     // logOut function to remove email from localStorage
     const logOut = () => {
-        localStorage.removeItem('userEmail');
+        localStorage.removeItem('userSessionData');
     }
 
     /* user's wallet account useStates
@@ -213,13 +213,13 @@ function App() {
 
     // useEffect to fetching user session email from localStorage
     useEffect(() => {
-        const storageUserEmail = localStorage.getItem('userEmail');
-        if (storageUserEmail) {
-            const userEmail = JSON.parse(storageUserEmail);
-            setLoggedInEmail(userEmail);
-            console.log("email "+loggedInEmail);
+        const storageUserSessionData = localStorage.getItem('userSessionData');
+        if (storageUserSessionData) {
+            const userData = JSON.parse(storageUserSessionData);
+            setUserSessionData(userData);
+            console.log(userSessionData);
         }
-    });
+    }, [loadOnce]);
 
     return (
         <div className="App">
@@ -281,7 +281,7 @@ function App() {
                             <Register showAlert={showAlert} />
                         </Route>
                         <Route exact path="/profile">
-                            <Profile showAlert={showAlert} />
+                            <Profile showAlert={showAlert} userSessionData={userSessionData}/>
                         </Route>
                         <Route exact path="/info">
                             <Info />
