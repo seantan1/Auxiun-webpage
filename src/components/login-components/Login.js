@@ -160,12 +160,9 @@ const Login = (props) => {
                     console.log("Email or password is incorrect");
                     props.showAlert("Incorrect Details", "Your Username or Password is incorrect", "", "error");
                 } else if (data.data.message === "success") {
-                    console.log("Login successful!");
                     props.showAlert("Success", "Login Successful!", "", "success");
-                    // TODO: set alert using props from App.js, set authenticated useStates from App.js
-                    // setUserId(data.data.data[0]._id);
-                    // setUserUsername(data.data.data[0].username);
-                    // setAuthenticated(true);
+                    // store session to localStorage
+                    localStorage.setItem('userEmail', data.data.data[0].email);
                 } else {
                     console.log("Unknown error occured. Please try again.");
                     props.showAlert("Unknown", "An Unknown Error has Occured, Please Try Again", "", "error");
