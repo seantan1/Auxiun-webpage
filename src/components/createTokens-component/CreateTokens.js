@@ -14,8 +14,9 @@ import IconButton from "@material-ui/core/IconButton";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import "./css/CreateTokens.css";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
-import AddIcon from "@material-ui/icons/Add";
 
+import AddIcon from "@material-ui/icons/Add";
+import SendIcon from "@material-ui/icons/Send";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -126,8 +127,8 @@ export default function CreateTokens() {
               centered
             >
               <Tab label="Add Game" {...a11yProps(0)} />
-              <Tab label="Add Product" {...a11yProps(1)} />
-              {/* <Tab label="Item Three" {...a11yProps(2)} /> */}
+              <Tab label="Add Item" {...a11yProps(1)} />
+              <Tab label="Transfer Token" {...a11yProps(2)} />
             </Tabs>
           </AppBar>
           <TabPanel value={value} index={0}>
@@ -143,9 +144,8 @@ export default function CreateTokens() {
                   className="margin-rght"
                   required
                 />
-
-                <TextField id="game-name" label="Game Name" />
-                <br/> <br/>
+                <TextField id="game-name" label="Game Name" required />
+                <br /> <br />
                 <Button
                   variant="contained"
                   color="primary"
@@ -165,6 +165,7 @@ export default function CreateTokens() {
                 select
                 label="Select"
                 variant="outlined"
+                required
               >
                 {gamePlatforms.map((option) => (
                   <MenuItem key={option.value} value={option.value}>
@@ -174,8 +175,9 @@ export default function CreateTokens() {
               </TextField>
               <br />
               <TextField
-                id="product-id"
-                label="Product ID"
+              required
+                id="item-id"
+                label="Item ID"
                 type="number"
                 InputLabelProps={{
                   shrink: true,
@@ -183,36 +185,38 @@ export default function CreateTokens() {
               />
 
               <TextField
-                id="product-name"
-                label="Product Name"
+              required
+                id="item-name"
+                label="Item Name"
                 InputLabelProps={{
                   shrink: true,
                 }}
               />
               <br />
-              <TextField
-                id="product-amount"
+              {/* Amount to send */}
+              {/* <TextField
+                id="item-amount"
                 label="Amount"
                 type="number"
                 InputLabelProps={{
                   shrink: true,
                 }}
-              />
-
-              <TextField
+              /> */}
+              {/* Gas Price */}
+              {/* <TextField
                 id="ether-price"
                 label="Ether Price"
                 type="number"
                 InputLabelProps={{
                   shrink: true,
                 }}
-              />
+              /> */}
               <br />
               <TextField
-                id="product-description"
+                id="item-description"
                 className="product-description"
-                label="Product Description"
-                placeholder="Product Description"
+                label="Item Description"
+                placeholder="Item Description"
                 multiline
                 variant="filled"
               />
@@ -241,9 +245,59 @@ export default function CreateTokens() {
                 className={classes.button}
                 startIcon={<CloudUploadIcon />}
               >
-                Create NFT
+                Create Game Item
               </Button>
             </form>
+          </TabPanel>
+          <TabPanel value={value} index={2}>
+            <h4 className="token-title">Transfer Item to Wallet</h4>
+
+            <div className="form-align">
+              <h4></h4>
+              <form className={classes.root} noValidate autoComplete="off">
+                <TextField
+                  required
+                  select
+                  id="game-id"
+                  label="Game ID"
+                  className="margin-rght"
+                  required
+                />
+                <TextField
+                  required
+                  select
+                  id="item-id"
+                  label="Item ID"
+                  className="margin-rght"
+                  required
+                />{" "}
+                <br /> <br />
+                <TextField
+                  required
+                  id="amount-id"
+                  label="Amount"
+                  className="margin-rght"
+                  required
+                />
+                <TextField
+                  required
+                  id="wallet-address"
+                  label="Wallet Address"
+                  className="margin-rght"
+                  required
+                />
+                <br />
+                <br />
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={classes.button}
+                  startIcon={<SendIcon />}
+                >
+                  Transfer Token
+                </Button>
+              </form>
+            </div>
           </TabPanel>
         </div>
       </div>
