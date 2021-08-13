@@ -1,128 +1,3 @@
-// import React from "react";
-// import "./css/CreateTokens.css";
-// import TextField from "@material-ui/core/TextField";
-// import { makeStyles } from "@material-ui/core/styles";
-// import MenuItem from "@material-ui/core/MenuItem";
-// import Button from "@material-ui/core/Button";
-// import IconButton from "@material-ui/core/IconButton";
-// import PhotoCamera from "@material-ui/icons/PhotoCamera";
-
-// const useStyles = makeStyles((theme) => ({
-//   root: {
-//     "& .MuiTextField-root": {
-//       margin: theme.spacing(1),
-//       width: "25ch",
-//     },
-//   },
-// }));
-
-// // sample data
-// const gamePlatforms = [
-//   {
-//     value: "1",
-//     label: "Fortnite",
-//   },
-//   {
-//     value: "2",
-//     label: "CSGO",
-//   },
-// ];
-
-// const sampleProductData = [
-//   {
-//     value: "1",
-//     label: "Knife",
-//   },
-//   {
-//     value: "2",
-//     label: "Pickaxe",
-//   },
-// ];
-
-// export default function CreateTokens() {
-//   const classes = useStyles();
-//   const [gamePlatform, setGamePlatform] = React.useState("");
-//   const handleChange = (event) => {
-//     setGamePlatform(event.target.value);
-//   };
-
-//   return (
-//     <div>
-//       <div className="token-banner">
-//         <div className="token-banner-background"></div>
-//         <h4 className="token-title">Add A New In-Game item</h4>
-
-//         <div className="form-align">
-//           <h4></h4>
-//           <form className={classes.root} noValidate autoComplete="off">
-//             <div>
-//               <TextField
-//                 required
-//                 id="game-id"
-//                 label="Game Platform"
-//                 select
-//                 onChange={handleChange}
-//                 helperText="Please select which gaming platform"
-//               >
-//                 {gamePlatforms.map((option) => (
-//                   <MenuItem key={option.value} value={option.value}>
-//                     {option.label}
-//                   </MenuItem>
-//                 ))}
-//               </TextField>
-//               <TextField
-//                 id="standard-select-currency"
-//                 select
-//                 label="Product"
-//                 //   value={currency}
-//                 onChange={handleChange}
-//                 helperText="Please select which item to add"
-//               >
-//                 {sampleProductData.map((option) => (
-//                   <MenuItem key={option.value} value={option.value}>
-//                     {option.label}
-//                   </MenuItem>
-//                 ))}
-//               </TextField>
-//               <TextField
-//                 id="standard-number"
-//                 label="Amount"
-//                 type="number"
-//                 InputLabelProps={{
-//                   shrink: true,
-//                 }}
-//               />
-//               <TextField
-//                 id="ether-price"
-//                 label="Ether Price"
-//                 type="number"
-//                 InputLabelProps={{
-//                   shrink: true,
-//                 }}
-//               />
-
-//               <div className={classes.root}>
-//                   <span className="upload-title">Upload Image </span>
-//                 <label htmlFor="contained-button-file"></label>
-//                 <input
-//                   variant="contained"
-//                   color="primary"
-//                   component="span"
-//                   accept="image/*"
-//                   className={classes.input}
-//                   id="icon-button-file"
-//                   type="file"
-//                 />
-//               </div>
-//             </div>
-//             <button className="create-btn">Create NFT</button>
-//           </form>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
 import React from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
@@ -138,6 +13,8 @@ import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import "./css/CreateTokens.css";
+import CloudUploadIcon from "@material-ui/icons/CloudUpload";
+import AddIcon from "@material-ui/icons/Add";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -177,6 +54,9 @@ const useStyles = makeStyles((theme) => ({
     "& .MuiTextField-root": {
       margin: theme.spacing(1),
       width: "25ch",
+    },
+    button: {
+      margin: theme.spacing(1),
     },
   },
 }));
@@ -265,79 +145,104 @@ export default function CreateTokens() {
                 />
 
                 <TextField id="game-name" label="Game Name" />
-                <button className="create-btn">Add Game</button>
+                <br/> <br/>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={classes.button}
+                  startIcon={<AddIcon />}
+                >
+                  Add Game
+                </Button>
               </form>
             </div>
           </TabPanel>
           <TabPanel value={value} index={1}>
-
             <h4 className="token-title">Add A New Item</h4>
             <form className={classes.root} noValidate autoComplete="off">
+              <TextField
+                id="outlined-select-currency"
+                select
+                label="Select"
+                variant="outlined"
+              >
+                {gamePlatforms.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
+              <br />
+              <TextField
+                id="product-id"
+                label="Product ID"
+                type="number"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
 
+              <TextField
+                id="product-name"
+                label="Product Name"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+              <br />
+              <TextField
+                id="product-amount"
+                label="Amount"
+                type="number"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
 
-            <TextField
-              id="outlined-select-currency"
-              select
-              label="Select"
-              variant="outlined"
-            >
-              {gamePlatforms.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
+              <TextField
+                id="ether-price"
+                label="Ether Price"
+                type="number"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+              <br />
+              <TextField
+                id="product-description"
+                className="product-description"
+                label="Product Description"
+                placeholder="Product Description"
+                multiline
+                variant="filled"
+              />
+              <br />
+              <br />
 
-            <TextField
-              id="product-id"
-              label="Product ID"
-              type="number"
-              InputLabelProps={{
-                shrink: true,
-              }}
-            />
+              <div className={classes.root}>
+                <span className="upload-title">Upload Image </span>
+                <label htmlFor="contained-button-file"></label>
+                <input
+                  variant="contained"
+                  color="primary"
+                  component="span"
+                  accept="image/*"
+                  className={classes.input}
+                  id="icon-button-file"
+                  type="file"
+                />
+              </div>
+              <br />
+              <br />
 
-            <TextField
-              id="standard-number"
-              label="Amount"
-              type="number"
-              InputLabelProps={{
-                shrink: true,
-              }}
-            />
-            <TextField
-              id="ether-price"
-              label="Ether Price"
-              type="number"
-              InputLabelProps={{
-                shrink: true,
-              }}
-            />
-            <br/>
-            <TextField
-          id="filled-textarea"
-          label="Product Description"
-          placeholder="Product Description"
-          multiline
-          variant="filled"
-        />
-
-            <div className={classes.root}>
-              <span className="upload-title">Upload Image </span>
-              <label htmlFor="contained-button-file"></label>
-              <input
+              <Button
                 variant="contained"
                 color="primary"
-                component="span"
-                accept="image/*"
-                className={classes.input}
-                id="icon-button-file"
-                type="file"
-              />
-            </div>
-
-            
-            <button className="create-btn">Create NFT</button>
+                className={classes.button}
+                startIcon={<CloudUploadIcon />}
+              >
+                Create NFT
+              </Button>
             </form>
           </TabPanel>
         </div>
