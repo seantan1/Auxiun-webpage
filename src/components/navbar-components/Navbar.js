@@ -206,7 +206,7 @@ const Navbar = (props) => {
                   </StyledMenuItem>
                 </a>
 
-                <a className="dot-links" href="/logout">
+                <a className="dot-links" href="/" onClick={props.logOut}>
                   <StyledMenuItem>
                     <ListItemIcon>
                       <ExitToAppRoundedIcon fontSize="small" />
