@@ -47,6 +47,8 @@ import Announcement from "./components/home-components/Announcement";
 
 // About Page
 import About from "./components/home-components/About";
+//forgot password
+import ForgotPassword from "./components/forgotPassword-components/ForgotPassword";
 
 // rinkeby testnet
 import {
@@ -308,6 +310,9 @@ function App() {
                             <CreateTokens authorised={authorised} />
                         </Route>
                         
+                        <Route exact path="/forgot-password">
+                            <ForgotPassword />
+                        </Route>
                         <Route render={() => <Redirect to={{ pathname: "/" }} />} />
                     </Switch>
                 </BrowserRouter>
