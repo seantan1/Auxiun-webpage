@@ -1,0 +1,68 @@
+.about-banner {
+  /* background-color: blue; */
+  padding-top: 12em;
+  padding-bottom: 10em;
+  /* color: white; */
+}
+
+.blockchain-banner-image {
+  display: absolute;
+  margin-top: -130px;
+  float: right;
+  width: 50%;
+  text-align: center;
+
+  
+}
+
+.about-banner-text {
+  width: 30%;
+  margin-left: 10%;
+  text-align: center;
+}
+
+.about-banner-title{
+  /* width: 60%; */
+  /* margin-left: 20%; */
+  font-size: 50px;
+  text-align: center;
+}
+
+.banner-text p {
+  font-size: 50px;
+  margin-left: 30px;
+  margin-right: 30px;
+}
+
+.homepage-title {
+  margin-bottom: 1em;
+}
+.homepage-caption {
+  margin-bottom: 3rem;
+}
+
+.explore-btn {
+}
+
+a {
+  text-decoration: none;
+  color: white;
+  /* background-color: black; */
+}
+
+/* Responsive */
+@media (max-width: 1000px) {
+
+  .about-banner {
+    display: block;
+  }
+  .blockchain-banner-image {
+    width: 100%;
+    text-align: center;
+  }
+  .about-banner-text {
+    display: absolute;
+    width: 80%;
+    text-align: center;
+  }
+}
