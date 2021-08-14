@@ -135,6 +135,11 @@ MenuItem {
     text-decoration: none;
 }
 
+.admin-title{
+    text-align: center;
+    margin-top: 0;
+}
+
 #loading-gif {
     height: 20px;
 }
