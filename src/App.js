@@ -18,6 +18,8 @@ import ProfileWindow from "./components/navbar-components/ProfileWindow";
 // home
 import HomeBanner from "./components/home-components/Banner";
 
+import Team from "./components/team-component/Team";
+
 // market
 import MarketPlace from './components/marketplace-components/MarketPlace';
 
@@ -273,6 +275,7 @@ function App() {
                     <Switch>
                         <Route exact path="/">
                             <HomeBanner />
+                            <Team/>
                         </Route>
                         <Route exact path='/marketplace'>
                             <MarketPlace authorised={authorised} />
