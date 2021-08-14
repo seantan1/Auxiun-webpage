@@ -179,7 +179,7 @@ const Navbar = (props) => {
                   </StyledMenuItem>
                 </a>
 
-                <a className="dot-links" href="/">
+                <a className="dot-links" href="/inventory">
                   <StyledMenuItem>
                     <ListItemIcon>
                       <LocalMallRoundedIcon fontSize="small" />
