@@ -8,7 +8,6 @@ const Team = () => {
       <div className="team-banner">
         <div className="team-banner-image">
           <p className="image-title">Meet Our Team</p>
-
           <img src={TeamImage} style={{ height: 250, width: 300 }} />
         </div>
         <h5 className="team-banner-text">
