@@ -5,7 +5,6 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-import Divider from "@material-ui/core/Divider";
 import StorefrontIcon from '@material-ui/icons/Storefront';
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 function Item(props) {
