@@ -137,13 +137,13 @@ export default function CreateTokens() {
             <div className="form-align">
               <h4></h4>
               <form className={classes.root} noValidate autoComplete="off">
-                <TextField
+                {/* <TextField
                   id="game-id"
                   type="number"
                   label="Game ID"
                   className="margin-rght"
                   required
-                />
+                /> */}
                 <TextField id="game-name" label="Game Name" required />
                 <br /> <br />
                 <Button
@@ -255,30 +255,38 @@ export default function CreateTokens() {
             <div className="form-align">
               <h4></h4>
               <form className={classes.root} noValidate autoComplete="off">
-                <TextField
+                {/* <TextField
                   required
                   select
                   id="game-id"
                   label="Game ID"
                   className="margin-rght"
                   required
-                />
+                /> */}
+                <TextField
+                  required
+                  select
+                  id="game-id"
+                  label="Select Game"
+                  className="margin-rght"
+                  required
+                /> 
                 <TextField
                   required
                   select
                   id="item-id"
-                  label="Item ID"
+                  label="Select Game Item"
                   className="margin-rght"
                   required
-                />{" "}
+                /> 
                 <br /> <br />
-                <TextField
+                {/* <TextField
                   required
                   id="amount-id"
                   label="Amount"
                   className="margin-rght"
                   required
-                />
+                /> */}
                 <TextField
                   required
                   id="wallet-address"

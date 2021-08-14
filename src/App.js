@@ -18,6 +18,8 @@ import ProfileWindow from "./components/navbar-components/ProfileWindow";
 // home
 import HomeBanner from "./components/home-components/Banner";
 
+import Team from "./components/team-component/Team";
+
 // market
 import MarketPlace from './components/marketplace-components/MarketPlace';
 
@@ -40,7 +42,7 @@ import Inventory from "./components/inventory-components/Inventory";
 import CreateTokens from "./components/createTokens-component/CreateTokens";
 
 // team 
-import Team from "./components/home-components/Team";
+// import Team from "./components/home-components/Team";
 
 // Announcement Page
 import Announcement from "./components/home-components/Announcement";
