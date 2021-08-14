@@ -41,6 +41,17 @@ import Inventory from "./components/inventory-components/Inventory";
 // import CreateTokens from "./components/createTokens-components/CreateTokens";
 import CreateTokens from "./components/createTokens-component/CreateTokens";
 
+// team 
+// import Team from "./components/home-components/Team";
+
+// Announcement Page
+import Announcement from "./components/home-components/Announcement";
+
+// About Page
+import About from "./components/home-components/About";
+//forgot password
+import ForgotPassword from "./components/forgotPassword-components/ForgotPassword";
+
 // rinkeby testnet
 import {
     RINKEBY_TEST_NET_VERSION,
@@ -275,7 +286,9 @@ function App() {
                     <Switch>
                         <Route exact path="/">
                             <HomeBanner />
+                            <About/>
                             <Team/>
+                            <Announcement/>
                         </Route>
                         <Route exact path='/marketplace'>
                             <MarketPlace authorised={authorised} />
@@ -299,6 +312,9 @@ function App() {
                             <CreateTokens authorised={authorised} />
                         </Route>
                         
+                        <Route exact path="/forgot-password">
+                            <ForgotPassword />
+                        </Route>
                         <Route render={() => <Redirect to={{ pathname: "/" }} />} />
                     </Switch>
                 </BrowserRouter>
