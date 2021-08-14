@@ -36,6 +36,9 @@ import Info from "./components/info-components/Info";
 //inventory
 import Inventory from "./components/inventory-components/Inventory";
 
+//forgot password
+import ForgotPassword from "./components/forgotPassword-components/ForgotPassword";
+
 // rinkeby testnet
 import {
     RINKEBY_TEST_NET_VERSION,
@@ -288,6 +291,9 @@ function App() {
                         </Route>
                         <Route exact path="/inventory">
                             <Inventory authorised={authorised} />
+                        </Route>
+                        <Route exact path="/forgot-password">
+                            <ForgotPassword />
                         </Route>
                         <Route render={() => <Redirect to={{ pathname: "/" }} />} />
                     </Switch>
