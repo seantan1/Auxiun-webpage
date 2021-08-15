@@ -1,14 +1,14 @@
-import React, {  useReducer } from 'react'
+import React from 'react'
 import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
 import { makeStyles } from "@material-ui/core/styles";
-import Input from '@material-ui/core/Input';
-
+import Controls from '../form/controls/Controls'
+import { useForm, Form } from '../form/useForm';
 import './css/Sell.css'
 import Item from './Item';
 import {
     withRouter
 } from "react-router-dom";
+import { Typography } from '@material-ui/core';
 function Sell(props) {
     const useStyles = makeStyles((theme) => ({
         gridContainer: {
@@ -23,41 +23,55 @@ function Sell(props) {
             marginTop: "2rem"
         }
     }));
-    const [formInput, setFormInput] = useReducer(
-        (state, newState) => ({ ...state, ...newState }),
-        {
-            sellprice: "",
-        }
-    );
-    const handleSubmit = (event) => {
-        event.preventDefault()
-        const data = { formInput };
-        console.log(data.formInput);
+    const validate = (fieldValues = values) => {
+        let temp = { ...errors }
+        if ('sellprice' in fieldValues)
+            temp.sellprice = fieldValues.sellprice ? 0 : "This field is required."
+        setErrors({
+            ...temp
+        })
+
+        if (fieldValues === values)
+            return Object.values(temp).every(x => x === "")
     }
-    const handleInput = (event) => {
-        const name = event.target.name;
-        const newValue = event.target.value;
-        setFormInput({ [name]: newValue });
-    };
+    const initialFValues = {
+        sellprice: 0,
+    }
+    const handleSubmit = e => {
+        e.preventDefault()
+        if (validate()) {
+            // API for selling goes here
+            console.log(values)
+        }
+    }
+    const {
+        values,
+        setValues,
+        errors,
+        setErrors,
+        handleInputChange,
+    } = useForm(initialFValues, true, validate);
     const classes = useStyles();
     return (
         <div className="sell-page">
             <Grid container className={classes.gridContainer}>
-                <Grid item xs={6} style={{ display: 'flex', alignItems: 'center' }}>
+                <Grid item xs={12} md={6} style={{ display: 'flex', alignItems: 'center' }}>
                     <Item data={props.location.state.data}></Item>
                 </Grid>
-                <Grid item xs={6}>
-                    <form onSubmit={handleSubmit} className={classes.root}>
-                        <Input type="number" minLength={0.0} step="0.01" name="sellprice" onChange={handleInput} />
-
-                        <Button
+                <Grid item xs={12} md={6} style={{ display: 'flex', flexDirection: 'column', alignItems: "flex-start" }}>
+                    <Typography variant="h3">Sell your nft</Typography>
+                    <Form onSubmit={handleSubmit}>
+                        <Controls.Input
+                            name="sellprice"
+                            label="Sell Price"
+                            value={values.sellprice}
+                            onChange={handleInputChange}
+                            error={errors.sellprice}
+                        />
+                        <Controls.Button
                             type="submit"
-                            variant="contained"
-                            color="danger"
-                        >
-                            List NFT
-                        </Button>
-                    </form>
+                            text="Create listing" />
+                    </Form>
                 </Grid>
             </Grid>
         </div>
