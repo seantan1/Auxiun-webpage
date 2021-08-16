@@ -37,36 +37,55 @@ const CssTextField = withStyles({
     }
 })(TextField);
 
-export default function Register() {
-
-    // TODO: change variable names to register
+export default function Register(props) {
     // login form
     const [userEmailRegisterForm, setuserEmailRegisterForm] = useState('');
+    const [userFirstNameRegisterForm, setUserFirstNameRegisterForm] = useState('');
+    const [userLastNameRegisterForm, setUserLastNameRegisterForm] = useState('');
     const [userPasswordRegisterForm, setUserPasswordRegisterForm] = useState('');
+    const [userConfirmPasswordRegisterForm, setUserConfirmPasswordRegisterForm] = useState('');
 
-    // event handler for username
+    // event handlers for email, name, password
     const userEmailRegisterFormHandler = (event) => {
         setuserEmailRegisterForm(event.target.value);
     }
-    // event handler for password
+    const userFirstNameRegisterFormHandler = (event) => {
+        setUserFirstNameRegisterForm(event.target.value);
+    }
+    const userLastNameRegisterFormHandler = (event) => {
+        setUserLastNameRegisterForm(event.target.value);
+    }
     const userPasswordRegisterFormHandler = (event) => {
         setUserPasswordRegisterForm(event.target.value);
     }
+    const userConfirmPasswordRegisterFormHandler = (event) => {
+        setUserConfirmPasswordRegisterForm(event.target.value);
+    }
 
     const register = () => {
+        if (userConfirmPasswordRegisterForm !== userPasswordRegisterForm) {
+            props.showAlert("Passwords not the same", "Ensure you have typed in the same passwords.", "", "error");
+            return; // abort function
+        }
+
         axios.post(process.env.REACT_APP_DATABASE_API_REGISTER_URL, {
             apikey: String(process.env.REACT_APP_DATABASE_API_KEY),
             email: String(userEmailRegisterForm),
+            firstname: String(userFirstNameRegisterForm),
+            lastname: String(userLastNameRegisterForm),
             password_hash: String(userPasswordRegisterForm),
         }).then(function (data) {
-            if(data.data.errors) {
+            if (data.data.errors) {
                 console.log("Email has been taken.");
+                props.showAlert("User Taken", "Email is already registered in the system", "", "error");
             }
             else if (data.status === 200) {
                 console.log("Registration successful!");
+                props.showAlert("Success", "User has been successfully created", "", "success");
             }
             else {
                 console.log("Unknown error occured. Please try again.");
+                props.showAlert("Unknown", "An Unknown Error has Occured, Please Try Again", "", "error");
             }
         })
     }
@@ -75,23 +94,17 @@ export default function Register() {
         <div className="register-page">
             <div className="content">
                 <h1 className="title-text">Sign Up Today!</h1>
-                <Grid container className="sign-up__outer" justify="center" spacing={2}>
-                    <Grid item xs={12} s={6} md={2} className="sign-up__inner1">
-                        <CssTextField className="text-field" label="First Name" variant="outlined" /><br></br><br></br>
-                        <CssTextField className="text-field" label="Last Name" variant="outlined" /><br></br><br></br>
-                        <CssTextField className="text-field" label="Email" variant="outlined" onChange={userEmailRegisterFormHandler} /><br></br><br></br>
+                <CssTextField className="text-field" label="First Name" variant="outlined" onChange={userFirstNameRegisterFormHandler} /><br></br><br></br>
+                <CssTextField className="text-field" label="Last Name" variant="outlined" onChange={userLastNameRegisterFormHandler} /><br></br><br></br>
+                <CssTextField className="text-field" label="Email" variant="outlined" onChange={userEmailRegisterFormHandler} /><br></br><br></br>
+                <CssTextField className="text-field" label="Password" type="password" variant="outlined" onChange={userPasswordRegisterFormHandler} /><br></br><br></br>
+                <CssTextField className="text-field" label="Confirm Password" type="password" variant="outlined" onChange={userConfirmPasswordRegisterFormHandler} /><br></br><br></br>
+                <Grid container spacing={1} justify="center">
+                    <Grid item>
+                        <Button id="sign-up-button" className="sign-up-button" variant="contained" color="primary" onClick={register}>Register</Button>
                     </Grid>
-                    <Grid item xs={12} s={6} md={2} className="sign-up__inner2">
-                        <CssTextField className="text-field" label="Password" type="password" variant="outlined" onChange={userPasswordRegisterFormHandler} /><br></br><br></br>
-                        <CssTextField className="text-field" label="Confirm Password" type="password" variant="outlined" onChange={userPasswordRegisterFormHandler} /><br></br><br></br>
-                        <Grid container spacing={1} justify="center">
-                            <Grid item>
-                                <Button id="sign-up-button" className="sign-up-button" variant="contained" color="primary" onClick={register}>Register</Button>
-                            </Grid>
-                            <Grid item>
-                                <Button id="return-button" variant="contained" color="secondary" href="/login">Log In</Button>
-                            </Grid>
-                        </Grid>
+                    <Grid item>
+                        <Button id="return-button" variant="contained" color="secondary" href="/login">Back</Button>
                     </Grid>
                 </Grid>
             </div>

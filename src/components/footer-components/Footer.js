@@ -55,9 +55,9 @@ const useStyles = makeStyles((theme) => ({
 
   footer: {
     borderTop: `1px solid ${theme.palette.divider}`,
-    marginTop: theme.spacing(14),
+    marginTop: theme.spacing(40),
     paddingTop: theme.spacing(3),
-    paddingBottom: theme.spacing(3),
+    // paddingBottom: theme.spacing(0),
     [theme.breakpoints.up("sm")]: {
       paddingTop: theme.spacing(6),
       paddingBottom: theme.spacing(6),
@@ -67,11 +67,11 @@ const useStyles = makeStyles((theme) => ({
 
 const footers = [
   {
-    title: "PRODUCTS",
+    title: "Products",
     description: ["Platform", "Wallet", "Marketplace"],
   },
   {
-    title: "SOLUTIONS",
+    title: "Solutions",
     description: ["Gaming", "Cryptocurrency", "Software", "Developer"],
   },
   {
