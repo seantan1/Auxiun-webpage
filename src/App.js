@@ -310,6 +310,7 @@ function App() {
                         </Route>
                         <Route exact path="/sell">
                             <Sell showAlert={showAlert} authorised={authorised} exact component={Sell} />
+                        </Route>
                         <Route exact path="/createTokens">
                             <CreateTokens authorised={authorised} />
                         </Route>
