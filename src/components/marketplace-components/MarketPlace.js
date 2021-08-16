@@ -14,6 +14,7 @@ import {
     TOKEN_CONTRACT_ADDRESS,
     TOKEN_CONTRACT_ABI
 } from "../../contract-data/token-contract-data";
+import { Typography } from '@material-ui/core';
 // axios
 const axios = require('axios');
 
@@ -62,7 +63,7 @@ function MarketPlace(props) {
                     // TODO: might want to change this to your liking
                     // currently there should be 3 NFT in total listed on sale
                     for (const data in result[0]) {
-                        fetchMetadata(result[0][data],result[1][data], String(web3.utils.fromWei(result[2][data])), result[3][data])
+                        fetchMetadata(result[0][data], result[1][data], String(web3.utils.fromWei(result[2][data])), result[3][data])
                     }
                     // price needs to be converted from wei to ethers using the web3.utils.fromWei function
                     //console.log("Price: " + String(web3.utils.fromWei(result[2][0])) + " ethers"); // example
@@ -77,7 +78,7 @@ function MarketPlace(props) {
             console.log(seller)
             const itemData = {
                 token_id: tokenid,
-                data: response['data'][0], 
+                data: response['data'][0],
                 price: price,
                 seller: seller
             }
@@ -89,34 +90,39 @@ function MarketPlace(props) {
     return (
         <div className="marketplace-container">
             <Grid container className={classes.gridContainer} >
-
-                <Grid item xs={12} sm={"auto"} md={2}>
-                    <Filters />
-                </Grid>
-
-
-                <Grid item xs={12} sm={12} md={10}>
-                    <Grid
-                        container
-                        flex
-                        className={classes.top}>
-                        <Grid item xs={12}>
-                            <Pagination count={totalPageCount()} showFirstButton showLastButton style={{ display: " flex", justifyContent: 'center', alignItems: 'center' }} />
+                {props.authorised ?
+                    <>
+                        <Grid item xs={12} sm={"auto"} md={2}>
+                            <Filters />
                         </Grid>
-                    </Grid>
-                    <Grid
-                        container
-                        spacing={1}
-                        className={(xs ? classes.gridItemContainer : classes.gridContainer)}
 
-                    >
-                        {loadItems(item)}
-                    </Grid>
-                </Grid>
+
+                        <Grid item xs={12} sm={12} md={10}>
+                            <Grid
+                                container
+                                flex
+                                className={classes.top}>
+                                <Grid item xs={12}>
+                                    <Pagination count={totalPageCount()} showFirstButton showLastButton style={{ display: " flex", justifyContent: 'center', alignItems: 'center' }} />
+                                </Grid>
+                            </Grid>
+                            <Grid
+                                container
+                                spacing={1}
+                                className={(xs ? classes.gridItemContainer : classes.gridContainer)}
+
+                            >
+                                {loadItems(item)}
+
+                            </Grid>
+                        </Grid></> :
+                    <Grid container className={classes.gridContainer}>
+                        <Grid item xs={12} style={{textAlign: "center"}}>
+                            <Typography variant="h1">Please connect your Metamask</Typography>
+                        </Grid>
+                    </Grid>}
             </Grid>
-
-
-        </div>
+        </div >
     )
 }
 
