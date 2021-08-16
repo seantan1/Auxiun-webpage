@@ -17,6 +17,7 @@ import PolymerRoundedIcon from "@material-ui/icons/PolymerRounded";
 import LocalMallRoundedIcon from "@material-ui/icons/LocalMallRounded";
 import FavoriteRoundedIcon from "@material-ui/icons/FavoriteRounded";
 import ExitToAppRoundedIcon from "@material-ui/icons/ExitToAppRounded";
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
@@ -87,7 +88,7 @@ const Navbar = (props) => {
       setfontColor((prevState) => (prevState = "blue"));
     } else {
       setbackgroundColor(
-        (prevState) => (prevState = "rgba(255, 255, 255, 0.7)")
+        (prevState) => (prevState = "rgb(242, 242, 242")
       );
       setfontColor((prevState) => (prevState = "black"));
     }
@@ -112,28 +113,28 @@ const Navbar = (props) => {
           style={{ backgroundColor: backgroundColor, opacity: navBarOpacity }}
         >
           <div className="navbar-inner">
-            {/* <div
+            <div
               className="brand-container"
               onMouseEnter={() => setHoverBrandImage(true)}
               onMouseLeave={() => setHoverBrandImage(false)}
-              onClick={props.toggleNavlinksWindow} */}
-            {/* > */}
+              onClick={props.toggleNavlinksWindow}
+            >
             <div>
-              <a href="/">
+              {/* <a href="/"> */}
                 <img className="brand-image" src={BrandLogo} alt="axiun"></img>
-              </a>
-              {/* </div> */}
+              {/* </a> */}
+              </div>
             </div>
 
             <div className="nav navbar-links title">
               <a className="nav-title" href="/about">
-                about
+                About
               </a>
               <a className="nav-title" href="/marketplace">
-                marketplace
+                Marketplace
               </a>
               <a className="nav-title" href="/team">
-                team
+                Team
               </a>
             </div>
 
@@ -170,7 +171,7 @@ const Navbar = (props) => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <a className="dot-links" href="/login">
+                <a className="dot-links" href="/profile">
                   <StyledMenuItem>
                     <ListItemIcon>
                       <PersonRoundedIcon fontSize="small" />
@@ -179,7 +180,7 @@ const Navbar = (props) => {
                   </StyledMenuItem>
                 </a>
 
-                <a className="dot-links" href="/">
+                <a className="dot-links" href="/inventory">
                   <StyledMenuItem>
                     <ListItemIcon>
                       <LocalMallRoundedIcon fontSize="small" />
@@ -205,7 +206,7 @@ const Navbar = (props) => {
                   </StyledMenuItem>
                 </a>
 
-                <a className="dot-links" href="/logout">
+                <a className="dot-links" href="/" onClick={props.logOut}>
                   <StyledMenuItem>
                     <ListItemIcon>
                       <ExitToAppRoundedIcon fontSize="small" />
@@ -214,6 +215,19 @@ const Navbar = (props) => {
                       primary="Logout"
                       classes={{ primary: "logoutButton" }}
                     />
+                  </StyledMenuItem>
+                </a>
+
+                <hr/>
+
+                <h4 className="admin-title">ADMIN PORTAL</h4>
+
+                <a className="dot-links" href="/createTokens">
+                  <StyledMenuItem>
+                    <ListItemIcon>
+                      <AddCircleOutlineIcon fontSize="small" />
+                    </ListItemIcon>
+                    <ListItemText primary="Create Tokens" />
                   </StyledMenuItem>
                 </a>
               </StyledMenu>
