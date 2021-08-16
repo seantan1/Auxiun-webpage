@@ -211,10 +211,7 @@ const Navbar = (props) => {
                     <ListItemIcon>
                       <ExitToAppRoundedIcon fontSize="small" />
                     </ListItemIcon>
-                    <ListItemText
-                      primary="Logout"
-                      classes={{ primary: "logoutButton" }}
-                    />
+                    <ListItemText primary="Logout" classes={{primary: 'logoutButton'}}/>
                   </StyledMenuItem>
                 </a>
 

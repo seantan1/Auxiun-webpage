@@ -5,7 +5,7 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import React, { useState, useEffect } from 'react'
 
-import Item from '../marketplace-components/Item';
+import Item from './Item';
 
 // web3 and axios for NFT data & metadata
 import Web3 from 'web3';
