@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./css/Navbar.css";
 import "../../../node_modules/font-awesome/css/font-awesome.css";
 import BrandLogo from "../../assets/auxiun-logo.png";
@@ -41,6 +41,9 @@ const Navbar = (props) => {
     setAnchorEl(null);
   };
 
+  useEffect(() => {
+    console.log(localStorage.userSessionData ? "true" : "false")
+  }, [])
   // hook for nav bar css change on scroll
   const [backgroundColor, setbackgroundColor] = useState("none");
   const [fontColor, setfontColor] = useState("blue");
@@ -119,10 +122,10 @@ const Navbar = (props) => {
               onMouseLeave={() => setHoverBrandImage(false)}
               onClick={props.toggleNavlinksWindow}
             >
-            <div>
-              {/* <a href="/"> */}
+              <div>
+                {/* <a href="/"> */}
                 <img className="brand-image" src={BrandLogo} alt="axiun"></img>
-              {/* </a> */}
+                {/* </a> */}
               </div>
             </div>
 
@@ -139,22 +142,23 @@ const Navbar = (props) => {
             </div>
 
             <div className="connect-wallet-button-container">
-              {!props.authorised && (
-                <button
-                  className="connect-wallet-button"
-                  onClick={props.toggleWalletWindow}
-                >
-                  Connect Wallet
-                </button>
-              )}
-              {props.authorised && (
-                <button
-                  className="connect-wallet-button"
-                  onClick={props.toggleWalletWindow}
-                >
-                  {props.account.substring(0, 11)}...
-                </button>
-              )}
+              {localStorage.userSessionData ?
+                <>{!props.authorised && (
+                  <button
+                    className="connect-wallet-button"
+                    onClick={props.toggleWalletWindow}
+                  >
+                    Connect Wallet
+                  </button>
+                )}
+                  {props.authorised && (
+                    <button
+                      className="connect-wallet-button"
+                      onClick={props.toggleWalletWindow}
+                    >
+                      {props.account.substring(0, 11)}...
+                    </button>
+                  )}</> : null}
 
               <Button
                 aria-controls="customized-menu"
@@ -164,6 +168,7 @@ const Navbar = (props) => {
               >
                 <MoreHorizRoundedIcon className="horiz-icon" />
               </Button>
+
               <StyledMenu
                 id="customized-menu"
                 anchorEl={anchorEl}
@@ -171,54 +176,56 @@ const Navbar = (props) => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <a className="dot-links" href="/profile">
-                  <StyledMenuItem>
-                    <ListItemIcon>
-                      <PersonRoundedIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText primary="Profile" />
-                  </StyledMenuItem>
-                </a>
+                {localStorage.userSessionData ?
+                  <a className="dot-links" href="/profile">
+                    <StyledMenuItem>
+                      <ListItemIcon>
+                        <PersonRoundedIcon fontSize="small" />
+                      </ListItemIcon>
+                      <ListItemText primary="Profile" />
+                    </StyledMenuItem>
+                  </a> : null}
+                {localStorage.userSessionData ?
+                  <a className="dot-links" href="/inventory">
+                    <StyledMenuItem>
+                      <ListItemIcon>
+                        <LocalMallRoundedIcon fontSize="small" />
+                      </ListItemIcon>
+                      <ListItemText primary="Inventory" />
+                    </StyledMenuItem>
+                  </a> : null}
+                {localStorage.userSessionData ?
+                  <a className="dot-links" href="/">
+                    <StyledMenuItem>
+                      <ListItemIcon>
+                        <FavoriteRoundedIcon fontSize="small" />
+                      </ListItemIcon>
+                      <ListItemText primary="Wishlist" />
+                    </StyledMenuItem>
+                  </a> : null}
+                {!localStorage.userSessionData ?
+                  <a className="dot-links" href="/login">
+                    <StyledMenuItem>
+                      <ListItemIcon>
+                        <ExitToAppRoundedIcon fontSize="small" />
+                      </ListItemIcon>
+                      <ListItemText primary="Login/Register" />
+                    </StyledMenuItem>
+                  </a> : null}
+                {localStorage.userSessionData ?
+                  <a className="dot-links" href="/" onClick={props.logOut}>
+                    <StyledMenuItem>
+                      <ListItemIcon>
+                        <ExitToAppRoundedIcon fontSize="small" />
+                      </ListItemIcon>
+                      <ListItemText
+                        primary="Logout"
+                        classes={{ primary: "logoutButton" }}
+                      />
+                    </StyledMenuItem>
+                  </a> : null}
 
-                <a className="dot-links" href="/inventory">
-                  <StyledMenuItem>
-                    <ListItemIcon>
-                      <LocalMallRoundedIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText primary="Inventory" />
-                  </StyledMenuItem>
-                </a>
-                <a className="dot-links" href="/">
-                  <StyledMenuItem>
-                    <ListItemIcon>
-                      <FavoriteRoundedIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText primary="Wishlist" />
-                  </StyledMenuItem>
-                </a>
-
-                <a className="dot-links" href="/login">
-                  <StyledMenuItem>
-                    <ListItemIcon>
-                      <ExitToAppRoundedIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText primary="Login/Register" />
-                  </StyledMenuItem>
-                </a>
-
-                <a className="dot-links" href="/" onClick={props.logOut}>
-                  <StyledMenuItem>
-                    <ListItemIcon>
-                      <ExitToAppRoundedIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText
-                      primary="Logout"
-                      classes={{ primary: "logoutButton" }}
-                    />
-                  </StyledMenuItem>
-                </a>
-
-                <hr/>
+                <hr />
 
                 <h4 className="admin-title">ADMIN PORTAL</h4>
 

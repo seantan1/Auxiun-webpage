@@ -16,6 +16,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import { Redirect, useHistory  } from "react-router-dom";
 
 const axios = require("axios");
 
@@ -43,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Login = (props) => {
     // login form
+    const history = useHistory();
     const [userEmailLoginForm, setuserEmailLoginForm] = useState("");
     const [userPasswordLoginForm, setUserPasswordLoginForm] = useState("");
 
@@ -55,7 +57,7 @@ const Login = (props) => {
         setUserPasswordLoginForm(event.target.value);
     };
 
-    const login = () => {
+    const  login = () => {
         axios.post(process.env.REACT_APP_DATABASE_API_LOGIN_URL, {
             apikey: process.env.REACT_APP_DATABASE_API_KEY,
             email: String(userEmailLoginForm),
@@ -69,6 +71,7 @@ const Login = (props) => {
                     props.showAlert("Success", "Login Successful!", "", "success");
                     // store session to localStorage
                     localStorage.setItem('userSessionData', JSON.stringify(data.data.data[0]));
+                    history.push("/");
                 } else {
                     console.log("Unknown error occured. Please try again.");
                     props.showAlert("Unknown", "An Unknown Error has Occured, Please Try Again", "", "error");
