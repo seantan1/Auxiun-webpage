@@ -1,0 +1,30 @@
+.token-banner {
+  padding-top: 5rem;
+  padding-bottom: 4em;
+  /* width: 30%; */
+  text-align: center;
+  /* margin-left: 35%; */
+}
+.form-align {
+  text-align: center;
+  margin-top: 5%;
+}
+.token-title {
+  text-align: center;
+  margin-top: 5%;
+}
+
+
+ 
+.upload-title {
+  margin-right: 10px;
+  font-size: 16px;
+}
+
+.token-banner-background {
+  padding-top: 10rem;
+  background-color: rgba(172, 186, 188, 0.301);
+}
+.margin-right {
+  margin-right: 20%;
+}

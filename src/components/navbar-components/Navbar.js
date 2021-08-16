@@ -17,6 +17,7 @@ import PolymerRoundedIcon from "@material-ui/icons/PolymerRounded";
 import LocalMallRoundedIcon from "@material-ui/icons/LocalMallRounded";
 import FavoriteRoundedIcon from "@material-ui/icons/FavoriteRounded";
 import ExitToAppRoundedIcon from "@material-ui/icons/ExitToAppRounded";
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
@@ -179,7 +180,7 @@ const Navbar = (props) => {
                   </StyledMenuItem>
                 </a>
 
-                <a className="dot-links" href="/">
+                <a className="dot-links" href="/inventory">
                   <StyledMenuItem>
                     <ListItemIcon>
                       <LocalMallRoundedIcon fontSize="small" />
@@ -211,6 +212,19 @@ const Navbar = (props) => {
                       <ExitToAppRoundedIcon fontSize="small" />
                     </ListItemIcon>
                     <ListItemText primary="Logout" classes={{primary: 'logoutButton'}}/>
+                  </StyledMenuItem>
+                </a>
+
+                <hr/>
+
+                <h4 className="admin-title">ADMIN PORTAL</h4>
+
+                <a className="dot-links" href="/createTokens">
+                  <StyledMenuItem>
+                    <ListItemIcon>
+                      <AddCircleOutlineIcon fontSize="small" />
+                    </ListItemIcon>
+                    <ListItemText primary="Create Tokens" />
                   </StyledMenuItem>
                 </a>
               </StyledMenu>

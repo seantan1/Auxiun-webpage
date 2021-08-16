@@ -54,10 +54,11 @@ const Banner = () => {
           >
             <a href="/marketplace">Explore Marketplace</a>
           </Button> */}
-          <StyledButton>
+           <StyledButton>
             <a href="/marketplace">Explore Marketplace</a>
           </StyledButton>
         </Container>
+        
       </div>
     </div>
   );
