@@ -12,7 +12,9 @@ import Web3 from 'web3';
 // contract data
 import {
     TOKEN_CONTRACT_ADDRESS,
-    TOKEN_CONTRACT_ABI
+    TOKEN_CONTRACT_ABI,
+    MULTICALL_CONTRACT_ADDRESS,
+    MULTICALL_CONTRACT_ABI
 } from "../../contract-data/token-contract-data";
 import { Typography } from '@material-ui/core';
 // axios
@@ -55,8 +57,8 @@ function MarketPlace(props) {
     useEffect(() => {
         if (props.authorised) {
             let web3 = new Web3(window.ethereum);
-            let contract = new web3.eth.Contract(TOKEN_CONTRACT_ABI, TOKEN_CONTRACT_ADDRESS);
-            contract.methods.multiCallNFTsOnMarket().call()
+            let contractMulticall = new web3.eth.Contract(MULTICALL_CONTRACT_ABI, MULTICALL_CONTRACT_ADDRESS);
+            contractMulticall.methods.multiCallNFTsOnMarket().call()
                 .then(function (result) {
                     console.log("multifetch", result);
                     setPageCount(result[0].length)

@@ -306,7 +306,7 @@ function App() {
                             <Info />
                         </Route>
                         <Route exact path="/inventory">
-                            <Inventory authorised={authorised} />
+                            <Inventory authorised={authorised} account={account}/>
                         </Route>
                         <Route exact path="/sell">
                             <Sell showAlert={showAlert} authorised={authorised} exact component={Sell} />
