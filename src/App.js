@@ -57,6 +57,7 @@ import {
     RINKEBY_TEST_NET_BLOCK_EXPLORER_TX_URL,
     RINKEBY_TEST_NET_RPC_URL,
 } from "./contract-data/rpc-data.js";
+import Sell from "./components/sell-components/Sell";
 
 // main net
 const chainNetVersion = RINKEBY_TEST_NET_VERSION;
@@ -305,10 +306,13 @@ function App() {
                             <Info />
                         </Route>
                         <Route exact path="/inventory">
-                            <Inventory authorised={authorised} />
+                            <Inventory authorised={authorised} account={account}/>
+                        </Route>
+                        <Route exact path="/sell">
+                            <Sell showAlert={showAlert} authorised={authorised} exact component={Sell} />
                         </Route>
                         <Route exact path="/createTokens">
-                            <CreateTokens authorised={authorised} />
+                            <CreateTokens authorised={authorised} showAlert={showAlert} account={account} />
                         </Route>
                         
                         <Route exact path="/forgot-password">
