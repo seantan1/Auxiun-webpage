@@ -92,59 +92,71 @@ const Inventory = (props) => {
         }
     }, [props.authorised]);
 
-// TEST function: axios call function
-const fetchMetadata = (tokenid, uri, price, seller) => {
-    // axios fetching metadata of NFT
-    axios.get(uri).then(response => {
-        console.log(seller)
-        const itemData = {
-            token_id: tokenid,
-            data: response['data'][0],
-            price: price,
-            seller: seller
-        }
-        setItem(item => [...item, itemData])
-    });
-}
+    // function to list your NFT on market
+    const listNFTOnMarket = (tokenId, price) => {
+        let web3 = new Web3(window.ethereum);
+        let contract = new web3.eth.Contract(TOKEN_CONTRACT_ABI, TOKEN_CONTRACT_ADDRESS);
+        contract.methods.listNFTOnMarket(tokenId, price).send({
+            from: props.account
+        }).then(function (result) {
+            console.log(result);
+            // TODO: add alert
+        });
+    }
 
-return (
-    <div className="inventory-page">
-        <div className='inventory-content'>
-            <div className='inventory-header'>
-                <div className='selector-switch'>
-                    <Button variant="contained" color="primary" className='selector-switch__button' onClick={handleBoughtButtons}>
-                        Bought
-                    </Button>
-                    <Button variant="contained" color="primary" className='selector-switch__button' onClick={handleSellingButtons}>
-                        Selling
-                    </Button>
-                    <Button variant="contained" color="primary" className='selector-switch__button' onClick={handleSoldButtons}>
-                        Sold
-                    </Button>
-                    <br></br><br></br>
+    // TEST function: axios call function
+    const fetchMetadata = (tokenid, uri, price, seller) => {
+        // axios fetching metadata of NFT
+        axios.get(uri).then(response => {
+            console.log(seller)
+            const itemData = {
+                token_id: tokenid,
+                data: response['data'][0],
+                price: price,
+                seller: seller
+            }
+            setItem(item => [...item, itemData])
+        });
+    }
+
+    return (
+        <div className="inventory-page">
+            <div className='inventory-content'>
+                <div className='inventory-header'>
+                    <div className='selector-switch'>
+                        <Button variant="contained" color="primary" className='selector-switch__button' onClick={handleBoughtButtons}>
+                            Bought
+                        </Button>
+                        <Button variant="contained" color="primary" className='selector-switch__button' onClick={handleSellingButtons}>
+                            Selling
+                        </Button>
+                        <Button variant="contained" color="primary" className='selector-switch__button' onClick={handleSoldButtons}>
+                            Sold
+                        </Button>
+                        <br></br><br></br>
+                    </div>
+                    <div className='inventory-status'>
+                        {showBought ?
+                            <Chip label="Showing Bought" onDelete={handleBoughtButtons} color="primary" variant="outlined" className='selector-switch__button' />
+                            : ""}
+                        {showSelling ?
+                            <Chip label="Showing Selling" onDelete={handleSellingButtons} color="primary" variant="outlined" className='selector-switch__button' />
+                            : ""}
+                        {showSold ?
+                            <Chip label="Showing Sold" onDelete={handleSoldButtons} color="primary" variant="outlined" className='selector-switch__button' />
+                            : ""}
+                        <br></br><br></br><br></br>
+                    </div>
                 </div>
-                <div className='inventory-status'>
-                    {showBought ?
-                        <Chip label="Showing Bought" onDelete={handleBoughtButtons} color="primary" variant="outlined" className='selector-switch__button' />
-                        : ""}
-                    {showSelling ?
-                        <Chip label="Showing Selling" onDelete={handleSellingButtons} color="primary" variant="outlined" className='selector-switch__button' />
-                        : ""}
-                    {showSold ?
-                        <Chip label="Showing Sold" onDelete={handleSoldButtons} color="primary" variant="outlined" className='selector-switch__button' />
-                        : ""}
-                    <br></br><br></br><br></br>
-                </div>
+
+                <Card>
+                    <Grid container spacing={2} className='inventory-items'>
+                        {loadItems(item)}
+                    </Grid>
+                </Card>
             </div>
-
-            <Card>
-                <Grid container spacing={2} className='inventory-items'>
-                    {loadItems(item)}
-                </Grid>
-            </Card>
         </div>
-    </div>
-);
+    );
 }
 
 export default Inventory;

@@ -88,6 +88,22 @@ function MarketPlace(props) {
         });
     }
 
+    // function to purchase NFT on market
+    // WARNING: you need to fetch the price properly and pass it into the function, if you put a lower amount the transaction will revert,
+    // if you put a higher amount the transaction will pass through but the buyer pays more than necessary
+    // price parameter should be a string, this function will convert it to ethers
+    const purchaseNFTOnMarket = (tokenId, price) => {
+        let web3 = new Web3(window.ethereum);
+        let contract = new web3.eth.Contract(TOKEN_CONTRACT_ABI, TOKEN_CONTRACT_ADDRESS);
+        let amount = web3.utils.toWei(price, 'ether');
+        contract.methods.purchaseNFT(tokenId).send({
+            from: account,
+            value: amount
+        }).then(function(result) {
+            console.log(result);
+            // TODO: setAlert
+        });
+    }
 
     return (
         <div className="marketplace-container">
