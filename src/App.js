@@ -312,7 +312,7 @@ function App() {
                             <Sell showAlert={showAlert} authorised={authorised} exact component={Sell} />
                         </Route>
                         <Route exact path="/createTokens">
-                            <CreateTokens authorised={authorised} />
+                            <CreateTokens authorised={authorised} showAlert={showAlert} account={account} />
                         </Route>
                         
                         <Route exact path="/forgot-password">
