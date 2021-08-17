@@ -97,7 +97,7 @@ function MarketPlace(props) {
         let contract = new web3.eth.Contract(TOKEN_CONTRACT_ABI, TOKEN_CONTRACT_ADDRESS);
         let amount = web3.utils.toWei(price, 'ether');
         contract.methods.purchaseNFT(tokenId).send({
-            from: account,
+            from: props.account,
             value: amount
         }).then(function(result) {
             console.log(result);
