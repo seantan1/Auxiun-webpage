@@ -2,3 +2,7 @@
     /* remove this padding later */
     padding-top: 200px;
 }
+
+.MuiFormControl-root {
+    display: flex !important;
+}

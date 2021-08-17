@@ -25,6 +25,7 @@ function MarketPlace(props) {
     const xs = useMediaQuery(theme.breakpoints.down('sm'));
     const [item, setItem] = useState([])
     const [pageCount, setPageCount] = useState(0);
+    const [isConnected, setIsConnected] = useState(false);
     const useStyles = makeStyles((theme) => ({
         gridContainer: {
             paddingLeft: "4rem",
@@ -56,6 +57,7 @@ function MarketPlace(props) {
     // useEffect
     useEffect(() => {
         if (props.authorised) {
+            setIsConnected(true);
             let web3 = new Web3(window.ethereum);
             let contractMulticall = new web3.eth.Contract(MULTICALL_CONTRACT_ABI, MULTICALL_CONTRACT_ADDRESS);
             contractMulticall.methods.multiCallNFTsOnMarket().call()
@@ -99,49 +101,53 @@ function MarketPlace(props) {
         contract.methods.purchaseNFT(tokenId).send({
             from: props.account,
             value: amount
-        }).then(function(result) {
+        }).then(function (result) {
             console.log(result);
             // TODO: setAlert
         });
     }
+    if (isConnected) {
+        return (
+            <div className="marketplace-container">
+                <Grid container className={classes.gridContainer} >
+                    {isConnected ?
+                        <>
+                            <Grid item xs={12} sm={"auto"} md={2}>
+                                <Filters />
+                            </Grid>
 
-    return (
-        <div className="marketplace-container">
-            <Grid container className={classes.gridContainer} >
-                {props.authorised ?
-                    <>
-                        <Grid item xs={12} sm={"auto"} md={2}>
-                            <Filters />
-                        </Grid>
 
-
-                        <Grid item xs={12} sm={12} md={10}>
-                            <Grid
-                                container
-                                flex
-                                className={classes.top}>
-                                <Grid item xs={12}>
-                                    <Pagination count={totalPageCount()} showFirstButton showLastButton style={{ display: " flex", justifyContent: 'center', alignItems: 'center' }} />
+                            <Grid item xs={12} sm={12} md={10}>
+                                <Grid
+                                    container
+                                    flex={"true"}
+                                    className={classes.top}>
+                                    <Grid item xs={12}>
+                                        <Pagination count={totalPageCount()} showFirstButton showLastButton style={{ display: " flex", justifyContent: 'center', alignItems: 'center' }} />
+                                    </Grid>
                                 </Grid>
-                            </Grid>
-                            <Grid
-                                container
-                                spacing={1}
-                                className={(xs ? classes.gridItemContainer : classes.gridContainer)}
+                                <Grid
+                                    container
+                                    spacing={1}
+                                    className={(xs ? classes.gridItemContainer : classes.gridContainer)}
 
-                            >
-                                {loadItems(item)}
+                                >
+                                    {loadItems(item)}
 
+                                </Grid>
+                            </Grid></> :
+                        <Grid container className={classes.gridContainer}>
+                            <Grid item xs={12} style={{ textAlign: "center" }}>
+                                <Typography variant="h1">Please connect your Metamask</Typography>
                             </Grid>
-                        </Grid></> :
-                    <Grid container className={classes.gridContainer}>
-                        <Grid item xs={12} style={{textAlign: "center"}}>
-                            <Typography variant="h1">Please connect your Metamask</Typography>
-                        </Grid>
-                    </Grid>}
-            </Grid>
-        </div >
-    )
+                        </Grid>}
+                </Grid>
+            </div >
+        )
+    } else {
+        return (<></>)
+    }
+
 }
 
 export default MarketPlace

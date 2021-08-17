@@ -38,14 +38,13 @@ function Item(props) {
         return null
     } else {
         return (
-            <Card className={classes.root} variant="outlined">
+            <Card className={classes.root} variant="outlined" key={item.token_id + item.seller}>
                 <CardActionArea disableRipple>
                     <CardMedia
                         className={classes.media}
                         image={`data:${item.data.item_image.contentType};base64,${new Buffer.from(item.data.item_image['data']).toString('base64')}`}
                         title="Contemplative Reptile"
                     />
-                    {console.log(item.data.item_name)}
                     <CardContent>
                         <Typography gutterBottom variant="h5">
                             {item.data.item_name}

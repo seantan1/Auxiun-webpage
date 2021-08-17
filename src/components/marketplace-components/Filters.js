@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { Button, TextField} from "@material-ui/core";
-import { makeStyles} from "@material-ui/core/styles";
+import { Button, Checkbox, TextField } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import TreeItem from '@material-ui/lab/TreeItem';
 import FormControl from '@material-ui/core/FormControl';
 import Radio from '@material-ui/core/Radio';
@@ -10,28 +10,16 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import TreeView from '@material-ui/lab/TreeView';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import Checkbox from '@material-ui/core/Checkbox';
+import { useForm, Form } from '../form/useForm';
+import Controls from '../form/controls/Controls'
+import './css/MarketPlace.css'
 function Filters() {
-    const [sortBy, setSortBy] = useState('Most Popular');
-    const [colour, setColour] = useState({
-        black: false,
-        white: false,
-        blue: false,
-        orange: false,
-    });
-    const handleColour = (event) => {
-        setColour({ ...colour, [event.target.name]: event.target.checked });
-    };
-    
-    const handleForm = (event) => {
-        console.log(sortBy)
-        console.log(colour)
-        event.preventDefault();
-    }
+
     const useStyles = makeStyles((theme) => ({
         treeItem: {
             marginBottom: "1rem",
             whiteSpace: "nowrap",
+
         },
         search: {
             marginBottom: "1rem",
@@ -39,14 +27,34 @@ function Filters() {
         },
         root: {
             marginTop: "2rem"
-        }
+        },
     }));
-    const handleChange = (e) => {
-        setSortBy(e.target.value)
-
-    }
+    const sortBy = [
+        { id: 'mostpopular', title: 'Most Popular' },
+        { id: 'leastpopular', title: 'Least Popular' },
+        { id: 'mostexpensive', title: 'Most Expensive' },
+        { id: 'leastexpensive', title: 'Least Expensive' },
+    ]
+    const colours = ["Blue", "Black", "Red", "Pink", "Yellow", "Grey", "Orange", "White", "Green", "Brown"]
     const [expanded, setExpanded] = useState([]);
     const [selected, setSelected] = useState([]);
+
+    const validate = (fieldValues = values) => {
+        let temp = { ...errors }
+        setErrors({
+            ...temp
+        })
+
+        if (fieldValues === values)
+            return Object.values(temp).every(x => x === "")
+    }
+
+    const initialFValues = {
+        search: '',
+        sortBy: 'mostpopular',
+        colourBlack: false,
+        colourWhite: false,
+    }
     const handleToggle = (event, nodeIds) => {
         setExpanded(nodeIds);
     };
@@ -54,10 +62,28 @@ function Filters() {
     const handleSelect = (event, nodeIds) => {
         setSelected(nodeIds);
     };
-    const { black, white, blue, orange } = colour;
+    const handleSubmit = e => {
+        e.preventDefault()
+        console.log(values)
+    }
+    const {
+        values,
+        setValues,
+        errors,
+        setErrors,
+        handleInputChange,
+        resetForm,
+    } = useForm(initialFValues, true, validate);
     const classes = useStyles();
     return (
-        <form onSubmit={handleForm} className={classes.root}>
+        <Form onSubmit={handleSubmit} className={classes.root}>
+            <Controls.Input
+                name="search"
+                label="Search"
+                value={values.search}
+                onChange={handleInputChange}
+                error={errors.search}
+            />
             <TreeView
                 defaultCollapseIcon={<ExpandMoreIcon />}
                 defaultExpandIcon={<ChevronRightIcon />}
@@ -66,56 +92,35 @@ function Filters() {
                 onNodeToggle={handleToggle}
                 onNodeSelect={handleSelect}
             >
-                <TextField id="outlined-basic" label="Search" variant="outlined" className={classes.search} />
-                <TreeItem nodeId={0} label={"Sort By"} className={classes.treeItem}>
-                    <FormControl component="fieldset">
-                        <RadioGroup
-                            aria-label="Sort By"
-                            name="sortBy"
-                            value={sortBy}
-                            onChange={handleChange}
-                        >
-                            <FormControlLabel value="mostpopular" control={<Radio />} label="Most Popular" />
-                            <FormControlLabel value="leastpopular" control={<Radio />} label="Least Popular" />
-                            <FormControlLabel value="mostexpensive" control={<Radio />} label="Most Expensive" />
-                            <FormControlLabel value="leastexpensive" control={<Radio />} label="Least Expensive" />
-                            <FormControlLabel value="az" control={<Radio />} label="A-Z" />
-                            <FormControlLabel value="za" control={<Radio />} label="Z-A" />
-                        </RadioGroup>
-                    </FormControl>
+
+                <TreeItem nodeId={"Sort By"} label={"Sort By"} className={classes.treeItem}>
+                    <Controls.RadioGroup
+                        name="sortBy"
+                        value={values.sortBy}
+                        onChange={handleInputChange}
+                        items={sortBy}
+                    />
                 </TreeItem>
-                <TreeItem nodeId={1} label={"Color"} className={classes.treeItem}>
-                    <FormControl component="fieldset" >
-                        <FormGroup>
-                            <FormControlLabel
-                                control={<Checkbox checked={black} onChange={handleColour} name="black" />}
-                                label="Black"
-                            />
-                            <FormControlLabel
-                                control={<Checkbox checked={white} onChange={handleColour} name="white" />}
-                                label="White"
-                            />
-                            <FormControlLabel
-                                control={<Checkbox checked={blue} onChange={handleColour} name="blue" />}
-                                label="Blue"
-                            />
-                            <FormControlLabel
-                                control={<Checkbox checked={orange} onChange={handleColour} name="orange" />}
-                                label="Orange"
-                            />
-                        </FormGroup>
-                    </FormControl>
+                <TreeItem nodeId={"Color"} label={"Color"} className={classes.treeItem}>
+                    {colours.map((name, i) => (
+                        <Controls.Checkbox
+                            key={`colour` +name}
+                            name={`colour` + name}
+                            label={name}
+                            value={values[`colour` + name]}
+                            onChange={handleInputChange}
+                        />
+                    ))}
                 </TreeItem>
             </TreeView>
-
-            <Button
+            <Controls.Button
+                text="Reset"
+                color="default"
+                onClick={resetForm} />
+            <Controls.Button
                 type="submit"
-                variant="contained"
-                color="primary"
-            >
-                Save Filter
-            </Button>
-        </form >
+                text="Save Filter" />
+        </Form >
     )
 }
 
