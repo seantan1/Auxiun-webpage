@@ -46,6 +46,10 @@ import Team from "./components/home-components/Team";
 // Announcement Page
 import Announcement from "./components/home-components/Announcement";
 
+// Media Page
+import Media from "./components/home-components/Media";
+
+
 // About Page
 import About from "./components/home-components/About";
 //forgot password
@@ -289,6 +293,7 @@ function App() {
                             <About/>
                             <Team/>
                             <Announcement/>
+                            <Media/>
                         </Route>
                         <Route exact path='/marketplace'>
                             <MarketPlace authorised={authorised} />

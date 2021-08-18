@@ -53,7 +53,8 @@ a {
   .team-banner-text {
     text-align: center;
     margin-top: 30px;
-    margin-right: 0px;
+    /* margin-right: 0px; */
+    margin: auto;
     width: 100%;
   }
   .image-title {
