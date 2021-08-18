@@ -321,7 +321,7 @@ function App() {
                         </Route>
                         
                         <Route exact path="/forgot-password">
-                            <ForgotPassword />
+                            <ForgotPassword showAlert={showAlert} />
                         </Route>
                         <Route render={() => <Redirect to={{ pathname: "/" }} />} />
                     </Switch>

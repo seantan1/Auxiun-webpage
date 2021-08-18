@@ -94,11 +94,11 @@ export default function Register(props) {
         <div className="register-page">
             <div className="content">
                 <h1 className="title-text">Sign Up Today!</h1>
-                <CssTextField className="text-field" label="First Name" variant="outlined" onChange={userFirstNameRegisterFormHandler} /><br></br><br></br>
-                <CssTextField className="text-field" label="Last Name" variant="outlined" onChange={userLastNameRegisterFormHandler} /><br></br><br></br>
-                <CssTextField className="text-field" label="Email" variant="outlined" onChange={userEmailRegisterFormHandler} /><br></br><br></br>
-                <CssTextField className="text-field" label="Password" type="password" variant="outlined" onChange={userPasswordRegisterFormHandler} /><br></br><br></br>
-                <CssTextField className="text-field" label="Confirm Password" type="password" variant="outlined" onChange={userConfirmPasswordRegisterFormHandler} /><br></br><br></br>
+                <CssTextField className="text-field" label="First Name" style={{width:'300px'}} required variant="outlined" onChange={userFirstNameRegisterFormHandler} /><br></br><br></br>
+                <CssTextField className="text-field" label="Last Name" style={{width:'300px'}} required variant="outlined" onChange={userLastNameRegisterFormHandler} /><br></br><br></br>
+                <CssTextField className="text-field" label="Email" style={{width:'300px'}} required variant="outlined" onChange={userEmailRegisterFormHandler} /><br></br><br></br>
+                <CssTextField className="text-field" label="Password" style={{width:'300px'}} required type="password" variant="outlined" onChange={userPasswordRegisterFormHandler} /><br></br><br></br>
+                <CssTextField className="text-field" label="Confirm Password" style={{width:'300px'}} required type="password" variant="outlined" onChange={userConfirmPasswordRegisterFormHandler} /><br></br><br></br>
                 <Grid container spacing={1} justify="center">
                     <Grid item>
                         <Button id="sign-up-button" className="sign-up-button" variant="contained" color="primary" onClick={register}>Register</Button>
