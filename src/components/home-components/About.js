@@ -7,7 +7,7 @@ const About = () => {
     <div>
       <div className="about-banner">
         <div className="blockchain-banner-image">
-        <p className="about-banner-title">About Us</p>
+        <h5 className="about-banner-title">About Us</h5>
 
           <img
             className="brand-image"
