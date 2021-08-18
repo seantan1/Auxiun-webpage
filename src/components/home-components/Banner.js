@@ -78,9 +78,31 @@ const Banner = () => {
           >
             <a href="/marketplace">Explore Marketplace</a>
           </Button> */}
-          <StyledButton>
+          {/* <StyledButton>
             <a href="/marketplace">Explore Marketplace</a>
-          </StyledButton>
+          </StyledButton> */}
+
+          <a href="/marketplace" class="btn">
+            <svg width="577" height="62">
+              <defs>
+                <linearGradient id="grad1">
+                  <stop offset="100%" stop-color="#000000" />
+                  <stop offset="100%" stop-color="#000000" />
+                </linearGradient>
+              </defs>
+              <rect
+                x="5"
+                y="5"
+                rx="25"
+                fill="none"
+                stroke="url(#grad1)"
+                width="266"
+                height="50"
+              ></rect>
+            </svg>
+            {/* <!--<span>Voir mes réalisations</span>--> */}
+            <span>Explore Marketplace</span>
+          </a>
         </Container>
       </div>
     </div>
