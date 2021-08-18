@@ -79,45 +79,58 @@ export default function CreateTokens(props) {
   const [platform, setPlatform] = useState("");
   const [currency, setCurrency] = useState("EUR");
 
-//   Game
+  //   Game
   const [addGameForm, setAddGameForm] = useState("");
-  const [addGameItemForm, setAddGameItemForm] = useState("");
 
-//   Item
-const [addItemId, setAddItemId] = useState("");
-const [addItemName, setAddItemName] = useState("");
-const [addItemDescription, setAddItemDescription] = useState("");
-const [addItemImage, setAddItemImage] = useState("");
+  //   Item
+  const [addItemId, setAddItemId] = useState("");
+  const [addItemName, setAddItemName] = useState("");
+  const [addItemDescription, setAddItemDescription] = useState("");
+  const [addItemImage, setAddItemImage] = useState("");
 
-
+  // Mint Token
+  // .mint(receiverAddress, gameId, itemId)
+  const [receiverAddress, setReceiverAddress] = useState("");
+  const [mintGame, setMintGame] = useState("");
+  const [mintItem, setMintItem] = useState("");
+ 
   const addGameFormHandler = (event) => {
-      setAddGameForm(event.target.value);
-  }
+    setAddGameForm(event.target.value);
+  };
 
-  const addGameItemFormHandler = (event) => {
-    setAddGameItemForm(event.target.value);
-}
-
-const addItemIdHandler = (event) => {
+  const addItemIdHandler = (event) => {
     setAddItemId(event.target.value);
-}
+  };
 
-const addItemNameHandler = (event) => {
+  const addItemNameHandler = (event) => {
     setAddItemName(event.target.value);
-}
+  };
 
-const addItemDescriptionHandler = (event) => {
+  const addItemDescriptionHandler = (event) => {
     setAddItemDescription(event.target.value);
-}
+  };
 
-const AddItemImageHandler = (event) => {
+  const AddItemImageHandler = (event) => {
     setAddItemImage(event.target.value);
-}
+  };
 
+
+  const receiverAddressHandler = (event) => {
+    setReceiverAddress(event.target.value);
+  };
+
+  const mintGameHandler = (event) => {
+    setMintGame(event.target.value);
+  };
+
+  const mintItemHandler = (event) => {
+    setMintItem(event.target.value);
+  };
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
 
   const [gamesList, setGamesList] = useState();
 
@@ -214,15 +227,10 @@ const AddItemImageHandler = (event) => {
 
         <div className={classes.root}>
           <AppBar position="static">
-            <Tabs
-              value={value}
-              onChange={handleChange}
-              aria-label="simple tabs example"
-              centered
-            >
+            <Tabs value={value} onChange={handleChange} centered>
               <Tab label="Add Game" {...a11yProps(0)} />
               <Tab label="Add Item" {...a11yProps(1)} />
-              <Tab label="Transfer Token" {...a11yProps(2)} />
+              <Tab label="Mint Token" {...a11yProps(2)} />
             </Tabs>
           </AppBar>
           <TabPanel value={value} index={0}>
@@ -231,7 +239,12 @@ const AddItemImageHandler = (event) => {
             <div className="form-align">
               <h4></h4>
               <form className={classes.root} noValidate autoComplete="off">
-                <TextField id="game-name" label="Game Name" onChange={addGameFormHandler} required />
+                <TextField
+                  id="game-name"
+                  label="Game Name"
+                  onChange={addGameFormHandler}
+                  required
+                />
                 <br /> <br />
                 <Button
                   variant="contained"
@@ -332,19 +345,28 @@ const AddItemImageHandler = (event) => {
               <h4></h4>
               <form className={classes.root} noValidate autoComplete="off">
                 <TextField
-                  required
-                  select
                   id="game-id"
+                  select
                   label="Select Game"
-                  className="margin-rght"
+                  variant="outlined"
                   required
-                />
+                  onChange={mintGameHandler}
+                >
+                  {gamesList &&
+                    gamesList.map((option) => (
+                      <MenuItem key={option.value} value={option.value}>
+                        {option._id} - {option.game_name}
+                      </MenuItem>
+                    ))}
+                </TextField>
                 <TextField
                   required
                   select
                   id="item-id"
                   label="Select Game Item"
                   className="margin-rght"
+                  variant="outlined"
+                  onChange={mintItemHandler}
                   required
                 />
                 <br /> <br />
@@ -353,6 +375,7 @@ const AddItemImageHandler = (event) => {
                   id="wallet-address"
                   label="Wallet Address"
                   className="margin-rght"
+                  onChange={receiverAddressHandler}
                   required
                 />
                 <br />
@@ -361,9 +384,10 @@ const AddItemImageHandler = (event) => {
                   variant="contained"
                   color="primary"
                   className={classes.button}
+                  onClick={mintNFT}
                   startIcon={<SendIcon />}
                 >
-                  Transfer Token
+                  Mint Token
                 </Button>
               </form>
             </div>
