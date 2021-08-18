@@ -73,47 +73,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// sample data
-const gamePlatforms = [
-  {
-    value: "1",
-    label: "Fortnite",
-  },
-  {
-    value: "2",
-    label: "CSGO",
-  },
-];
-
-const sampleProductData = [
-  {
-    value: "1",
-    label: "Knife",
-  },
-  {
-    value: "2",
-    label: "Pickaxe",
-  },
-];
-
-const currencies = [
-  {
-    value: "USD",
-    label: "$",
-  },
-  {
-    value: "EUR",
-    label: "€",
-  },
-  {
-    value: "BTC",
-    label: "฿",
-  },
-  {
-    value: "JPY",
-    label: "¥",
-  },
-];
 export default function CreateTokens(props) {
   const classes = useStyles();
   const [value, setValue] = useState(0);
