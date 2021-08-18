@@ -136,26 +136,7 @@ export default function Pricing() {
         </Grid>
 
         <hr />
-        <div className="social-media-icons">
-          <a href="">
-            <FacebookIcon />
-          </a>
-          <a href="">
-            <LinkedInIcon />
-          </a>
-          <a href="">
-            <YouTubeIcon />
-          </a>
-          <a href="">
-            <TwitterIcon />
-          </a>
-          <a href="">
-            <InstagramIcon />
-          </a>
-          <a href="">
-            <TelegramIcon />
-          </a>
-        </div>
+         
         <Box mt={5}>
           <Copyright />
         </Box>
