@@ -8,6 +8,9 @@ import Typography from '@material-ui/core/Typography';
 import Divider from "@material-ui/core/Divider";
 import StorefrontIcon from '@material-ui/icons/Storefront';
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
+import {
+    Link,
+} from "react-router-dom";
 function Item(props) {
     const [item, setItem] = useState()
     useEffect(() => {
@@ -39,43 +42,47 @@ function Item(props) {
         return null
     } else {
         return (
+            <Link to={{
+                pathname: '/buy',
+                state: { ...props }
+            }}>
             <Card className={`${classes.root} animate`} variant="outlined">
-                <CardActionArea disableRipple>
-                    <CardMedia
-                        className={classes.media}
-                        image={`data:${item.data.item_image.contentType};base64,${new Buffer.from(item.data.item_image['data']).toString('base64')}`}
-                        title="Contemplative Reptile"
-                    />
-                    {console.log(item.data.item_name)}
-                    <CardContent>
-                        <Typography gutterBottom variant="h5">
-                            {item.data.item_name}
-                        </Typography>
-                        <Typography variant="caption" color="textSecondary">
-                            <div style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                            }}><StorefrontIcon /><span style={{whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis"}}>{item.seller}</span></div>
+                    <CardActionArea disableRipple>
+                        <CardMedia
+                            className={classes.media}
+                            image={`data:${item.data.item_image.contentType};base64,${new Buffer.from(item.data.item_image['data']).toString('base64')}`}
+                            title="Contemplative Reptile"
+                        />
+                        {console.log("Item Name",item.data.item_name)}
+                        <CardContent>
+                            <Typography gutterBottom variant="h5">
+                                {item.data.item_name}
+                            </Typography>
+                            <Typography variant="caption" color="textSecondary">
+                                <div style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                }}><StorefrontIcon /><span style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{item.seller}</span></div>
+                            </Typography>
+                            <Typography variant="caption" color="textSecondary">
+                                <div style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                }}><InsertPhotoIcon /><span style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{item.token_id}</span></div>
 
-                        </Typography>
-                        <Typography variant="caption" color="textSecondary">
-                            <div style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                            }}><InsertPhotoIcon /><span style={{whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis"}}>{item.token_id}</span></div>
+                            </Typography>
+                            <Typography variant="body2" color="textSecondary">
+                                {item.data.item_description}
+                            </Typography>
+                            <Divider className={classes.divider} light />
+                            <Typography variant="overline" display="block" align="right" gutterBottom>
+                                {item.price + " ETH"}
 
-                        </Typography>
-                        <Typography variant="body2" color="textSecondary">
-                            {item.data.item_description}
-                        </Typography>
-                        <Divider className={classes.divider} light />
-                        <Typography variant="overline" display="block" align="right" gutterBottom>
-                            {item.price + " ETH"}
-
-                        </Typography>
-                    </CardContent>
-                </CardActionArea>
-            </Card>
+                            </Typography>
+                        </CardContent>
+                    </CardActionArea>
+                </Card>
+            </Link>
         )
     }
 }
