@@ -25,7 +25,6 @@ function MarketPlace(props) {
     const xs = useMediaQuery(theme.breakpoints.down('sm'));
     const [item, setItem] = useState([])
     const [pageCount, setPageCount] = useState(0);
-    const [isConnected, setIsConnected] = useState(false);
     const useStyles = makeStyles((theme) => ({
         gridContainer: {
             paddingLeft: "4rem",
@@ -37,18 +36,27 @@ function MarketPlace(props) {
         },
     }));
     const totalPageCount = () => {
-        return Math.ceil(pageCount / 25)
-
+        return ((pageCount < 25) ?
+            1 : Math.ceil(pageCount / 25))
     }
 
     const loadItems = (data) => {
         const items = [];
-        for (const item in data) {
+        console.log(data)
+        if (data.length === 0) {
             items.push(
-                <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
-                    <Item data={data[item]} />
+                <Grid item xs={12} style={{ textAlign: "center" }}>
+                    <Typography variant="h3">Sorry, There are no NFTs available!</Typography>
                 </Grid>)
+        } else {
+            for (const item in data) {
+                items.push(
+                    <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
+                        <Item data={data[item]} />
+                    </Grid>)
+            }
         }
+
         return items;
     }
 
@@ -57,7 +65,6 @@ function MarketPlace(props) {
     // useEffect
     useEffect(() => {
         if (props.authorised) {
-            setIsConnected(true);
             let web3 = new Web3(window.ethereum);
             let contractMulticall = new web3.eth.Contract(MULTICALL_CONTRACT_ABI, MULTICALL_CONTRACT_ADDRESS);
             contractMulticall.methods.multiCallNFTsOnMarket().call()
@@ -106,47 +113,42 @@ function MarketPlace(props) {
             // TODO: setAlert
         });
     }
-    if (isConnected) {
-        return (
-            <div className="marketplace-container">
-                <Grid container className={classes.gridContainer} >
-                    {isConnected ?
-                        <>
-                            <Grid item xs={12} sm={"auto"} md={2}>
-                                <Filters />
-                            </Grid>
 
+    return (
+        <div className="marketplace-container">
+            <Grid container className={classes.gridContainer} >
 
-                            <Grid item xs={12} sm={12} md={10}>
-                                <Grid
-                                    container
-                                    flex={"true"}
-                                    className={classes.top}>
-                                    <Grid item xs={12}>
-                                        <Pagination count={totalPageCount()} showFirstButton showLastButton style={{ display: " flex", justifyContent: 'center', alignItems: 'center' }} />
-                                    </Grid>
-                                </Grid>
-                                <Grid
-                                    container
-                                    spacing={1}
-                                    className={(xs ? classes.gridItemContainer : classes.gridContainer)}
-
-                                >
-                                    {loadItems(item)}
-
-                                </Grid>
-                            </Grid></> :
-                        <Grid container className={classes.gridContainer}>
-                            <Grid item xs={12} style={{ textAlign: "center" }}>
-                                <Typography variant="h1">Please connect your Metamask</Typography>
-                            </Grid>
-                        </Grid>}
+                <Grid item xs={12} sm={"auto"} md={2}>
+                    <Filters />
                 </Grid>
-            </div >
-        )
-    } else {
-        return (<></>)
-    }
+                <Grid item xs={12} sm={12} md={10}>
+                    <Grid
+                        container
+                        flex={"true"}
+                        className={classes.top}>
+                        <Grid item xs={12}>
+                            <Pagination count={totalPageCount()} showFirstButton showLastButton style={{ display: " flex", justifyContent: 'center', alignItems: 'center' }} />
+                        </Grid>
+                    </Grid>
+                    <Grid
+                        container
+                        spacing={1}
+                        className={(xs ? classes.gridItemContainer : classes.gridContainer)}
+
+                    >
+                        {props.userSessionData ?
+                            (props.account ? loadItems(item) : <Grid item xs={12} style={{ textAlign: "center" }}>
+                                <Typography variant="h3">Connect your MetaMask to access the Marketplace</Typography>
+                            </Grid>) : <Grid item xs={12} style={{ textAlign: "center" }}>
+                                <Typography variant="h3">Log in to access the Marketplace</Typography>
+                            </Grid>}
+
+                    </Grid>
+                </Grid>
+            </Grid>
+        </div >
+    )
+
 
 }
 

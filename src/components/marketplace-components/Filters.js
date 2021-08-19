@@ -52,8 +52,16 @@ function Filters() {
     const initialFValues = {
         search: '',
         sortBy: 'mostpopular',
+        colourBlue: false,
         colourBlack: false,
+        colourRed: false,
+        colourPink: false,
+        colourYellow: false,
+        colourGrey: false,
+        colourOrange: false,
         colourWhite: false,
+        colourGreen: false,
+        colourBrown: false,
     }
     const handleToggle = (event, nodeIds) => {
         setExpanded(nodeIds);

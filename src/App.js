@@ -72,7 +72,7 @@ function App() {
     const [userSessionData, setUserSessionData] = useState('')
     // logOut function to remove email from localStorage
     const logOut = () => {
-        localStorage.removeItem('userSessionData');
+        localStorage.clear();
     }
 
     /* user's wallet account useStates
@@ -291,7 +291,7 @@ function App() {
                             <Announcement/>
                         </Route>
                         <Route exact path='/marketplace'>
-                            <MarketPlace authorised={authorised} />
+                            <MarketPlace authorised={authorised} userSessionData={userSessionData} account={account}/>
                         </Route>
                         <Route exact path="/login">
                             <Login showAlert={showAlert} />
