@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory  } from "react-router-dom";
 import './css/Register.css';
 
 import TextField from '@material-ui/core/TextField';
@@ -38,6 +39,8 @@ const CssTextField = withStyles({
 })(TextField);
 
 export default function Register(props) {
+    const history = useHistory();
+
     // login form
     const [userEmailRegisterForm, setuserEmailRegisterForm] = useState('');
     const [userFirstNameRegisterForm, setUserFirstNameRegisterForm] = useState('');
@@ -82,6 +85,7 @@ export default function Register(props) {
             else if (data.status === 200) {
                 console.log("Registration successful!");
                 props.showAlert("Success", "User has been successfully created", "", "success");
+                history.push("/login");
             }
             else {
                 console.log("Unknown error occured. Please try again.");
