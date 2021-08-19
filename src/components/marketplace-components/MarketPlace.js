@@ -68,8 +68,8 @@ function MarketPlace(props) {
         const items = [];
         for (const item in data) {
             items.push(
-                    <Item data={data[item]}/>
-                )
+                <Item data={data[item]} />
+            )
         }
         return items;
     }
@@ -119,14 +119,6 @@ function MarketPlace(props) {
                     <Filters />
                 </Grid>
                 <Grid item xs={12} sm={12} md={10}>
-                    <Grid
-                        container
-                        flex={"true"}
-                        className={classes.top}>
-                        <Grid item xs={12}>
-                            <Pagination count={totalPageCount()} showFirstButton showLastButton style={{ display: " flex", justifyContent: 'center', alignItems: 'center' }} />
-                        </Grid>
-                    </Grid>
                     <MarketplaceCarousel loadItems={loadTrendingItems} item={item} />
                     <Grid
                         container
@@ -141,15 +133,15 @@ function MarketPlace(props) {
                             </Grid>}
 
                     </Grid>
-<br></br><br></br>
-                            <Grid
-                                container
-                                flex
-                                className={classes.top}>
-                                <Grid item xs={12}>
-                                    <Pagination count={totalPageCount()} showFirstButton showLastButton style={{ display: " flex", justifyContent: 'center', alignItems: 'center' }} />
-                                </Grid>
-                            </Grid>
+                    <br></br><br></br>
+                    <Grid
+                        container
+                        flex={"true"}
+                        className={classes.top}>
+                        <Grid item xs={12}>
+                            <Pagination count={totalPageCount()} showFirstButton showLastButton style={{ display: " flex", justifyContent: 'center', alignItems: 'center' }} />
+                        </Grid>
+                    </Grid>
                 </Grid>
 
             </Grid>
