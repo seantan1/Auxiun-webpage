@@ -17,6 +17,7 @@ import {
     MULTICALL_CONTRACT_ABI
 } from "../../contract-data/token-contract-data";
 import { Typography } from '@material-ui/core';
+import MarketplaceCarousel from './MarketplaceCarousel';
 // axios
 const axios = require('axios');
 
@@ -47,6 +48,18 @@ function MarketPlace(props) {
                 <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
                     <Item data={data[item]} />
                 </Grid>)
+        }
+        return items;
+    }
+
+    //this is just to adjust the styling on cards in trending without affecting the others. Remove when backend for
+    //trending is implemented -- Harris
+    const loadTrendingItems = (data) => {
+        const items = [];
+        for (const item in data) {
+            items.push(
+                    <Item data={data[item]}/>
+                )
         }
         return items;
     }
@@ -114,16 +127,9 @@ function MarketPlace(props) {
                             <Filters />
                         </Grid>
 
-
                         <Grid item xs={12} sm={12} md={10}>
-                            <Grid
-                                container
-                                flex
-                                className={classes.top}>
-                                <Grid item xs={12}>
-                                    <Pagination count={totalPageCount()} showFirstButton showLastButton style={{ display: " flex", justifyContent: 'center', alignItems: 'center' }} />
-                                </Grid>
-                            </Grid>
+                            
+                        <MarketplaceCarousel loadItems={loadTrendingItems} item={item} />
                             <Grid
                                 container
                                 spacing={1}
@@ -131,7 +137,15 @@ function MarketPlace(props) {
 
                             >
                                 {loadItems(item)}
-
+                            </Grid>
+                            <br></br><br></br>
+                            <Grid
+                                container
+                                flex
+                                className={classes.top}>
+                                <Grid item xs={12}>
+                                    <Pagination count={totalPageCount()} showFirstButton showLastButton style={{ display: " flex", justifyContent: 'center', alignItems: 'center' }} />
+                                </Grid>
                             </Grid>
                         </Grid></> :
                     <Grid container className={classes.gridContainer}>
