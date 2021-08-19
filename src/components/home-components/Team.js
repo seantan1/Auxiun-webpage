@@ -1,13 +1,13 @@
 import React from "react";
 import "./css/Team.css";
-import TeamImage from "../../assets/team.svg";
+import TeamImage from "../../assets/TeamImage.svg";
 
 const Team = () => {
   return (
     <div>
       <div className="team-banner">
         <div className="team-banner-image">
-          <p className="image-title">Meet Our Team</p>
+          <h5 className="image-title">Meet Our Team</h5>
           <img src={TeamImage} style={{ height: 250, width: 300 }} />
         </div>
         <h5 className="team-banner-text">

@@ -5,7 +5,7 @@ const Announcement = () => {
     return (
         <div>
             <div className="announcement-banner">
-            <h3 className="announcement-banner-text">This is Announcement Page</h3>
+            <h5 className="announcement-banner-text">This is Announcement Page</h5>
 
             </div>
          </div>

@@ -1,9 +1,18 @@
 import "./css/Banner.css";
+import * as React from "react";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import { withStyles } from "@material-ui/core/styles";
+
+import { useDencrypt } from "use-dencrypt-effect";
+
+// Animated Text
+const values = ["gamer", "content creator", "artist"];
+const options = {
+  chars: ["_"],
+};
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -15,6 +24,8 @@ const useStyles = makeStyles((theme) => ({
     display: "none",
   },
 }));
+
+// Explore Marketplace Button
 const StyledButton = withStyles({
   root: {
     background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
@@ -29,8 +40,21 @@ const StyledButton = withStyles({
     textTransform: "capitalize",
   },
 })(Button);
+
 const Banner = () => {
   const classes = useStyles();
+
+  // Animated text
+  const { result, dencrypt } = useDencrypt(options);
+  React.useEffect(() => {
+    let i = 0;
+    const action = setInterval(() => {
+      dencrypt(values[i]);
+      i = i === values.length - 1 ? 0 : i + 1;
+    }, 2000);
+
+    return () => clearInterval(action);
+  }, []);
 
   return (
     <div className="banner">
@@ -44,7 +68,7 @@ const Banner = () => {
           <br />
           <div className="homepage-caption">
             <Typography variant="caption" display="block" gutterBottom>
-              Are you a passionate gamer? Check out our Marketplace!
+              Are you a passionate {result}? Check out our Marketplace!
             </Typography>
           </div>
           {/* <Button
@@ -54,11 +78,32 @@ const Banner = () => {
           >
             <a href="/marketplace">Explore Marketplace</a>
           </Button> */}
-           <StyledButton>
+          {/* <StyledButton>
             <a href="/marketplace">Explore Marketplace</a>
-          </StyledButton>
+          </StyledButton> */}
+
+          <a href="/marketplace" class="btn">
+            <svg width="577" height="62">
+              <defs>
+                <linearGradient id="grad1">
+                  <stop offset="100%" stop-color="#000000" />
+                  <stop offset="100%" stop-color="#000000" />
+                </linearGradient>
+              </defs>
+              <rect
+                x="5"
+                y="5"
+                rx="25"
+                fill="none"
+                stroke="url(#grad1)"
+                width="266"
+                height="50"
+              ></rect>
+            </svg>
+            {/* <!--<span>Voir mes réalisations</span>--> */}
+            <span>Explore Marketplace</span>
+          </a>
         </Container>
-        
       </div>
     </div>
   );

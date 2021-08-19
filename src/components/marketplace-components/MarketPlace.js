@@ -17,6 +17,7 @@ import {
     MULTICALL_CONTRACT_ABI
 } from "../../contract-data/token-contract-data";
 import { Typography } from '@material-ui/core';
+import MarketplaceCarousel from './MarketplaceCarousel';
 // axios
 const axios = require('axios');
 
@@ -41,6 +42,7 @@ function MarketPlace(props) {
     }
 
     const loadItems = (data) => {
+        console.log(props.account)
         const items = [];
         console.log(data)
         if (data.length === 0) {
@@ -57,6 +59,18 @@ function MarketPlace(props) {
             }
         }
 
+        return items;
+    }
+
+    //this is just to adjust the styling on cards in trending without affecting the others. Remove when backend for
+    //trending is implemented -- Harris
+    const loadTrendingItems = (data) => {
+        const items = [];
+        for (const item in data) {
+            items.push(
+                    <Item data={data[item]}/>
+                )
+        }
         return items;
     }
 
@@ -97,23 +111,6 @@ function MarketPlace(props) {
         });
     }
 
-    // function to purchase NFT on market
-    // WARNING: you need to fetch the price properly and pass it into the function, if you put a lower amount the transaction will revert,
-    // if you put a higher amount the transaction will pass through but the buyer pays more than necessary
-    // price parameter should be a string, this function will convert it to ethers
-    const purchaseNFTOnMarket = (tokenId, price) => {
-        let web3 = new Web3(window.ethereum);
-        let contract = new web3.eth.Contract(TOKEN_CONTRACT_ABI, TOKEN_CONTRACT_ADDRESS);
-        let amount = web3.utils.toWei(price, 'ether');
-        contract.methods.purchaseNFT(tokenId).send({
-            from: props.account,
-            value: amount
-        }).then(function (result) {
-            console.log(result);
-            // TODO: setAlert
-        });
-    }
-
     return (
         <div className="marketplace-container">
             <Grid container className={classes.gridContainer} >
@@ -130,11 +127,11 @@ function MarketPlace(props) {
                             <Pagination count={totalPageCount()} showFirstButton showLastButton style={{ display: " flex", justifyContent: 'center', alignItems: 'center' }} />
                         </Grid>
                     </Grid>
+                    <MarketplaceCarousel loadItems={loadTrendingItems} item={item} />
                     <Grid
                         container
                         spacing={1}
                         className={(xs ? classes.gridItemContainer : classes.gridContainer)}
-
                     >
                         {props.userSessionData ?
                             (props.account ? loadItems(item) : <Grid item xs={12} style={{ textAlign: "center" }}>
@@ -144,7 +141,17 @@ function MarketPlace(props) {
                             </Grid>}
 
                     </Grid>
+<br></br><br></br>
+                            <Grid
+                                container
+                                flex
+                                className={classes.top}>
+                                <Grid item xs={12}>
+                                    <Pagination count={totalPageCount()} showFirstButton showLastButton style={{ display: " flex", justifyContent: 'center', alignItems: 'center' }} />
+                                </Grid>
+                            </Grid>
                 </Grid>
+
             </Grid>
         </div >
     )

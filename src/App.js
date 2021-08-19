@@ -46,6 +46,10 @@ import Team from "./components/home-components/Team";
 // Announcement Page
 import Announcement from "./components/home-components/Announcement";
 
+// Media Page
+import Media from "./components/home-components/Media";
+
+
 // About Page
 import About from "./components/home-components/About";
 //forgot password
@@ -58,7 +62,7 @@ import {
     RINKEBY_TEST_NET_RPC_URL,
 } from "./contract-data/rpc-data.js";
 import Sell from "./components/sell-components/Sell";
-
+import Buy from './components/buy-components/Buy';
 // main net
 const chainNetVersion = RINKEBY_TEST_NET_VERSION;
 // eslint-disable-next-line
@@ -289,6 +293,7 @@ function App() {
                             <About/>
                             <Team/>
                             <Announcement/>
+                            <Media/>
                         </Route>
                         <Route exact path='/marketplace'>
                             <MarketPlace authorised={authorised} userSessionData={userSessionData} account={account}/>
@@ -309,14 +314,17 @@ function App() {
                             <Inventory authorised={authorised} account={account}/>
                         </Route>
                         <Route exact path="/sell">
-                            <Sell showAlert={showAlert} authorised={authorised} exact component={Sell} />
+                            <Sell showAlert={showAlert} authorised={authorised} component={Sell} account={account}/>
+                        </Route>
+                        <Route exact path="/buy">
+                            <Buy showAlert={showAlert} authorised={authorised} component={Buy} account={account}/>
                         </Route>
                         <Route exact path="/createTokens">
                             <CreateTokens authorised={authorised} showAlert={showAlert} account={account} />
                         </Route>
                         
                         <Route exact path="/forgot-password">
-                            <ForgotPassword />
+                            <ForgotPassword showAlert={showAlert} />
                         </Route>
                         <Route render={() => <Redirect to={{ pathname: "/" }} />} />
                     </Switch>
