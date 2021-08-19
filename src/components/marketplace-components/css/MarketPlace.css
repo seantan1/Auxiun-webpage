@@ -1,7 +1,12 @@
 .marketplace-container {
-  /* remove this padding later */
-  padding-top: 120px;
+    /* remove this padding later */
+    padding-top: 200px;
 }
+
+.MuiFormControl-root {
+    display: flex !important;
+}
+
 
 .animate:hover {
   animation: hoverEffect forwards;
