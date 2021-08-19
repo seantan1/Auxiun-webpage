@@ -41,11 +41,12 @@ function MarketPlace(props) {
     }
 
     const loadItems = (data) => {
+        console.log(props.account)
         const items = [];
         for (const item in data) {
             items.push(
                 <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
-                    <Item data={data[item]} />
+                    <Item {...props} data={data[item]} />
                 </Grid>)
         }
         return items;
@@ -85,23 +86,6 @@ function MarketPlace(props) {
                 seller: seller
             }
             setItem(item => [...item, itemData])
-        });
-    }
-
-    // function to purchase NFT on market
-    // WARNING: you need to fetch the price properly and pass it into the function, if you put a lower amount the transaction will revert,
-    // if you put a higher amount the transaction will pass through but the buyer pays more than necessary
-    // price parameter should be a string, this function will convert it to ethers
-    const purchaseNFTOnMarket = (tokenId, price) => {
-        let web3 = new Web3(window.ethereum);
-        let contract = new web3.eth.Contract(TOKEN_CONTRACT_ABI, TOKEN_CONTRACT_ADDRESS);
-        let amount = web3.utils.toWei(price, 'ether');
-        contract.methods.purchaseNFT(tokenId).send({
-            from: props.account,
-            value: amount
-        }).then(function(result) {
-            console.log(result);
-            // TODO: setAlert
         });
     }
 

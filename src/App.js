@@ -62,7 +62,7 @@ import {
     RINKEBY_TEST_NET_RPC_URL,
 } from "./contract-data/rpc-data.js";
 import Sell from "./components/sell-components/Sell";
-
+import Buy from './components/buy-components/Buy';
 // main net
 const chainNetVersion = RINKEBY_TEST_NET_VERSION;
 // eslint-disable-next-line
@@ -314,7 +314,10 @@ function App() {
                             <Inventory authorised={authorised} account={account}/>
                         </Route>
                         <Route exact path="/sell">
-                            <Sell showAlert={showAlert} authorised={authorised} exact component={Sell} />
+                            <Sell showAlert={showAlert} authorised={authorised} component={Sell} account={account}/>
+                        </Route>
+                        <Route exact path="/buy">
+                            <Buy showAlert={showAlert} authorised={authorised} component={Buy} account={account}/>
                         </Route>
                         <Route exact path="/createTokens">
                             <CreateTokens authorised={authorised} showAlert={showAlert} account={account} />
