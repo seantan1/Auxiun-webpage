@@ -1,4 +1,51 @@
 .marketplace-container {
-    /* remove this padding later */
-    padding-top: 200px;
+  /* remove this padding later */
+  padding-top: 120px;
+}
+
+.animate:hover {
+  animation: hoverEffect forwards;
+  animation-duration: 0.3s;
+}
+
+.animate {
+  animation: hoverOffEffect forwards;
+  animation-duration: 0.3s;
+}
+
+@keyframes hoverEffect {
+  0% {
+  }
+
+  100% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes hoverOffEffect {
+  0% {
+    transform: scale(1.05);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.carouselContent {
+  padding: 1%;
+  margin-bottom: 2%;
+}
+
+.rec-arrow {
+  margin: 1%;
+}
+
+.rec-arrow:hover {
+  background-color: #303f9f !important;
+}
+
+.ejXxNI {
+  background-color: #303f9f !important;
+  box-shadow: unset !important;
 }

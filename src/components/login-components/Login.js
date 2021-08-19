@@ -64,10 +64,10 @@ const Login = (props) => {
             password_hash: String(userPasswordLoginForm),
         })
             .then(function (data) {
-                if (data.data.message === "fail") {
+                if (data.data.status === "fail") {
                     console.log("Email or password is incorrect");
                     props.showAlert("Incorrect Details", "Your Username or Password is incorrect", "", "error");
-                } else if (data.data.message === "success") {
+                } else if (data.data.status === "success") {
                     props.showAlert("Success", "Login Successful!", "", "success");
                     // store session to localStorage
                     localStorage.setItem('userSessionData', JSON.stringify(data.data.data[0]));

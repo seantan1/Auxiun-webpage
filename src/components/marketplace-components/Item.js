@@ -20,8 +20,9 @@ function Item(props) {
         root: {
             margin: "auto",
             boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
+            width: props.width,
             "&:hover": {
-                boxShadow: "0 16px 70px -12.125px rgba(0,0,0,0.3)"
+                boxShadow: "0 40px 70px -12.125px rgba(0,0,0,0.3)",
             }
         },
         media: {
@@ -45,7 +46,7 @@ function Item(props) {
                 pathname: '/buy',
                 state: { ...props }
             }}>
-                <Card className={classes.root} variant="outlined">
+            <Card className={`${classes.root} animate`} variant="outlined">
                     <CardActionArea disableRipple>
                         <CardMedia
                             className={classes.media}
@@ -62,7 +63,6 @@ function Item(props) {
                                     display: 'flex',
                                     alignItems: 'center',
                                 }}><StorefrontIcon /><span style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{item.seller}</span></div>
-
                             </Typography>
                             <Typography variant="caption" color="textSecondary">
                                 <div style={{
