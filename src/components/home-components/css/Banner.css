@@ -1,7 +1,7 @@
 .banner {
   /* background-color: grey; */
   padding-top: calc(20% + 25px);
-  height: 1000px;
+  height: 100vh;
 }
 
 .banner-image-container {
@@ -32,10 +32,9 @@
   margin-bottom: 3rem;
 }
 
- 
 .btn {
   /* margin-top: calc(50% + 25px); */
-  
+
   position: relative;
   display: inline-block;
   width: 277px;
@@ -47,10 +46,10 @@
   text-transform: uppercase;
   background-color: transparent;
   cursor: pointer;
-  text-decoration:none;
-  font-family: 'Roboto', sans-serif;
-  font-weight:900;
-  font-size:17px;
+  text-decoration: none;
+  font-family: "Roboto", sans-serif;
+  font-weight: 900;
+  font-size: 17px;
   letter-spacing: 0.045em;
 }
 
@@ -68,11 +67,11 @@
   -webkit-transition: all 600ms ease;
   transition: all 600ms ease;
 }
- .btn span{
-background-color: black;
--webkit-background-clip: text;
--webkit-text-fill-color: transparent; 
-} 
+.btn span {
+  background-color: black;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 
 .btn:hover svg rect {
   stroke-width: 4;
@@ -82,7 +81,7 @@ background-color: black;
 
 /* Responsive */
 @media (max-width: 900px) {
-  .banner{
+  .banner {
     padding-top: calc(80% + 25px);
   }
   .banner-image-container {
@@ -90,7 +89,6 @@ background-color: black;
     margin-top: 50px;
   }
 }
-
 
 /* REFERNCES */
 /* Modified explore marketplace button from the following website */
