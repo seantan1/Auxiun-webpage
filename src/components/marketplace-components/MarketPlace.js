@@ -37,19 +37,28 @@ function MarketPlace(props) {
         },
     }));
     const totalPageCount = () => {
-        return Math.ceil(pageCount / 25)
-
+        return ((pageCount < 25) ?
+            1 : Math.ceil(pageCount / 25))
     }
 
     const loadItems = (data) => {
         console.log(props.account)
         const items = [];
-        for (const item in data) {
+        console.log(data)
+        if (data.length === 0) {
             items.push(
-                <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
-                    <Item {...props} data={data[item]} />
+                <Grid item xs={12} style={{ textAlign: "center" }}>
+                    <Typography variant="h3">Sorry, There are no NFTs available!</Typography>
                 </Grid>)
+        } else {
+            for (const item in data) {
+                items.push(
+                    <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
+                        <Item data={data[item]} />
+                    </Grid>)
+            }
         }
+
         return items;
     }
 
@@ -59,8 +68,8 @@ function MarketPlace(props) {
         const items = [];
         for (const item in data) {
             items.push(
-                    <Item data={data[item]}/>
-                )
+                <Item data={data[item]} />
+            )
         }
         return items;
     }
@@ -105,41 +114,41 @@ function MarketPlace(props) {
     return (
         <div className="marketplace-container">
             <Grid container className={classes.gridContainer} >
-                {props.authorised ?
-                    <>
-                        <Grid item xs={12} sm={"auto"} md={2}>
-                            <Filters />
-                        </Grid>
 
-                        <Grid item xs={12} sm={12} md={10}>
-                            
-                        <MarketplaceCarousel loadItems={loadTrendingItems} item={item} />
-                            <Grid
-                                container
-                                spacing={1}
-                                className={(xs ? classes.gridItemContainer : classes.gridContainer)}
+                <Grid item xs={12} sm={"auto"} md={2}>
+                    <Filters />
+                </Grid>
+                <Grid item xs={12} sm={12} md={10}>
+                    <MarketplaceCarousel loadItems={loadTrendingItems} item={item} />
+                    <Grid
+                        container
+                        spacing={1}
+                        className={(xs ? classes.gridItemContainer : classes.gridContainer)}
+                    >
+                        {props.userSessionData ?
+                            (props.account ? loadItems(item) : <Grid item xs={12} style={{ textAlign: "center" }}>
+                                <Typography variant="h3">Connect your MetaMask to access the Marketplace</Typography>
+                            </Grid>) : <Grid item xs={12} style={{ textAlign: "center" }}>
+                                <Typography variant="h3">Log in to access the Marketplace</Typography>
+                            </Grid>}
 
-                            >
-                                {loadItems(item)}
-                            </Grid>
-                            <br></br><br></br>
-                            <Grid
-                                container
-                                flex
-                                className={classes.top}>
-                                <Grid item xs={12}>
-                                    <Pagination count={totalPageCount()} showFirstButton showLastButton style={{ display: " flex", justifyContent: 'center', alignItems: 'center' }} />
-                                </Grid>
-                            </Grid>
-                        </Grid></> :
-                    <Grid container className={classes.gridContainer}>
-                        <Grid item xs={12} style={{textAlign: "center"}}>
-                            <Typography variant="h1">Please connect your Metamask</Typography>
+                    </Grid>
+                    <br></br><br></br>
+                    <Grid
+                        container
+                        flex={"true"}
+                        className={classes.top}>
+                        <Grid item xs={12}>
+                            <Pagination count={totalPageCount()} showFirstButton showLastButton style={{ display: " flex", justifyContent: 'center', alignItems: 'center' }} />
                         </Grid>
-                    </Grid>}
+                    </Grid>
+                </Grid>
+
             </Grid>
         </div >
     )
+
+
 }
 
 export default MarketPlace

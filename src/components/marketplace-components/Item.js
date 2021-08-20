@@ -46,7 +46,7 @@ function Item(props) {
                 pathname: '/buy',
                 state: { ...props }
             }}>
-            <Card className={`${classes.root} animate`} variant="outlined">
+            <Card className={`${classes.root} animate`} variant="outlined" key={item.token_id + item.seller}>
                     <CardActionArea disableRipple>
                         <CardMedia
                             className={classes.media}
@@ -69,7 +69,6 @@ function Item(props) {
                                     display: 'flex',
                                     alignItems: 'center',
                                 }}><InsertPhotoIcon /><span style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{item.token_id}</span></div>
-
                             </Typography>
                             <Typography variant="body2" color="textSecondary">
                                 {item.data.item_description}
