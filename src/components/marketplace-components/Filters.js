@@ -26,8 +26,12 @@ function Filters() {
             whiteSpace: "nowrap",
         },
         root: {
-            marginTop: "2rem"
+            marginTop: "2rem",
+            "& .MuiFormControl-root": {
+                display: "flex !important",
+            }
         },
+
     }));
     const sortBy = [
         { id: 'mostpopular', title: 'Most Popular' },
