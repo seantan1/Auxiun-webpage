@@ -288,10 +288,11 @@ function App() {
           <Switch>
             <Route exact path="/">
               <HomeBanner />
-              {/* <Announcement/> */}
               <About />
               <Team />
-              <Roadmap/>
+              <Announcement />
+
+              <Roadmap />
               <Media />
             </Route>
             <Route exact path="/marketplace">

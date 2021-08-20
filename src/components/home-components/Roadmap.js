@@ -3,47 +3,61 @@ import "./css/Roadmap.css";
 
 const Roadmap = () => {
   return (
-    <div className="roadmap">
-      <h3 className="roadmap-title">Roadmap</h3>
+    <div>
+      <h6 className="roadmap-title">Roadmap</h6>
       <div class="timeline">
         <div class="container left">
           <div class="date">Jun 2020</div>
-          <i class="icon fa fa-home"></i>
           <div class="content">
             <h2>Auxiun Concept</h2>
-            <p className="description">Initial birth of Auxiun company</p>
+            <p></p>
           </div>
         </div>
-
         <div class="container right">
-          <div class="date">Jul 2020</div>
-          <i class="icon fa fa-gift"></i>
+          <div class="date">Aug 2020</div>
+          <div class="content">
+            <h2>Team</h2>
+            <p>
+              Lorem ipsum dolor sit amet elit. Aliquam odio dolor, id luctus
+              erat sagittis non. Ut blandit semper pretium.
+            </p>
+          </div>
+        </div>
+        <div class="container left">
+          <div class="date">Oct 2020</div>
           <div class="content">
             <h2>Lorem ipsum dolor sit amet</h2>
-            <p className="description">
+            <p>
               Lorem ipsum dolor sit amet elit. Aliquam odio dolor, id luctus
               erat sagittis non. Ut blandit semper pretium.
             </p>
           </div>
         </div>
-
+        <div class="container right">
+          <div class="date">Dec 2020</div>
+          <div class="content">
+            <h2>Lorem ipsum dolor sit amet</h2>
+            <p>
+              Lorem ipsum dolor sit amet elit. Aliquam odio dolor, id luctus
+              erat sagittis non. Ut blandit semper pretium.
+            </p>
+          </div>
+        </div>
         <div class="container left">
-          <div class="date">Apr 2021</div>
-          <i class="icon fa fa-user"></i>
+          <div class="date">Mar 2021</div>
           <div class="content">
             <h2>Collaboration with RMIT University</h2>
-            <p className="description">
-              Collaborate with RMIT to create a seamless NFT marketplace
+            <p>
+              Collaborate with RMIT University to build a seamless NFT marketplace
+              to allow users to buy and sell NFTs.
             </p>
           </div>
         </div>
-
         <div class="container right">
           <div class="date">Nov 2021</div>
-          <i class="icon fa fa-gift"></i>
           <div class="content">
-            <h2>Game Integration with Marketplace</h2>
-            <p className="description">
+            <h2>Beta Marketplace Testing</h2>
+            <p>
               Lorem ipsum dolor sit amet elit. Aliquam odio dolor, id luctus
               erat sagittis non. Ut blandit semper pretium.
             </p>
@@ -51,23 +65,32 @@ const Roadmap = () => {
         </div>
 
         <div class="container left">
-          <div class="date">Jan 2022</div>
-          <i class="icon fa fa-gift"></i>
+          <div class="date">Dec 2021</div>
           <div class="content">
-            <h2>Beta Product Testing</h2>
-            <p className="description">
+            <h2>Gaming Platform Integration</h2>
+            <p>
               Lorem ipsum dolor sit amet elit. Aliquam odio dolor, id luctus
+              erat sagittis non. Ut blandit semper pretium.
             </p>
           </div>
         </div>
-
         <div class="container right">
-          <div class="date">Mar 2022</div>
-          <i class="icon fa fa-gift"></i>
+          <div class="date">Nov 2021</div>
+          <div class="content">
+            <h2>Beta Product Testing</h2>
+            <p>
+              Lorem ipsum dolor sit amet elit. Aliquam odio dolor, id luctus
+              erat sagittis non. Ut blandit semper pretium.
+            </p>
+          </div>
+        </div>
+        <div class="container left">
+          <div class="date">Jan 2022</div>
           <div class="content">
             <h2>Alpha Product Launch</h2>
-            <p className="description">
+            <p>
               Lorem ipsum dolor sit amet elit. Aliquam odio dolor, id luctus
+              erat sagittis non. Ut blandit semper pretium.
             </p>
           </div>
         </div>
