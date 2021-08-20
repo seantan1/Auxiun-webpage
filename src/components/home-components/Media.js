@@ -23,7 +23,7 @@ const Media = () => {
 
         <ul class="cards">
           <li>
-            <a href="" class="card">
+            <a href="https://twitter.com/auxiun" class="card">
               <img
                 src={SocialMedia}
                 class="card__image"
@@ -52,7 +52,7 @@ const Media = () => {
 
 
           <li>
-            <a href="" class="card">
+            <a href="https://telegram.org/" class="card">
               <img
                 src={ChatImage}
                 class="card__image"
@@ -82,7 +82,7 @@ const Media = () => {
 
 
           <li>
-            <a href="" class="card">
+            <a href="https://www.businessbecause.com/news/entrepreneurs/7655/mba-nft-startup?sponsored" class="card">
               <img
                 src={ArticleImage}
                 class="card__image"
@@ -112,7 +112,7 @@ const Media = () => {
 
 
           <li>
-            <a href="" class="card">
+            <a href="https://www.linkedin.com/company/auxiun/" class="card">
               <img
                 src={LinkedinTeam}
                 class="card__image"
