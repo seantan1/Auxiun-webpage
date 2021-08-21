@@ -68,7 +68,7 @@ const Inventory = (props) => {
     const testButton = () => {
         let web3 = new Web3(window.ethereum);
         let amount = web3.utils.toWei("0.001", 'ether');
-        listNFTOnMarket("2", amount);
+        listNFTOnMarket(String(testSell), amount);
     }
     // useEffect
     useEffect(() => {
