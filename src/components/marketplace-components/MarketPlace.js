@@ -12,8 +12,12 @@ import Web3 from 'web3';
 // contract data
 import {
     TOKEN_CONTRACT_ADDRESS,
-    TOKEN_CONTRACT_ABI
+    TOKEN_CONTRACT_ABI,
+    MULTICALL_CONTRACT_ADDRESS,
+    MULTICALL_CONTRACT_ABI
 } from "../../contract-data/token-contract-data";
+import { Typography } from '@material-ui/core';
+import MarketplaceCarousel from './MarketplaceCarousel';
 // axios
 const axios = require('axios');
 
@@ -33,17 +37,39 @@ function MarketPlace(props) {
         },
     }));
     const totalPageCount = () => {
-        return Math.ceil(pageCount / 25)
-
+        return ((pageCount < 25) ?
+            1 : Math.ceil(pageCount / 25))
     }
 
     const loadItems = (data) => {
+        console.log(props.account)
+        const items = [];
+        console.log(data)
+        if (data.length === 0) {
+            items.push(
+                <Grid item xs={12} style={{ textAlign: "center" }}>
+                    <Typography variant="h3">Sorry, There are no NFTs available!</Typography>
+                </Grid>)
+        } else {
+            for (const item in data) {
+                items.push(
+                    <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
+                        <Item data={data[item]} />
+                    </Grid>)
+            }
+        }
+
+        return items;
+    }
+
+    //this is just to adjust the styling on cards in trending without affecting the others. Remove when backend for
+    //trending is implemented -- Harris
+    const loadTrendingItems = (data) => {
         const items = [];
         for (const item in data) {
             items.push(
-                <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
-                    <Item data={data[item]} />
-                </Grid>)
+                <Item data={data[item]} />
+            )
         }
         return items;
     }
@@ -54,15 +80,15 @@ function MarketPlace(props) {
     useEffect(() => {
         if (props.authorised) {
             let web3 = new Web3(window.ethereum);
-            let contract = new web3.eth.Contract(TOKEN_CONTRACT_ABI, TOKEN_CONTRACT_ADDRESS);
-            contract.methods.multiCallNFTsOnMarket().call()
+            let contractMulticall = new web3.eth.Contract(MULTICALL_CONTRACT_ABI, MULTICALL_CONTRACT_ADDRESS);
+            contractMulticall.methods.multiCallNFTsOnMarket().call()
                 .then(function (result) {
                     console.log("multifetch", result);
                     setPageCount(result[0].length)
                     // TODO: might want to change this to your liking
                     // currently there should be 3 NFT in total listed on sale
                     for (const data in result[0]) {
-                        fetchMetadata(result[0][data],result[1][data], String(web3.utils.fromWei(result[2][data])), result[3][data])
+                        fetchMetadata(result[0][data], result[1][data], String(web3.utils.fromWei(result[2][data])), result[3][data])
                     }
                     // price needs to be converted from wei to ethers using the web3.utils.fromWei function
                     //console.log("Price: " + String(web3.utils.fromWei(result[2][0])) + " ethers"); // example
@@ -77,14 +103,13 @@ function MarketPlace(props) {
             console.log(seller)
             const itemData = {
                 token_id: tokenid,
-                data: response['data'][0], 
+                data: response['data'][0],
                 price: price,
                 seller: seller
             }
             setItem(item => [...item, itemData])
         });
     }
-
 
     return (
         <div className="marketplace-container">
@@ -93,31 +118,37 @@ function MarketPlace(props) {
                 <Grid item xs={12} sm={"auto"} md={2}>
                     <Filters />
                 </Grid>
-
-
                 <Grid item xs={12} sm={12} md={10}>
+                    <MarketplaceCarousel loadItems={loadTrendingItems} item={item} />
                     <Grid
                         container
-                        flex
+                        spacing={1}
+                        className={(xs ? classes.gridItemContainer : classes.gridContainer)}
+                    >
+                        {props.userSessionData ?
+                            (props.account ? loadItems(item) : <Grid item xs={12} style={{ textAlign: "center" }}>
+                                <Typography variant="h3">Connect your MetaMask to access the Marketplace</Typography>
+                            </Grid>) : <Grid item xs={12} style={{ textAlign: "center" }}>
+                                <Typography variant="h3">Log in to access the Marketplace</Typography>
+                            </Grid>}
+
+                    </Grid>
+                    <br></br><br></br>
+                    <Grid
+                        container
+                        flex={"true"}
                         className={classes.top}>
                         <Grid item xs={12}>
                             <Pagination count={totalPageCount()} showFirstButton showLastButton style={{ display: " flex", justifyContent: 'center', alignItems: 'center' }} />
                         </Grid>
                     </Grid>
-                    <Grid
-                        container
-                        spacing={1}
-                        className={(xs ? classes.gridItemContainer : classes.gridContainer)}
-
-                    >
-                        {loadItems(item)}
-                    </Grid>
                 </Grid>
+
             </Grid>
-
-
-        </div>
+        </div >
     )
+
+
 }
 
 export default MarketPlace
