@@ -17,6 +17,7 @@ import {
     MULTICALL_CONTRACT_ABI
 } from "../../contract-data/token-contract-data";
 import { Typography } from '@material-ui/core';
+import MarketplaceCarousel from './MarketplaceCarousel';
 // axios
 const axios = require('axios');
 
@@ -36,17 +37,39 @@ function MarketPlace(props) {
         },
     }));
     const totalPageCount = () => {
-        return Math.ceil(pageCount / 25)
-
+        return ((pageCount < 25) ?
+            1 : Math.ceil(pageCount / 25))
     }
 
     const loadItems = (data) => {
+        console.log(props.account)
+        const items = [];
+        console.log(data)
+        if (data.length === 0) {
+            items.push(
+                <Grid item xs={12} style={{ textAlign: "center" }}>
+                    <Typography variant="h3">Sorry, There are no NFTs available!</Typography>
+                </Grid>)
+        } else {
+            for (const item in data) {
+                items.push(
+                    <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
+                        <Item data={data[item]} />
+                    </Grid>)
+            }
+        }
+
+        return items;
+    }
+
+    //this is just to adjust the styling on cards in trending without affecting the others. Remove when backend for
+    //trending is implemented -- Harris
+    const loadTrendingItems = (data) => {
         const items = [];
         for (const item in data) {
             items.push(
-                <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
-                    <Item data={data[item]} />
-                </Grid>)
+                <Item data={data[item]} />
+            )
         }
         return items;
     }
@@ -88,60 +111,44 @@ function MarketPlace(props) {
         });
     }
 
-    // function to purchase NFT on market
-    // WARNING: you need to fetch the price properly and pass it into the function, if you put a lower amount the transaction will revert,
-    // if you put a higher amount the transaction will pass through but the buyer pays more than necessary
-    // price parameter should be a string, this function will convert it to ethers
-    const purchaseNFTOnMarket = (tokenId, price) => {
-        let web3 = new Web3(window.ethereum);
-        let contract = new web3.eth.Contract(TOKEN_CONTRACT_ABI, TOKEN_CONTRACT_ADDRESS);
-        let amount = web3.utils.toWei(price, 'ether');
-        contract.methods.purchaseNFT(tokenId).send({
-            from: props.account,
-            value: amount
-        }).then(function(result) {
-            console.log(result);
-            // TODO: setAlert
-        });
-    }
-
     return (
         <div className="marketplace-container">
             <Grid container className={classes.gridContainer} >
-                {props.authorised ?
-                    <>
-                        <Grid item xs={12} sm={"auto"} md={2}>
-                            <Filters />
+
+                <Grid item xs={12} sm={"auto"} md={2}>
+                    <Filters />
+                </Grid>
+                <Grid item xs={12} sm={12} md={10}>
+                    <MarketplaceCarousel loadItems={loadTrendingItems} item={item} />
+                    <Grid
+                        container
+                        spacing={1}
+                        className={(xs ? classes.gridItemContainer : classes.gridContainer)}
+                    >
+                        {props.userSessionData ?
+                            (props.account ? loadItems(item) : <Grid item xs={12} style={{ textAlign: "center" }}>
+                                <Typography variant="h3">Connect your MetaMask to access the Marketplace</Typography>
+                            </Grid>) : <Grid item xs={12} style={{ textAlign: "center" }}>
+                                <Typography variant="h3">Log in to access the Marketplace</Typography>
+                            </Grid>}
+
+                    </Grid>
+                    <br></br><br></br>
+                    <Grid
+                        container
+                        flex={"true"}
+                        className={classes.top}>
+                        <Grid item xs={12}>
+                            <Pagination count={totalPageCount()} showFirstButton showLastButton style={{ display: " flex", justifyContent: 'center', alignItems: 'center' }} />
                         </Grid>
+                    </Grid>
+                </Grid>
 
-
-                        <Grid item xs={12} sm={12} md={10}>
-                            <Grid
-                                container
-                                flex
-                                className={classes.top}>
-                                <Grid item xs={12}>
-                                    <Pagination count={totalPageCount()} showFirstButton showLastButton style={{ display: " flex", justifyContent: 'center', alignItems: 'center' }} />
-                                </Grid>
-                            </Grid>
-                            <Grid
-                                container
-                                spacing={1}
-                                className={(xs ? classes.gridItemContainer : classes.gridContainer)}
-
-                            >
-                                {loadItems(item)}
-
-                            </Grid>
-                        </Grid></> :
-                    <Grid container className={classes.gridContainer}>
-                        <Grid item xs={12} style={{textAlign: "center"}}>
-                            <Typography variant="h1">Please connect your Metamask</Typography>
-                        </Grid>
-                    </Grid>}
             </Grid>
         </div >
     )
+
+
 }
 
 export default MarketPlace

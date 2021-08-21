@@ -70,7 +70,7 @@ function Sell(props) {
                         />
                         <Controls.Button
                             type="submit"
-                            text="Create listing" />
+                            text="Sell this nft" />
                     </Form>
                 </Grid>
             </Grid>
