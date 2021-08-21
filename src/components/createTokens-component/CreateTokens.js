@@ -83,6 +83,7 @@ export default function CreateTokens(props) {
   const [addGameForm, setAddGameForm] = useState("");
 
   //   Item
+  const [addItemGameId, setAddItemGameId] = useState("");
   const [addItemId, setAddItemId] = useState("");
   const [addItemName, setAddItemName] = useState("");
   const [addItemDescription, setAddItemDescription] = useState("");
@@ -98,6 +99,11 @@ export default function CreateTokens(props) {
     setAddGameForm(event.target.value);
   };
 
+  const addItemGameIdHandler = (event) => {
+    setAddItemGameId(event.target.value);
+  };
+
+
   const addItemIdHandler = (event) => {
     setAddItemId(event.target.value);
   };
@@ -112,6 +118,7 @@ export default function CreateTokens(props) {
 
   const AddItemImageHandler = (event) => {
     setAddItemImage(event.target.value);
+    console.log(addItemImage);
   };
 
 
@@ -139,7 +146,6 @@ export default function CreateTokens(props) {
     axios
       .get(process.env.REACT_APP_DATABASE_API_GAME_URL)
       .then(function (data) {
-        console.log(data.data.data); // debug
         setGamesList(data.data.data);
       });
   }, []);
@@ -148,7 +154,7 @@ export default function CreateTokens(props) {
     axios
       .post(process.env.REACT_APP_DATABASE_API_GAME_URL, {
         apikey: process.env.REACT_APP_DATABASE_API_KEY,
-        game_name: String(addGameForm),
+        game_name: String(gameName),
       })
       .then(function (data) {
         if (data.data.errors) {
@@ -177,12 +183,13 @@ export default function CreateTokens(props) {
       .post(process.env.REACT_APP_DATABASE_API_NFT_URL, {
         apikey: process.env.REACT_APP_DATABASE_API_KEY,
         game_id: String(gameId),
-        item_id: String(addItemId),
-        item_name: String(addItemName),
-        item_description: String(addItemDescription),
-        item_image: String(addItemImage),
+        item_id: String(itemId),
+        item_name: String(itemName),
+        item_description: String(itemDescription),
+        item_image: itemImage,
       })
       .then(function (data) {
+          console.log(data);
         if (data.data.errors) {
           props.showAlert("Error", "An unknown error occurred.", "", "error");
         } else if (data.status === 200) {
@@ -242,6 +249,7 @@ export default function CreateTokens(props) {
                 <TextField
                   id="game-name"
                   label="Game Name"
+                  value={addGameForm}
                   onChange={addGameFormHandler}
                   required
                 />
@@ -251,7 +259,9 @@ export default function CreateTokens(props) {
                   color="primary"
                   className={classes.submit}
                   startIcon={<AddIcon />}
-                  onClick={createGame}
+                  onClick={() => {
+                    createGame(addGameForm)
+                  }}
                 >
                   Add Game
                 </Button>
@@ -266,13 +276,15 @@ export default function CreateTokens(props) {
               <TextField
                 id="select-game"
                 select
-                label="Select"
+                label="Game ID"
+                value={addItemGameId}
+                onChange={addItemGameIdHandler}
                 variant="outlined"
                 required
               >
                 {gamesList &&
                   gamesList.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
+                    <MenuItem key={option.value} value={option._id}>
                       {option._id} - {option.game_name}
                     </MenuItem>
                   ))}
@@ -282,7 +294,8 @@ export default function CreateTokens(props) {
                 required
                 id="item-id"
                 label="Item ID"
-                type="number"
+                type="text"
+                value={addItemId}
                 onChange={addItemIdHandler}
                 InputLabelProps={{
                   shrink: true,
@@ -292,6 +305,8 @@ export default function CreateTokens(props) {
                 required
                 id="item-name"
                 label="Item Name"
+                type="text"
+                value={addItemName}
                 onChange={addItemNameHandler}
                 InputLabelProps={{
                   shrink: true,
@@ -305,6 +320,7 @@ export default function CreateTokens(props) {
                 placeholder="Item Description"
                 multiline
                 variant="filled"
+                value={addItemDescription}
                 onChange={addItemDescriptionHandler}
               />
               <br />
@@ -330,25 +346,27 @@ export default function CreateTokens(props) {
                 color="primary"
                 className={classes.submit}
                 startIcon={<CloudUploadIcon />}
-                onClick={createGameItem}
+                onClick={() => {
+                    createGameItem(addItemGameId, addItemId, addItemName, addItemDescription, addItemImage);
+                }}
               >
                 Create Game Item
               </Button>
             </form>
           </TabPanel>
 
-          {/* TRANSFER */}
+          {/* Mint NFT tokens */}
           <TabPanel value={value} index={2}>
-            <h4 className="token-title">Transfer Item to Wallet</h4>
+            <h4 className="token-title">Mint NFTs to Wallet</h4>
 
             <div className="form-align">
-              <h4></h4>
               <form className={classes.root} noValidate autoComplete="off">
                 <TextField
                   id="game-id"
                   select
                   label="Select Game"
                   variant="outlined"
+                  value={mintGame}
                   required
                   onChange={mintGameHandler}
                 >
