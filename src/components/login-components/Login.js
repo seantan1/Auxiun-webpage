@@ -70,7 +70,7 @@ const Login = (props) => {
                 } else if (data.data.status === "success") {
                     props.showAlert("Success", "Login Successful!", "", "success");
                     // store session to localStorage
-                    localStorage.setItem('userSessionData', JSON.stringify(data.data.data[0]));
+                    localStorage.setItem('userSessionData', JSON.stringify(data.data.data));
                     history.push("/");
                 } else {
                     console.log("Unknown error occured. Please try again.");
