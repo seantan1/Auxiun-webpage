@@ -49,6 +49,8 @@ import Announcement from "./components/home-components/Announcement";
 // Media Page
 import Media from "./components/home-components/Media";
 
+import Roadmap from "./components/home-components/Roadmap";
+
 
 // About Page
 import About from "./components/home-components/About";
@@ -293,6 +295,7 @@ function App() {
                             <About/>
                             <Team/>
                             <Announcement/>
+                            <Roadmap/>
                             <Media/>
                         </Route>
                         <Route exact path='/marketplace'>
