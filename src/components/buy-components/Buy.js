@@ -5,7 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import './css/Buy.css'
 import {
     withRouter,
-    Link,
+    useHistory,
     Redirect
 } from "react-router-dom";
 // web3 and axios for NFT data & metadata
@@ -19,6 +19,7 @@ import {
 } from "../../contract-data/token-contract-data";
 import { Typography } from '@material-ui/core';
 function Buy(props) {
+    const history = useHistory();
     const useStyles = makeStyles((theme) => ({
         gridContainer: {
             paddingLeft: "4rem",
@@ -50,21 +51,22 @@ function Buy(props) {
         contract.methods.purchaseNFT(tokenId).send({
             from: props.account,
             value: amount
-        }).then(function (result) {
-            console.log(result);
-            return true;
-        });
+        }).on('transactionHash', (hash) => {
+            props.showAlert(`Purchase complete.\n Transaction ID: ${hash}`)
+            history.push('/marketplace');
+        })
     }
     useEffect(() => {
         console.log(props);
     }, [props])
     const onClick = () => {
         purchaseNFTOnMarket(props.location.state.data.token_id, props.location.state.data.price);
+        
     }
     const classes = useStyles();
     if (!props.location.state) {
         return (
-            <Redirect to="/market"/>
+            <Redirect to="/marketplace"/>
         )
     } else {
         return (
@@ -95,7 +97,7 @@ function Buy(props) {
                                 variant={"contained"}
                                 size={"large"}
                                 color={"primary"}
-                                onClick={onClick? <Redirect to="/market"/> : null}>
+                                onClick={onClick}>
                                 {"Buy"}
                             </Button>
                     </Grid>
