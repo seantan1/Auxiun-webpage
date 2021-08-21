@@ -4,7 +4,7 @@ import { Button, Card, Chip, Grid } from '@material-ui/core';
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import React, { useState, useEffect } from 'react'
-
+import TextField from '@material-ui/core/TextField';
 import Item from './Item';
 
 // web3 and axios for NFT data & metadata
@@ -64,7 +64,12 @@ const Inventory = (props) => {
     }
 
     const classes = useStyles();
-
+    const [testSell, setTestSell] = useState("")
+    const testButton = () => {
+        let web3 = new Web3(window.ethereum);
+        let amount = web3.utils.toWei("0.001", 'ether');
+        listNFTOnMarket("2", amount);
+    }
     // useEffect
     useEffect(() => {
         if (props.authorised) {
@@ -104,6 +109,9 @@ const Inventory = (props) => {
         });
     }
 
+    const handleTestSell= (e) => {
+        setTestSell(e.target.value);
+    }
     // TEST function: axios call function
     const fetchMetadata = (tokenid, uri, price, seller) => {
         // axios fetching metadata of NFT
@@ -151,6 +159,10 @@ const Inventory = (props) => {
 
                 <Card>
                     <Grid container spacing={2} className='inventory-items'>
+                            <TextField value={testSell} onChange={handleTestSell}></TextField>
+                        <Button variant="contained" color="primary" onClick={testButton}>
+                            Danny's Test Button
+                        </Button>
                         {loadItems(item)}
                     </Grid>
                 </Card>

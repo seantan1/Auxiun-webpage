@@ -52,7 +52,7 @@ function Buy(props) {
             value: amount
         }).then(function (result) {
             console.log(result);
-            // TODO: setAlert
+            return true;
         });
     }
     useEffect(() => {
@@ -91,17 +91,13 @@ function Buy(props) {
                         <Typography variant="body2" display="block" gutterBottom>
                             {props.location.state.data.price + " ETH"}
                         </Typography>
-                        <Link to={{
-                            pathname: "/marketplace",
-                        }}>
                             <Button
                                 variant={"contained"}
                                 size={"large"}
                                 color={"primary"}
-                                onClick={onClick}>
+                                onClick={onClick? <Redirect to="/market"/> : null}>
                                 {"Buy"}
                             </Button>
-                        </Link>
                     </Grid>
                 </Grid>
             </div>
