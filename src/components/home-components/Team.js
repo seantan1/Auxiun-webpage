@@ -5,7 +5,7 @@ import TeamImage from "../../assets/TeamImage.svg";
 const Team = () => {
   return (
     <div class="team-section">
-      <h2 className="team-section">Meet Our Team</h2>
+      <p className="team-section">Meet Our Team</p>
 
       <div class="inner-width">
         <div class="pers">
