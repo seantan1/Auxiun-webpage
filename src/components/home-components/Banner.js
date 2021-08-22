@@ -57,8 +57,8 @@ const Banner = () => {
   }, []);
 
   return (
-    <div className="bannerwave">
-      <div class="waveWrapper waveAnimation">
+    <div className="banner">
+      {/* <div class="waveWrapper waveAnimation">
         <div className="banner">
           <div class="waveWrapperInner bgTop">
             <div class="wave waveTop"></div>
@@ -68,7 +68,7 @@ const Banner = () => {
           </div>
           <div class="waveWrapperInner bgBottom">
             <div class="wave waveBottom"></div>
-          </div>
+          </div> */}
           <div className="banner-text">
             <Container maxWidth="sm">
               <div className="homepage-title">
@@ -103,9 +103,9 @@ const Banner = () => {
                 <span>Explore Marketplace</span>
               </a>
             </Container>
-           </div>
-        </div>
-      </div>
+            </div>
+         {/* </div> */}
+      {/* </div>  */}
     </div>
 
   );

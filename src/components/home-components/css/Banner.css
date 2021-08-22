@@ -1,12 +1,14 @@
 .bannerwave {
   /* background-color: grey; */
   /* padding-top: calc(22% + 20px); */
-  height: 100vh;
+  /* height: 100vh; */
 }
 
 .banner{
   padding-top: calc(25vh + 20px);
-}
+  height: 100vh;
+
+ }
 
 .banner-image-container {
   text-align: center;
