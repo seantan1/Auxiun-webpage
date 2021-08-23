@@ -4,11 +4,10 @@
   /* height: 100vh; */
 }
 
-.banner{
+.banner {
   padding-top: calc(25vh + 20px);
   height: 100vh;
-
- }
+}
 
 .banner-image-container {
   text-align: center;
@@ -73,14 +72,13 @@
   transition: all 600ms ease;
 }
 .btn span {
- 
   background-color: black;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .btn:hover svg rect {
-   stroke-width: 4;
+  stroke-width: 4;
   stroke-dasharray: 196, 543;
   stroke-dashoffset: 437;
 }
@@ -111,7 +109,7 @@
   overflow: hidden;
   height: 100%;
   bottom: -1px;
-  background-image: linear-gradient( #0d043f59 5%, #140f5b1a 70%);
+  background-image: linear-gradient(#0d043f59 5%, #140f5b1a 70%);
 }
 .bgTop {
   /* z-index: 15; */
@@ -149,18 +147,21 @@
 }
 .waveMiddle {
   background-size: 50% 120px;
-  background-image: url('http://front-end-noobs.com/jecko/img/wave-mid.png');
+  background-image: url("http://front-end-noobs.com/jecko/img/wave-mid.png");
 }
 .waveAnimation .waveMiddle {
   animation: move_wave 10s linear infinite;
 }
 .waveBottom {
   background-size: 50% 100px;
-  background-image: url('http://front-end-noobs.com/jecko/img/wave-bot.png')
+  background-image: url("http://front-end-noobs.com/jecko/img/wave-bot.png");
 }
 .waveAnimation .waveBottom {
   animation: move_wave 20s linear infinite;
 }
+
+ 
+ 
 
 /* Responsive */
 @media (max-width: 900px) {

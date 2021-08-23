@@ -28,6 +28,7 @@ import Profile from "./components/profile-component/Profile";
 // login
 import Login from "./components/login-components/Login";
 
+
 // register
 import Register from "./components/register-components/Register";
 

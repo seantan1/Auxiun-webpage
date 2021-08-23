@@ -72,7 +72,7 @@ const Banner = () => {
           <div className="banner-text">
             <Container maxWidth="sm">
               <div className="homepage-title">
-                <Typography variant="h4" component="h4">
+                <Typography className="homepage-title" variant="h4" component="h4">
                   NFT Marketplace for Gamers and Creators
                 </Typography>
               </div>
