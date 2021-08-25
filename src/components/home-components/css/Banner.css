@@ -7,12 +7,13 @@
 .banner {
   padding-top: calc(25vh + 20px);
   height: 100vh;
+  
 }
 
 .banner-image-container {
   text-align: center;
   color: white;
-  width: 50%;
+   width: 50%;
   margin: auto;
 }
 
