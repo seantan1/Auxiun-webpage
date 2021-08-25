@@ -48,6 +48,7 @@
 }
 
 .card {
+  margin: 0 auto;
   position: relative;
   display: block;
   height: 100%;
@@ -166,6 +167,8 @@
       width: 100%;
   }
 }
+
+ 
 
 
 
