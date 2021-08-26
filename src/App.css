@@ -8,10 +8,8 @@ html,body
 }
 
 .App {
-    /* text-align: center; */
-    /* position: relative; */
-    background-image: url("./assets/background.png") !important;
-    background-size: 30%;
+    /* background-image: url("./assets/background.png") !important;
+    background-size: 30%; */
 }
 
 .App-logo {

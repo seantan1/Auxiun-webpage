@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { makeStyles } from '@material-ui/core/styles';
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import "./App.css";
 import detectEthereumProvider from "@metamask/detect-provider";
 import Alert from "@material-ui/lab/Alert";
 import AlertTitle from "@material-ui/lab/AlertTitle";
-
-
 
 // component imports
 // global
@@ -73,6 +72,7 @@ const chainNetVersion = RINKEBY_TEST_NET_VERSION;
 const chainBlockExplorerUrl = RINKEBY_TEST_NET_BLOCK_EXPLORER_TX_URL;
 
 function App() {
+
     // load once
     const [loadOnce, setLoadOnce] = useState(false);
 
@@ -270,7 +270,7 @@ function App() {
             )}
 
             <darkThemeContext.Provider value={{ darkTheme, setDarkTheme }}>
-                <div className="page-content-container">
+                <div className='page-content-container'>
                     <div className="sticky-navbar">
                         <Navbar
                             authorised={authorised}
