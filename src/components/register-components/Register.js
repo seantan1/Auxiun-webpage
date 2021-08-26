@@ -1,5 +1,5 @@
-import React, { useState, useContext} from "react";
-import { useHistory  } from "react-router-dom";
+import React, { useState, useContext } from "react";
+import { useHistory } from "react-router-dom";
 import './css/Register.css';
 
 import TextField from '@material-ui/core/TextField';
@@ -16,33 +16,7 @@ import backgroundDark from '../../assets/background_dark.png'
 const axios = require('axios');
 
 // CssTextField
-const CssTextField = withStyles({
-    root: {
-        "& input": {
-            color: "blue"
-        },
-        "& label": {
-            color: "#b3b3b3"
-        },
-        "&:hover label": {
-            color: "blue"
-        },
-        "& label.Mui-focused": {
-            color: "blue"
-        },
-        "& .MuiOutlinedInput-root": {
-            "& fieldset": {
-                borderColor: "#b3b3b3"
-            },
-            "&:hover fieldset": {
-                borderColor: "blue"
-            },
-            "&.Mui-focused fieldset": {
-                borderColor: "blue"
-            }
-        }
-    },
-})(TextField);
+
 
 
 export default function Register(props) {
@@ -56,7 +30,36 @@ export default function Register(props) {
             color: darkTheme === true ? '#EBEBEB' : ''
         }
     })
-    
+
+    // CssTextField
+    const CssTextField = withStyles({
+        root: {
+            "& input": {
+                color: darkTheme === true ? '#EBEBEB' : "blue"
+            },
+            "& label": {
+                color: darkTheme === true ? '#EBEBEB' : "#b3b3b3"
+            },
+            "&:hover label": {
+                color: darkTheme === true ? '#EBEBEB' : "blue"
+            },
+            "& label.Mui-focused": {
+                color: darkTheme === true ? '#EBEBEB' : "blue"
+            },
+            "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                    borderColor: darkTheme === true ? '#EBEBEB' : "#b3b3b3"
+                },
+                "&:hover fieldset": {
+                    borderColor: darkTheme === true ? '#EBEBEB' : "blue"
+                },
+                "&.Mui-focused fieldset": {
+                    borderColor: darkTheme === true ? '#EBEBEB' : "blue"
+                }
+            }
+        },
+    })(TextField);
+
     const classes = useStyles();
 
     // login form
@@ -116,11 +119,11 @@ export default function Register(props) {
         <div className={`${classes.html} register-page`}>
             <div className="content">
                 <h1 className="title-text">Sign Up Today!</h1>
-                <CssTextField className="text-field" label="First Name" style={{width:'300px'}} required variant="outlined" onChange={userFirstNameRegisterFormHandler} /><br></br><br></br>
-                <CssTextField className="text-field" label="Last Name" style={{width:'300px'}} required variant="outlined" onChange={userLastNameRegisterFormHandler} /><br></br><br></br>
-                <CssTextField className="text-field" label="Email" style={{width:'300px'}} required variant="outlined" onChange={userEmailRegisterFormHandler} /><br></br><br></br>
-                <CssTextField className="text-field" label="Password" style={{width:'300px'}} required type="password" variant="outlined" onChange={userPasswordRegisterFormHandler} /><br></br><br></br>
-                <CssTextField className="text-field" label="Confirm Password" style={{width:'300px'}} required type="password" variant="outlined" onChange={userConfirmPasswordRegisterFormHandler} /><br></br><br></br>
+                <CssTextField className="text-field" label="First Name" style={{ width: '300px' }} required variant="outlined" onChange={userFirstNameRegisterFormHandler} /><br></br><br></br>
+                <CssTextField className="text-field" label="Last Name" style={{ width: '300px' }} required variant="outlined" onChange={userLastNameRegisterFormHandler} /><br></br><br></br>
+                <CssTextField className="text-field" label="Email" style={{ width: '300px' }} required variant="outlined" onChange={userEmailRegisterFormHandler} /><br></br><br></br>
+                <CssTextField className="text-field" label="Password" style={{ width: '300px' }} required type="password" variant="outlined" onChange={userPasswordRegisterFormHandler} /><br></br><br></br>
+                <CssTextField className="text-field" label="Confirm Password" style={{ width: '300px' }} required type="password" variant="outlined" onChange={userConfirmPasswordRegisterFormHandler} /><br></br><br></br>
                 <Grid container spacing={1} justify="center">
                     <Grid item>
                         <Button id="sign-up-button" className="sign-up-button" variant="contained" color="primary" onClick={register}>Register</Button>
