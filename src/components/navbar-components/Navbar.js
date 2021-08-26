@@ -27,6 +27,8 @@ import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import DraftsIcon from "@material-ui/icons/Drafts";
 import SendIcon from "@material-ui/icons/Send";
+import DarkModeToggle from "react-dark-mode-toggle";
+
 
 // import loadingGIF from '../../assets/loading-icon-transparent-background-12.jpg';
 
@@ -84,6 +86,8 @@ const Navbar = (props) => {
     },
   }))(MenuItem);
 
+  const [isDarkMode, setIsDarkMode] = useState(() => false);
+
   // scroll event listener
   window.onscroll = function () {
     if (window.pageYOffset === 0) {
@@ -139,6 +143,14 @@ const Navbar = (props) => {
               <a className="nav-title" href="/team">
                 Team
               </a>
+            </div>
+
+            <div className='toggle'>
+              <DarkModeToggle
+                onChange={setIsDarkMode}
+                checked={isDarkMode}
+                size={50}
+              />
             </div>
 
             <div className="connect-wallet-button-container">
