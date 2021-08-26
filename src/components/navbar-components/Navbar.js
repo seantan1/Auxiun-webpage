@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./css/Navbar.css";
 import "../../../node_modules/font-awesome/css/font-awesome.css";
 import BrandLogo from "../../assets/auxiun-logo.png";
 import { withStyles } from "@material-ui/core/styles";
+import darkThemeContext from "../darkThemeContext";
 
 import AccessAlarmIcon from "@material-ui/icons/AccessAlarm";
 import ThreeDRotation from "@material-ui/icons/ThreeDRotation";
@@ -51,7 +52,6 @@ const Navbar = (props) => {
   const [fontColor, setfontColor] = useState("blue");
   const [hoverBrandImage, setHoverBrandImage] = useState(false);
   const [hoverProfileImage, setHoverProfileImage] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(() => false);
   // hide navbar if scrolling past the banner
   const [hideNavBar, setHideNavBar] = useState(false);
   const [navBarOpacity, setNavBarOpacity] = useState(1);
@@ -111,6 +111,13 @@ const Navbar = (props) => {
   };
   // end of hook for nav bar css change on scroll
 
+  const { setDarkTheme } = useContext(darkThemeContext);
+  const { darkTheme } = useContext(darkThemeContext);
+
+  const darkThemeToggle = () => {
+    setDarkTheme(!darkTheme);
+  }
+
   return (
     <div>
       {!hideNavBar && (
@@ -145,8 +152,8 @@ const Navbar = (props) => {
             </div>
 
             <DarkModeToggle
-              onChange={setIsDarkMode}
-              checked={isDarkMode}
+              onChange={darkThemeToggle}
+              checked={darkTheme}
               size={50}
               className='toggle'
             />
