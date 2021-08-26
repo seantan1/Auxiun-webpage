@@ -51,6 +51,7 @@ const Navbar = (props) => {
   const [fontColor, setfontColor] = useState("blue");
   const [hoverBrandImage, setHoverBrandImage] = useState(false);
   const [hoverProfileImage, setHoverProfileImage] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(() => false);
   // hide navbar if scrolling past the banner
   const [hideNavBar, setHideNavBar] = useState(false);
   const [navBarOpacity, setNavBarOpacity] = useState(1);
@@ -85,8 +86,6 @@ const Navbar = (props) => {
       },
     },
   }))(MenuItem);
-
-  const [isDarkMode, setIsDarkMode] = useState(() => false);
 
   // scroll event listener
   window.onscroll = function () {
@@ -145,13 +144,12 @@ const Navbar = (props) => {
               </a>
             </div>
 
-            <div className='toggle'>
-              <DarkModeToggle
-                onChange={setIsDarkMode}
-                checked={isDarkMode}
-                size={50}
-              />
-            </div>
+            <DarkModeToggle
+              onChange={setIsDarkMode}
+              checked={isDarkMode}
+              size={50}
+              className='toggle'
+            />
 
             <div className="connect-wallet-button-container">
               {localStorage.userSessionData ?
