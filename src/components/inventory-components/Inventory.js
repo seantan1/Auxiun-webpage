@@ -135,7 +135,7 @@ const Inventory = (props) => {
                     console.log("Your marketplace transactions: ", result);
                     for (const data in result[0]) {
 
-                        fetchMetadataTransactions(result[0][data], result[1][data], result[2][data], result[3][data], result[4][data], result[5][data])
+                        fetchMetadataTransactions(result[0][data], result[1][data], result[2][data], result[3][data], result[4][data], result[5][data], result[6][data])
                     }
                     // order: tokenIds, tokenBuyers, tokenSellers, prices, timestamps, transactionType (true means buy (you are the buyer), false means sell)
                 });
@@ -164,18 +164,22 @@ const Inventory = (props) => {
             setItem(item => [...item, itemData])
         });
     }
-    const fetchMetadataTransactions = (tokenIds, tokenBuyers, tokenSellers, prices, timestamps, transactionType) => {
+    const fetchMetadataTransactions = (tokenIds, tokenUri, tokenBuyers, tokenSellers, prices, timestamps, transactionType) => {
         // axios fetching metadata of NFT
         let web3 = new Web3(window.ethereum);
-        const itemData = {
-            tokenIds: tokenIds,
-            tokenBuyers: tokenBuyers,
-            tokenSellers: tokenSellers,
-            prices: web3.utils.fromWei(prices, 'ether'),
-            timestamps: timestamps,
-            transactionType: transactionType
-        }
-        setTransactions(transactions => [...transactions, itemData])
+        axios.get(tokenUri).then(response => {
+            console.log(response)
+            const itemData = {
+                tokenIds: tokenIds,
+                tokenName: response.data[0].item_name,
+                tokenBuyers: tokenBuyers,
+                tokenSellers: tokenSellers,
+                prices: web3.utils.fromWei(prices, 'ether'),
+                timestamps: timestamps,
+                transactionType: transactionType
+            }
+            setTransactions(transactions => [...transactions, itemData])
+        });
     }
     const fetchMetadataOnMarket = (tokenIds, tokenURIs, tokenPrices, tokenSellers) => {
         // axios fetching metadata of NFT
@@ -230,7 +234,8 @@ const Inventory = (props) => {
                                 <Table aria-label="simple table">
                                     <TableHead>
                                         <TableRow>
-                                            <TableCell>Token ID</TableCell>
+                                            <TableCell>Token ID</TableCell> 
+                                            <TableCell align="right">NFT Name</TableCell>
                                             <TableCell align="right">Buyer Address</TableCell>
                                             <TableCell align="right">Seller Address</TableCell>
                                             <TableCell align="right">Price</TableCell>
@@ -244,6 +249,7 @@ const Inventory = (props) => {
                                                 <TableCell component="th" scope="row">
                                                     {transaction.tokenIds}
                                                 </TableCell>
+                                                <TableCell align="right">{transaction.tokenName}</TableCell>
                                                 <TableCell align="right">{transaction.tokenBuyers}</TableCell>
                                                 <TableCell align="right">{transaction.tokenSellers}</TableCell>
                                                 <TableCell align="right">{transaction.prices}</TableCell>
