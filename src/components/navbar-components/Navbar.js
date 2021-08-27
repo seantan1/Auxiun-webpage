@@ -130,14 +130,14 @@ const Navbar = (props) => {
             </div>
 
             <div className="nav navbar-links title">
-              <a className="nav-title" href="/about">
+              <a className="nav-title" href="./#about">
                 About
               </a>
               <a className="nav-title" href="/marketplace">
                 Marketplace
               </a>
-              <a className="nav-title" href="/team">
-                Team
+              <a className="nav-title" href="./#announcement">
+                Announcements
               </a>
             </div>
 

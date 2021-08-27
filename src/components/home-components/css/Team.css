@@ -7,13 +7,14 @@
   font-weight: 600;
   font-family: 'Montserrat', sans-serif;
   letter-spacing: -1px;
-}
+
+ }
 
 .inner-width {
    
   /* max-width: 1200px; */
   /* margin: auto; */
-  padding-bottom: 300px;
+  padding-bottom: 30vh;
   /* overflow: hidden; */
 }
  

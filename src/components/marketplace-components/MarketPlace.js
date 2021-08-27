@@ -112,7 +112,7 @@ function MarketPlace(props) {
     }
 
     return (
-        <div className="marketplace-container">
+        <div className="marketplace-container" id="marketplace">
             <Grid container className={classes.gridContainer} >
 
                 <Grid item xs={12} sm={"auto"} md={2}>
