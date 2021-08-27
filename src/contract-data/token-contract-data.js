@@ -799,154 +799,159 @@ export const TOKEN_CONTRACT_ABI = [
     }
 ];
 
-export const MULTICALL_CONTRACT_ADDRESS = '0xDc799Af2905b1fBE2d7aCD187138bDF4539481B4';
+export const MULTICALL_CONTRACT_ADDRESS = '0xAbB264d9E95e492DAA0071D1350Efc25c10d6ebC';
 
 export const MULTICALL_CONTRACT_ABI = [
     {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "_address",
-                "type": "address"
-            }
-        ],
-        "name": "setNFTContractAddress",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_address",
+          "type": "address"
+        }
+      ],
+      "name": "setNFTContractAddress",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "_address",
-                "type": "address"
-            }
-        ],
-        "name": "multiCallNFTsOwnedByAddress",
-        "outputs": [
-            {
-                "internalType": "uint256[]",
-                "name": "",
-                "type": "uint256[]"
-            },
-            {
-                "internalType": "string[]",
-                "name": "",
-                "type": "string[]"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function",
-        "constant": true
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_address",
+          "type": "address"
+        }
+      ],
+      "name": "multiCallNFTsOwnedByAddress",
+      "outputs": [
+        {
+          "internalType": "uint256[]",
+          "name": "",
+          "type": "uint256[]"
+        },
+        {
+          "internalType": "string[]",
+          "name": "",
+          "type": "string[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function",
+      "constant": true
     },
     {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "seller",
-                "type": "address"
-            }
-        ],
-        "name": "multiCallNFTsOnMarket",
-        "outputs": [
-            {
-                "internalType": "uint256[]",
-                "name": "",
-                "type": "uint256[]"
-            },
-            {
-                "internalType": "string[]",
-                "name": "",
-                "type": "string[]"
-            },
-            {
-                "internalType": "uint256[]",
-                "name": "",
-                "type": "uint256[]"
-            },
-            {
-                "internalType": "address[]",
-                "name": "",
-                "type": "address[]"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function",
-        "constant": true
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "seller",
+          "type": "address"
+        }
+      ],
+      "name": "multiCallNFTsOnMarket",
+      "outputs": [
+        {
+          "internalType": "uint256[]",
+          "name": "",
+          "type": "uint256[]"
+        },
+        {
+          "internalType": "string[]",
+          "name": "",
+          "type": "string[]"
+        },
+        {
+          "internalType": "uint256[]",
+          "name": "",
+          "type": "uint256[]"
+        },
+        {
+          "internalType": "address[]",
+          "name": "",
+          "type": "address[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function",
+      "constant": true
     },
     {
-        "inputs": [],
-        "name": "multiCallNFTsOnMarket",
-        "outputs": [
-            {
-                "internalType": "uint256[]",
-                "name": "",
-                "type": "uint256[]"
-            },
-            {
-                "internalType": "string[]",
-                "name": "",
-                "type": "string[]"
-            },
-            {
-                "internalType": "uint256[]",
-                "name": "",
-                "type": "uint256[]"
-            },
-            {
-                "internalType": "address[]",
-                "name": "",
-                "type": "address[]"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function",
-        "constant": true
+      "inputs": [],
+      "name": "multiCallNFTsOnMarket",
+      "outputs": [
+        {
+          "internalType": "uint256[]",
+          "name": "",
+          "type": "uint256[]"
+        },
+        {
+          "internalType": "string[]",
+          "name": "",
+          "type": "string[]"
+        },
+        {
+          "internalType": "uint256[]",
+          "name": "",
+          "type": "uint256[]"
+        },
+        {
+          "internalType": "address[]",
+          "name": "",
+          "type": "address[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function",
+      "constant": true
     },
     {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "user",
-                "type": "address"
-            }
-        ],
-        "name": "multiCallTransactionDataByUser",
-        "outputs": [
-            {
-                "internalType": "uint256[]",
-                "name": "",
-                "type": "uint256[]"
-            },
-            {
-                "internalType": "address[]",
-                "name": "",
-                "type": "address[]"
-            },
-            {
-                "internalType": "address[]",
-                "name": "",
-                "type": "address[]"
-            },
-            {
-                "internalType": "uint256[]",
-                "name": "",
-                "type": "uint256[]"
-            },
-            {
-                "internalType": "uint256[]",
-                "name": "",
-                "type": "uint256[]"
-            },
-            {
-                "internalType": "bool[]",
-                "name": "",
-                "type": "bool[]"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function",
-        "constant": true
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        }
+      ],
+      "name": "multiCallTransactionDataByUser",
+      "outputs": [
+        {
+          "internalType": "uint256[]",
+          "name": "",
+          "type": "uint256[]"
+        },
+        {
+          "internalType": "string[]",
+          "name": "",
+          "type": "string[]"
+        },
+        {
+          "internalType": "address[]",
+          "name": "",
+          "type": "address[]"
+        },
+        {
+          "internalType": "address[]",
+          "name": "",
+          "type": "address[]"
+        },
+        {
+          "internalType": "uint256[]",
+          "name": "",
+          "type": "uint256[]"
+        },
+        {
+          "internalType": "uint256[]",
+          "name": "",
+          "type": "uint256[]"
+        },
+        {
+          "internalType": "bool[]",
+          "name": "",
+          "type": "bool[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function",
+      "constant": true
     }
-];
+  ];
