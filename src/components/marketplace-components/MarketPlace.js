@@ -18,14 +18,17 @@ import {
 } from "../../contract-data/token-contract-data";
 import { Typography } from '@material-ui/core';
 import MarketplaceCarousel from './MarketplaceCarousel';
+import { useHistory, withRouter } from 'react-router-dom';
 // axios
 const axios = require('axios');
 
 function MarketPlace(props) {
+    const history = useHistory()
     const theme = useTheme();
     const xs = useMediaQuery(theme.breakpoints.down('sm'));
     const [item, setItem] = useState([])
     const [pageCount, setPageCount] = useState(0);
+    const [error, setError] = useState("")
     const useStyles = makeStyles((theme) => ({
         gridContainer: {
             paddingLeft: "4rem",
@@ -41,20 +44,36 @@ function MarketPlace(props) {
             1 : Math.ceil(pageCount / 25))
     }
 
+    useEffect(() => {
+        console.log(props.account)
+        console.log(props.userSessionData)
+        if (!item) {
+            console.log("3")
+            setError("There are no NFTs available")
+        }
+        if (!props.account) {
+            console.log("2")
+            setError("Please connect MetaMask")
+        }
+        if (!props.userSessionData) {
+            console.log("1")
+            setError("Log in to access the market place")
+        } 
+        if(props.userSessionData && props.account && item) {
+            setError("")
+        }
+    }, [props.userSessionData, props.account, item])
+
+    useEffect(() => {
+        history.push("/marketplace")
+    }, [props.account])
     const loadItems = (data) => {
         const items = [];
-        if (data.length === 0) {
+        for (const item in data) {
             items.push(
-                <Grid item xs={12} style={{ textAlign: "center" }}>
-                    <Typography variant="h3">Sorry, There are no NFTs available!</Typography>
+                <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
+                    <Item data={data[item]} />
                 </Grid>)
-        } else {
-            for (const item in data) {
-                items.push(
-                    <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
-                        <Item data={data[item]} />
-                    </Grid>)
-            }
         }
 
         return items;
@@ -110,43 +129,39 @@ function MarketPlace(props) {
 
     return (
         <div className="marketplace-container" id="marketplace">
-            <Grid container className={classes.gridContainer} >
+            {error ? <Grid item xs={12} style={{ textAlign: "center" }}><Typography variant="h3">{error}</Typography></Grid> :
+                <Grid container className={classes.gridContainer} >
 
-                <Grid item xs={12} sm={"auto"} md={2}>
-                    <Filters />
-                </Grid>
-                <Grid item xs={12} sm={12} md={10}>
-                    <MarketplaceCarousel loadItems={loadTrendingItems} item={item} />
-                    <Grid
-                        container
-                        spacing={1}
-                        className={(xs ? classes.gridItemContainer : classes.gridContainer)}
-                    >
-                        {props.userSessionData ?
-                            (props.account ? loadItems(item) : <Grid item xs={12} style={{ textAlign: "center" }}>
-                                <Typography variant="h3">Connect your MetaMask to access the Marketplace</Typography>
-                            </Grid>) : <Grid item xs={12} style={{ textAlign: "center" }}>
-                                <Typography variant="h3">Log in to access the Marketplace</Typography>
-                            </Grid>}
-
+                    <Grid item xs={12} sm={"auto"} md={2}>
+                        <Filters />
                     </Grid>
-                    <br></br><br></br>
-                    <Grid
-                        container
-                        flex={"true"}
-                        className={classes.top}>
-                        <Grid item xs={12}>
-                            <Pagination count={totalPageCount()} showFirstButton showLastButton style={{ display: " flex", justifyContent: 'center', alignItems: 'center' }} />
+
+                    <Grid item xs={12} sm={12} md={10}>
+                        <MarketplaceCarousel loadItems={loadTrendingItems} item={item} />
+                        <Grid
+                            container
+                            spacing={1}
+                            className={(xs ? classes.gridItemContainer : classes.gridContainer)}
+                        >
+                            {loadItems(item)}
+                        </Grid>
+                        <br></br><br></br>
+                        <Grid
+                            container
+                            flex={"true"}
+                            className={classes.top}>
+                            <Grid item xs={12}>
+                                <Pagination count={totalPageCount()} showFirstButton showLastButton style={{ display: " flex", justifyContent: 'center', alignItems: 'center' }} />
+                            </Grid>
                         </Grid>
                     </Grid>
-                </Grid>
 
-            </Grid>
-        </div >
+                </Grid>}
+        </div>
     )
 
 
 }
 
-export default MarketPlace
+export default withRouter(MarketPlace)
 
