@@ -88,7 +88,7 @@ export default function Pricing() {
     },
 
     footer: {
-      borderTop: `1px solid ${theme.palette.divider}`,
+      borderTop: darkTheme ? '1px solid white' : '1px solid #AAAAAA',
       marginTop: theme.spacing(40),
       paddingTop: theme.spacing(3),
       // paddingBottom: theme.spacing(0),
@@ -129,7 +129,7 @@ export default function Pricing() {
         },
       "& .MuiFormHelperText-root": {
         "&.MuiFormHelperText-contained": {
-          color: "BLACK"
+          color: darkTheme ? 'aliceblue' : ""
         }
       }
     },
