@@ -111,6 +111,11 @@ MenuItem {
     /* font-size: 0.5rem; */
 }
 
+.nav-title-dark {
+    font-weight: bolder;
+    color: aliceblue;
+}
+
 .horiz-icon {
     font-size: 16px;
     background-color: rgb(64, 64, 64);
