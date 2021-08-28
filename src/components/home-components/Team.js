@@ -12,19 +12,19 @@ const Team = () => {
 
       <div class="inner-width">
         <div class="pers">
-          <div class="pe">
+          <div class={darkTheme ? 'pe_dark' : "pe"}>
             <img src="http://auxiun.com/aws.jpg" />
             <div class="p-name" >Aws Al-Hasani Pl. Fin</div>
             <div class="p-des">CEO & Co Founder</div>
           </div>
 
-          <div class="pe">
+          <div class={darkTheme ? 'pe_dark' : "pe"}>
             <img src="http://auxiun.com/tito.jpg" />
             <div class="p-name" >Jose Armando Peixoto</div>
             <div class="p-des">CPO & Co-Founder</div>
           </div>
 
-          <div class="pe">
+          <div class={darkTheme ? 'pe_dark' : "pe"}>
             <img src="http://auxiun.com/vvv.jpg" />
             <div class="p-name" >Varthini Bhaskaran</div>
             <div class="p-des">CTO & Co-Founder</div>

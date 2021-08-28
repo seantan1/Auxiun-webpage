@@ -27,6 +27,24 @@
   background: #dfe4ea;
 }
 
+.pe_dark {
+  float: left;
+  width: calc(100% / 3);
+  overflow: hidden;
+  padding: 40px 0;
+  transition: 0.4s;
+}
+
+.pe_dark:hover {
+  background: #333;
+}
+
+.pe_dark img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+}
+
 .pe img {
   width: 150px;
   height: 150px;
