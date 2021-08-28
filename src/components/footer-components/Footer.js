@@ -127,6 +127,11 @@ export default function Pricing() {
                 borderColor: darkTheme === true ? '#EBEBEB' : "blue"
             }
         },
+      "& .MuiFormHelperText-root": {
+        "&.MuiFormHelperText-contained": {
+          color: "BLACK"
+        }
+      }
     },
 })(TextField);
 
