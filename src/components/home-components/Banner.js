@@ -5,8 +5,11 @@ import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import { withStyles } from "@material-ui/core/styles";
+import { useContext } from "react";
 
 import { useDencrypt } from "use-dencrypt-effect";
+
+import darkThemeContext from "../darkThemeContext";
 
 // Animated Text
 const values = ["gamer", "content creator", "artist"];
@@ -42,6 +45,7 @@ const StyledButton = withStyles({
 })(Button);
 
 const Banner = () => {
+  const { darkTheme } = useContext(darkThemeContext);
   const classes = useStyles();
 
   // Animated text
@@ -98,9 +102,10 @@ const Banner = () => {
                     stroke="url(#grad1)"
                     width="266"
                     height="50"
+                    className={darkTheme ? 'darkThemeSvg' : ''}
                   ></rect>
                 </svg>
-                <span>Explore Marketplace</span>
+                <span style={{backgroundColor: darkTheme ? 'aliceblue' : 'black'}}>Explore Marketplace</span>
               </a>
             </Container>
             </div>

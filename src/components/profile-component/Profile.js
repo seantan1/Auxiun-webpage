@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import "./css/profile.css";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
@@ -7,6 +7,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { withStyles } from "@material-ui/core/styles";
 import Gravatar from "react-gravatar";
 import FileCopyIcon from '@material-ui/icons/FileCopy';
+import darkThemeContext from "../darkThemeContext";
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -42,6 +43,7 @@ const StyledButton = withStyles({
 
 const Profile = (props) => {
     const classes = useStyles();
+    const { darkTheme } = useContext(darkThemeContext);
 
     return (
         <div>
@@ -52,11 +54,11 @@ const Profile = (props) => {
                 <Gravatar email="" size={100} rounded />
                 <button className="edit-btn">Edit Profile</button>
 
-                <div className="user-title">{props.userSessionData.firstname} {props.userSessionData.lastname}</div>
+                <div className="user-title" style={{color:darkTheme ? 'aliceblue' : 'black'}}>{props.userSessionData.firstname} {props.userSessionData.lastname}</div>
 
-                <div className="wallet-title">[Wallet Address]</div>
+                <div className="wallet-title" style={{color:darkTheme ? 'aliceblue' : 'gray'}}>[Wallet Address]</div>
 
-                <div className="email-title">{props.userSessionData.email}</div>
+                <div className="email-title" style={{color:darkTheme ? 'aliceblue' : 'gray'}}>{props.userSessionData.email}</div>
 
                 <div className="link-btn">
                     Link the following platforms to your profile

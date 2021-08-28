@@ -12,21 +12,19 @@
   margin: auto;
 }
 .user-title {
-  background: black;
+  /* background: black; */
   font-size: 30px;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  /* -webkit-background-clip: text; */
+  /* -webkit-text-fill-color: transparent; */
   padding-top: 1%;
   text-emphasis: bolder;
   padding-bottom: 10px;
 }
 .email-title {
   font-size: 10px;
-  color: grey;
 }
 
 .wallet-title {
-  color: darkgray;
   font-weight: bolder;
   font-size: 10px;
   padding-bottom: 10px;
