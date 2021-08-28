@@ -78,12 +78,7 @@ const Inventory = (props) => {
     }
 
     const classes = useStyles();
-    const [testSell, setTestSell] = useState("")
-    const testButton = () => {
-        let web3 = new Web3(window.ethereum);
-        let amount = web3.utils.toWei("0.001", 'ether');
-        listNFTOnMarket(String(testSell), amount);
-    }
+
     useEffect(() => {
         if (showBought && showSelling) {
             const data = item.filter(a => a.type === "selling" || "owned").sort(function (a, b) {
@@ -142,17 +137,7 @@ const Inventory = (props) => {
         }
     }, [props.authorised]);
 
-    // function to list your NFT on market
-    const listNFTOnMarket = (tokenId, price) => {
-        let web3 = new Web3(window.ethereum);
-        let contract = new web3.eth.Contract(TOKEN_CONTRACT_ABI, TOKEN_CONTRACT_ADDRESS);
-        contract.methods.listNFTOnMarket(tokenId, price).send({
-            from: props.account
-        }).then(function (result) {
-            console.log(result);
-            // TODO: add alert
-        });
-    }
+
     const fetchMetadataOwned = (tokenid, uri) => {
         // axios fetching metadata of NFT
         axios.get(uri).then(response => {
@@ -168,7 +153,6 @@ const Inventory = (props) => {
         // axios fetching metadata of NFT
         let web3 = new Web3(window.ethereum);
         axios.get(tokenUri).then(response => {
-            console.log(response)
             const itemData = {
                 tokenIds: tokenIds,
                 tokenName: response.data[0].item_name,

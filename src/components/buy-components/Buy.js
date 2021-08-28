@@ -56,9 +56,7 @@ function Buy(props) {
             history.push('/marketplace');
         })
     }
-    useEffect(() => {
-        console.log(props);
-    }, [props])
+
     const onClick = () => {
         purchaseNFTOnMarket(props.location.state.data.token_id, props.location.state.data.price);
         

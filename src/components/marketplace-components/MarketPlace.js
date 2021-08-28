@@ -42,9 +42,7 @@ function MarketPlace(props) {
     }
 
     const loadItems = (data) => {
-        console.log(props.account)
         const items = [];
-        console.log(data)
         if (data.length === 0) {
             items.push(
                 <Grid item xs={12} style={{ textAlign: "center" }}>
@@ -100,7 +98,6 @@ function MarketPlace(props) {
     const fetchMetadata = (tokenid, uri, price, seller) => {
         // axios fetching metadata of NFT
         axios.get(uri).then(response => {
-            console.log(seller)
             const itemData = {
                 token_id: tokenid,
                 data: response['data'][0],

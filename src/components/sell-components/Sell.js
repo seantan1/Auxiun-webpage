@@ -6,10 +6,20 @@ import { useForm, Form } from '../form/useForm';
 import './css/Sell.css'
 import Item from './Item';
 import {
-    withRouter
+    withRouter,
+    useHistory,
 } from "react-router-dom";
 import { Typography } from '@material-ui/core';
+// web3 and axios for NFT data & metadata
+import Web3 from 'web3';
+import {
+    TOKEN_CONTRACT_ADDRESS,
+    TOKEN_CONTRACT_ABI,
+    MULTICALL_CONTRACT_ADDRESS,
+    MULTICALL_CONTRACT_ABI
+} from "../../contract-data/token-contract-data";
 function Sell(props) {
+    const history = useHistory();
     const useStyles = makeStyles((theme) => ({
         gridContainer: {
             paddingLeft: "4rem",
@@ -25,12 +35,14 @@ function Sell(props) {
     }));
     const validate = (fieldValues = values) => {
         let temp = { ...errors }
+        if ('sellprice' in fieldValues) {
+            temp.sellprice = fieldValues.sellprice ? "" : "This field is required."
+        }
         if ('sellprice' in fieldValues)
-            temp.sellprice = fieldValues.sellprice ? 0 : "This field is required."
+            temp.sellprice = fieldValues.sellprice > 0 ? "" : "Invalid price"
         setErrors({
             ...temp
         })
-
         if (fieldValues === values)
             return Object.values(temp).every(x => x === "")
     }
@@ -40,9 +52,23 @@ function Sell(props) {
     const handleSubmit = e => {
         e.preventDefault()
         if (validate()) {
-            // API for selling goes here
-            console.log(values)
+            let web3 = new Web3(window.ethereum);
+            let amount = web3.utils.toWei(values.sellprice, 'ether');
+            listNFTOnMarket(props.location.state.data.token_id, amount);
+
         }
+    }
+
+    // function to list your NFT on market
+    const listNFTOnMarket = (tokenId, price) => {
+        let web3 = new Web3(window.ethereum);
+        let contract = new web3.eth.Contract(TOKEN_CONTRACT_ABI, TOKEN_CONTRACT_ADDRESS);
+        contract.methods.listNFTOnMarket(tokenId, price).send({
+            from: props.account
+        }).on('transactionHash', (hash) => {
+            props.showAlert(`NFT listed on Marketplace.\n Transaction ID: ${hash}`)
+            history.push('/marketplace');
+        })
     }
     const {
         values,

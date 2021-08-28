@@ -44,17 +44,9 @@ function Item(props) {
                         image={`data:${item.data.item_image.contentType};base64,${new Buffer.from(item.data.item_image['data']).toString('base64')}`}
                         title="Contemplative Reptile"
                     />
-                    {console.log(item.data.item_name)}
                     <CardContent>
                         <Typography gutterBottom variant="h5">
                             {item.data.item_name}
-                        </Typography>
-                        <Typography variant="caption" color="textSecondary">
-                            <div style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                            }}><StorefrontIcon /><span style={{whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis"}}>{item.seller}</span></div>
-
                         </Typography>
                         <Typography variant="caption" color="textSecondary">
                             <div style={{
