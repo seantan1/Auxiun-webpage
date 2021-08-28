@@ -15,6 +15,10 @@ import WalletProviderWindow from "./components/navbar-components/WalletProviderW
 import ProfileWindow from "./components/navbar-components/ProfileWindow";
 import darkThemeContext from "./components/darkThemeContext";
 
+//image imports
+import background from './assets/background.png'
+import backgroundDark from './assets/background_dark.png'
+
 // home
 import HomeBanner from "./components/home-components/Banner";
 
@@ -112,6 +116,16 @@ function App() {
     const [transactionPending, setTransactionPending] = useState(false);
 
     const [darkTheme, setDarkTheme] = useState(false);
+
+    const useStyles = makeStyles({
+        darkTheme: {
+            backgroundImage: darkTheme !== true ? `url(${background})` : `url(${backgroundDark})`,
+            backgroundSize: '30%',
+            color: darkTheme === true ? '#EBEBEB' : ''
+        }
+    })
+
+    const classes = useStyles();
 
     // use to toggle the navlinks window
     const [navlinksWindowOpen, setNavlinksWindowOpen] = useState(false);
@@ -270,7 +284,7 @@ function App() {
             )}
 
             <darkThemeContext.Provider value={{ darkTheme, setDarkTheme }}>
-                <div className='page-content-container'>
+                <div className={`${classes.darkTheme} page-content-container`}>
                     <div className="sticky-navbar">
                         <Navbar
                             authorised={authorised}

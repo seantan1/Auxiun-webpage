@@ -6,30 +6,13 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { withStyles } from "@material-ui/core/styles";
 import Grid from '@material-ui/core/Grid';
-import { makeStyles } from '@material-ui/core/styles';
 import darkThemeContext from "../darkThemeContext";
 
-//image imports
-import background from '../../assets/background.png'
-import backgroundDark from '../../assets/background_dark.png'
-
 const axios = require('axios');
-
-// CssTextField
-
-
 
 export default function Register(props) {
     const history = useHistory();
     const { darkTheme } = useContext(darkThemeContext);
-
-    const useStyles = makeStyles({
-        html: {
-            backgroundImage: darkTheme !== true ? `url(${background})` : `url(${backgroundDark})`,
-            backgroundSize: '30%',
-            color: darkTheme === true ? '#EBEBEB' : ''
-        }
-    })
 
     // CssTextField
     const CssTextField = withStyles({
@@ -59,8 +42,6 @@ export default function Register(props) {
             }
         },
     })(TextField);
-
-    const classes = useStyles();
 
     // login form
     const [userEmailRegisterForm, setuserEmailRegisterForm] = useState('');
@@ -116,7 +97,7 @@ export default function Register(props) {
     }
 
     return (
-        <div className={`${classes.html} register-page`}>
+        <div className={`register-page`}>
             <div className="content">
                 <h1 className="title-text">Sign Up Today!</h1>
                 <CssTextField className="text-field" label="First Name" style={{ width: '300px' }} required variant="outlined" onChange={userFirstNameRegisterFormHandler} /><br></br><br></br>
