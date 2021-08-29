@@ -11,7 +11,11 @@ import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 import {
     Link,
 } from "react-router-dom";
+import darkThemeContext from "../darkThemeContext";
+import { useContext } from "react";
+
 function Item(props) {
+    const { darkTheme } = useContext(darkThemeContext);
     const [item, setItem] = useState()
     useEffect(() => {
         setItem(props.data)
@@ -23,7 +27,9 @@ function Item(props) {
             width: props.width,
             "&:hover": {
                 boxShadow: "0 40px 70px -12.125px rgba(0,0,0,0.3)",
-            }
+            },
+            backgroundColor: darkTheme ? '#2c2c2c' : '',
+            color: darkTheme ? 'aliceblue' : '',
         },
         media: {
             height: 0,
@@ -33,7 +39,8 @@ function Item(props) {
             alignSelf: "right"
         },
         divider: {
-            margin: `1rem 0`
+            margin: `1rem 0`,
+            background: darkTheme ? 'gray' : '',
         },
     });
 
@@ -62,21 +69,20 @@ function Item(props) {
                                 <div style={{
                                     display: 'flex',
                                     alignItems: 'center',
-                                }}><StorefrontIcon /><span style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{item.seller}</span></div>
+                                }}><StorefrontIcon style={{ color: darkTheme ? 'gray' : '' }} /><span style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", color: darkTheme ? 'aliceblue' : '' }}>{item.seller}</span></div>
                             </Typography>
                             <Typography variant="caption" color="textSecondary">
                                 <div style={{
                                     display: 'flex',
                                     alignItems: 'center',
-                                }}><InsertPhotoIcon /><span style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{item.token_id}</span></div>
+                                }}><InsertPhotoIcon style={{ color: darkTheme ? 'gray' : '' }}  /><span style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", color: darkTheme ? 'aliceblue' : '' }}>{item.token_id}</span></div>
                             </Typography>
-                            <Typography variant="body2" color="textSecondary">
+                            <Typography variant="body2" color= {darkTheme ? 'aliceblue' : ''}>
                                 {item.data.item_description}
                             </Typography>
                             <Divider className={classes.divider} light />
                             <Typography variant="overline" display="block" align="right" gutterBottom>
                                 {item.price + " ETH"}
-
                             </Typography>
                         </CardContent>
                     </CardActionArea>

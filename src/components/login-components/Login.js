@@ -16,7 +16,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { Redirect, useHistory  } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 
 const axios = require("axios");
 
@@ -57,7 +57,7 @@ const Login = (props) => {
         setUserPasswordLoginForm(event.target.value);
     };
 
-    const  login = () => {
+    const login = () => {
         axios.post(process.env.REACT_APP_DATABASE_API_LOGIN_URL, {
             apikey: process.env.REACT_APP_DATABASE_API_KEY,
             email: String(userEmailLoginForm),

@@ -21,7 +21,7 @@ export default function Register(props) {
                 color: darkTheme === true ? '#EBEBEB' : "blue"
             },
             "& label": {
-                color: darkTheme === true ? '#EBEBEB' : "#b3b3b3"
+                color: darkTheme === true ? 'gray' : "#b3b3b3"
             },
             "&:hover label": {
                 color: darkTheme === true ? '#EBEBEB' : "blue"
