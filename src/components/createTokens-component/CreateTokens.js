@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
@@ -6,6 +6,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
+import { withStyles } from "@material-ui/core/styles";
 
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -17,6 +18,8 @@ import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 
 import AddIcon from "@material-ui/icons/Add";
 import SendIcon from "@material-ui/icons/Send";
+
+import darkThemeContext from "../darkThemeContext";
 
 // web3 and axios for NFT data & metadata
 import Web3 from "web3";
@@ -61,19 +64,53 @@ function a11yProps(index) {
     };
 }
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        "& .MuiTextField-root": {
-            margin: theme.spacing(1),
-            width: "25ch",
-        },
-        button: {
-            margin: theme.spacing(1),
-        },
-    },
-}));
-
 export default function CreateTokens(props) {
+    const { darkTheme } = useContext(darkThemeContext);
+    
+    const useStyles = makeStyles((theme) => ({
+        root: {
+            "& .MuiTextField-root": {
+                margin: theme.spacing(1),
+                width: "25ch",
+            },
+            button: {
+                margin: theme.spacing(1),
+            },
+        },
+    }));
+
+    // CssTextField
+    const CssTextField = withStyles({
+        root: {
+            "& input": {
+                color: darkTheme === true ? '#EBEBEB' : "blue"
+            },
+            "& label": {
+                color: darkTheme === true ? 'gray' : "#b3b3b3"
+            },
+            "&:hover label": {
+                color: darkTheme === true ? '#EBEBEB' : "blue"
+            },
+            "& label.Mui-focused": {
+                color: darkTheme === true ? '#EBEBEB' : "blue"
+            },
+            "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                    borderColor: darkTheme === true ? '#EBEBEB' : "#b3b3b3"
+                },
+                "&:hover fieldset": {
+                    borderColor: darkTheme === true ? '#EBEBEB' : "blue"
+                },
+                "&.Mui-focused fieldset": {
+                    borderColor: darkTheme === true ? '#EBEBEB' : "blue"
+                }
+            },
+            "& .MuiInputBase-multiline": {
+                color: darkTheme === true ? '#EBEBEB' : "blue"
+            }
+        },
+    })(TextField);
+
     const classes = useStyles();
     const [value, setValue] = useState(0);
 
@@ -255,7 +292,7 @@ export default function CreateTokens(props) {
                         <div className="form-align">
                             <h4></h4>
                             <form className={classes.root} noValidate autoComplete="off">
-                                <TextField
+                                <CssTextField
                                     id="game-name"
                                     label="Game Name"
                                     value={addGameForm}
@@ -282,7 +319,7 @@ export default function CreateTokens(props) {
                     <TabPanel value={value} index={1}>
                         <h4 className="token-title">Add A New Item</h4>
                         <form className={classes.root} noValidate autoComplete="off">
-                            <TextField
+                            <CssTextField
                                 id="select-game"
                                 select
                                 label="Game ID"
@@ -297,9 +334,9 @@ export default function CreateTokens(props) {
                                             {option._id} - {option.game_name}
                                         </MenuItem>
                                     ))}
-                            </TextField>
+                            </CssTextField>
                             <br />
-                            <TextField
+                            <CssTextField
                                 required
                                 id="item-id"
                                 label="Item ID"
@@ -310,7 +347,7 @@ export default function CreateTokens(props) {
                                     shrink: true,
                                 }}
                             />
-                            <TextField
+                            <CssTextField
                                 required
                                 id="item-name"
                                 label="Item Name"
@@ -322,7 +359,7 @@ export default function CreateTokens(props) {
                                 }}
                             />
                             <br /> <br />
-                            <TextField
+                            <CssTextField
                                 id="item-description"
                                 className="item-description"
                                 label="Item Description"
@@ -370,7 +407,7 @@ export default function CreateTokens(props) {
 
                         <div className="form-align">
                             <form className={classes.root} noValidate autoComplete="off">
-                                <TextField
+                                <CssTextField
                                     id="game-id"
                                     select
                                     label="Select Game"
@@ -386,8 +423,8 @@ export default function CreateTokens(props) {
                                             </MenuItem>
                                         ))
                                     }
-                                </TextField>
-                                <TextField
+                                </CssTextField>
+                                <CssTextField
                                     required
                                     select
                                     id="item-id"
@@ -405,9 +442,9 @@ export default function CreateTokens(props) {
                                             </MenuItem>
                                         ))
                                     }
-                                </TextField>
+                                </CssTextField>
                                 <br></br>
-                                <TextField
+                                <CssTextField
                                     required
                                     id="wallet-address"
                                     label="Wallet Address"
