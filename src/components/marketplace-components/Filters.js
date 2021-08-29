@@ -123,6 +123,7 @@ function Filters() {
                 onChange={handleInputChange}
                 error={errors.search}
             />
+            <br />
             <TreeView
                 defaultCollapseIcon={<ExpandMoreIcon />}
                 defaultExpandIcon={<ChevronRightIcon />}
