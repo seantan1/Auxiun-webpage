@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import "./css/Login.css";
 
 import { withStyles } from "@material-ui/core/styles";
@@ -17,6 +17,8 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { Redirect, useHistory } from "react-router-dom";
+
+import darkThemeContext from "../darkThemeContext";
 
 const axios = require("axios");
 
@@ -43,6 +45,37 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Login = (props) => {
+    const { darkTheme } = useContext(darkThemeContext);
+
+    // CssTextField
+    const CssTextField = withStyles({
+        root: {
+            "& input": {
+                color: darkTheme === true ? '#EBEBEB' : "blue"
+            },
+            "& label": {
+                color: darkTheme === true ? 'gray' : "#b3b3b3"
+            },
+            "&:hover label": {
+                color: darkTheme === true ? '#EBEBEB' : "blue"
+            },
+            "& label.Mui-focused": {
+                color: darkTheme === true ? '#EBEBEB' : "blue"
+            },
+            "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                    borderColor: darkTheme === true ? '#EBEBEB' : "#b3b3b3"
+                },
+                "&:hover fieldset": {
+                    borderColor: darkTheme === true ? '#EBEBEB' : "blue"
+                },
+                "&.Mui-focused fieldset": {
+                    borderColor: darkTheme === true ? '#EBEBEB' : "blue"
+                }
+            }
+        },
+    })(TextField);
+
     // login form
     const history = useHistory();
     const [userEmailLoginForm, setuserEmailLoginForm] = useState("");
@@ -91,7 +124,7 @@ const Login = (props) => {
                     Sign in
                 </Typography>
                 <form className={classes.form} noValidate>
-                    <TextField
+                    <CssTextField
                         variant="outlined"
                         margin="normal"
                         required
@@ -102,7 +135,7 @@ const Login = (props) => {
                         autoFocus
                         onChange={userEmailLoginFormHandler}
                     />
-                    <TextField
+                    <CssTextField
                         variant="outlined"
                         margin="normal"
                         required
@@ -115,7 +148,7 @@ const Login = (props) => {
                         autoComplete="current-password"
                     />
                     <FormControlLabel
-                        control={<Checkbox value="remember" color="primary" />}
+                        control={<Checkbox value="remember" color="primary" style ={{ color: darkTheme ? "gray" : '' }} />}
                         label="Remember me"
                     />
                     <Button

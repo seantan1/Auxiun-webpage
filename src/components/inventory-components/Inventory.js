@@ -3,8 +3,9 @@ import './css/Inventory.css';
 import { Button, Card, Chip, Grid } from '@material-ui/core';
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import TextField from '@material-ui/core/TextField';
+import darkThemeContext from "../darkThemeContext";
 import Item from './Item';
 
 // web3 and axios for NFT data & metadata
@@ -19,6 +20,7 @@ import {
 
 const Inventory = (props) => {
 
+    const { darkTheme } = useContext(darkThemeContext);
     const [chips, setChips] = useState([{}]);
     const [showBought, setBought] = useState(false);
     const [showSelling, setSelling] = useState(false);
@@ -157,7 +159,7 @@ const Inventory = (props) => {
                     </div>
                 </div>
 
-                <Card>
+                <Card style={{backgroundColor: darkTheme ? '#272727' : ''}}>
                     <Grid container spacing={2} className='inventory-items'>
                             <TextField value={testSell} onChange={handleTestSell}></TextField>
                         <Button variant="contained" color="primary" onClick={testButton}>
