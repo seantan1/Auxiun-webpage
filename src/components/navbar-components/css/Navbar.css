@@ -52,8 +52,30 @@ MenuItem {
     font-size: 1rem;
 }
 
+.navbar-links-dark {
+    /* background-color: black; */
+    cursor: default;
+    /* width: 50%; */
+    margin: auto;
+    /* margin-left: 33%; */
+    font-size: 10px;
+}
+
+.navbar-links-dark a {
+    padding-left: 1em;
+    padding-right: 1em;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
 .navbar-links a:hover {
     color: rgba(40, 32, 159, 0.489) !important;
+    transition: 0.2s;
+}
+
+.navbar-links-dark a:hover {
+    color: gray !important;
+    transition: 0.2s;
 }
 
 .nav-bar-links-display-in-mobile {

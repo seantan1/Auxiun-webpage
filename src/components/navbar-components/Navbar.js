@@ -139,7 +139,7 @@ const Navbar = (props) => {
               </div>
             </div>
 
-            <div className="nav navbar-links title">
+            <div className={darkTheme ? "nav navbar-links-dark title" : "nav navbar-links title"}>
               <a className={darkTheme ? "nav-title-dark" : "nav-title"} href="/about">
                 About
               </a>
