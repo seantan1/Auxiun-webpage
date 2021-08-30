@@ -10,14 +10,8 @@ import Button from "@material-ui/core/Button";
 import StorefrontIcon from '@material-ui/icons/Storefront';
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
     Link,
-    useParams,
-    useRouteMatch
 } from "react-router-dom";
-import Sell from '../sell-components/Sell';
 function Item(props) {
     const [item, setItem] = useState()
     useEffect(() => {
@@ -33,8 +27,10 @@ function Item(props) {
             }
         },
         media: {
-            height: 0,
-            paddingTop: '56.25%',
+            width: "100%",
+            height: "100%",
+            objectFit: "cover", 
+            paddingTop: '100%'
         },
         price: {
             alignSelf: "right"

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import './css/MarketPlace.css'
 import Item from './Item'
 import Grid from '@material-ui/core/Grid';
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles,useTheme, } from "@material-ui/core/styles";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Pagination from '@material-ui/lab/Pagination';
 import Filters from './Filters';
@@ -11,8 +11,6 @@ import Filters from './Filters';
 import Web3 from 'web3';
 // contract data
 import {
-    TOKEN_CONTRACT_ADDRESS,
-    TOKEN_CONTRACT_ABI,
     MULTICALL_CONTRACT_ADDRESS,
     MULTICALL_CONTRACT_ABI
 } from "../../contract-data/token-contract-data";
@@ -27,8 +25,10 @@ function MarketPlace(props) {
     const theme = useTheme();
     const xs = useMediaQuery(theme.breakpoints.down('sm'));
     const [item, setItem] = useState([])
-    const [pageCount, setPageCount] = useState(0);
     const [error, setError] = useState("")
+    const [minValue, setMinValue] = useState(0);
+    const [maxValue, setMaxValue] = useState(25);
+    const [pageSize, setPageSize] = useState(25);
     const useStyles = makeStyles((theme) => ({
         gridContainer: {
             paddingLeft: "4rem",
@@ -36,14 +36,13 @@ function MarketPlace(props) {
         },
         gridItemContainer: {
             paddingLeft: "0.5rem",
-            paddingRight: "0.5rem"
+            paddingRight: "0.5rem",
         },
     }));
-    const totalPageCount = () => {
-        return ((pageCount < 25) ?
-            1 : Math.ceil(pageCount / 25))
-    }
 
+    const totalPageCount = () => {
+        return (Math.ceil(item.length / pageSize))
+    }
     useEffect(() => {
         console.log(props.account)
         console.log(props.userSessionData)
@@ -58,24 +57,35 @@ function MarketPlace(props) {
         if (!props.userSessionData) {
             console.log("1")
             setError("Log in to access the market place")
-        } 
-        if(props.userSessionData && props.account && item) {
+        }
+        if (props.userSessionData && props.account && item) {
             setError("")
         }
     }, [props.userSessionData, props.account, item])
-
+    function handleChange(event, value) {
+        console.log("value", value)
+        console.log("pagesize", pageSize)
+        setPageSize(pageSize)
+        if (value <= 1) {
+            setMinValue(0)
+            setMaxValue(pageSize)
+        } else {
+            setMinValue((value - 1) * pageSize)
+            setMaxValue(value * pageSize)
+        }
+    }
     useEffect(() => {
         history.push("/marketplace")
-    }, [props.account])
+    }, [props.account, history])
     const loadItems = (data) => {
         const items = [];
         for (const item in data) {
             items.push(
-                <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
+                <Grid item xs={6} md={4} lg={3} xl={2}>
                     <Item data={data[item]} />
-                </Grid>)
+                </Grid>
+            )
         }
-
         return items;
     }
 
@@ -101,7 +111,6 @@ function MarketPlace(props) {
             contractMulticall.methods.multiCallNFTsOnMarket().call()
                 .then(function (result) {
                     console.log("multifetch", result);
-                    setPageCount(result[0].length)
                     // TODO: might want to change this to your liking
                     // currently there should be 3 NFT in total listed on sale
                     for (const data in result[0]) {
@@ -140,10 +149,9 @@ function MarketPlace(props) {
                         <MarketplaceCarousel loadItems={loadTrendingItems} item={item} />
                         <Grid
                             container
-                            spacing={1}
                             className={(xs ? classes.gridItemContainer : classes.gridContainer)}
                         >
-                            {loadItems(item)}
+                            {loadItems(item.slice(minValue, maxValue))}
                         </Grid>
                         <br></br><br></br>
                         <Grid
@@ -151,7 +159,7 @@ function MarketPlace(props) {
                             flex={"true"}
                             className={classes.top}>
                             <Grid item xs={12}>
-                                <Pagination count={totalPageCount()} showFirstButton showLastButton style={{ display: " flex", justifyContent: 'center', alignItems: 'center' }} />
+                                <Pagination count={totalPageCount()} onChange={handleChange} defaultValue={1} showFirstButton showLastButton style={{ display: " flex", justifyContent: 'center', alignItems: 'center' }} />
                             </Grid>
                         </Grid>
                     </Grid>

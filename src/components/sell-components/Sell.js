@@ -15,8 +15,6 @@ import Web3 from 'web3';
 import {
     TOKEN_CONTRACT_ADDRESS,
     TOKEN_CONTRACT_ABI,
-    MULTICALL_CONTRACT_ADDRESS,
-    MULTICALL_CONTRACT_ABI
 } from "../../contract-data/token-contract-data";
 function Sell(props) {
     const history = useHistory();

@@ -5,7 +5,6 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-import StorefrontIcon from '@material-ui/icons/Storefront';
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 function Item(props) {
     const [item, setItem] = useState()
@@ -21,8 +20,10 @@ function Item(props) {
             }
         },
         media: {
-            height: 0,
-            paddingTop: '56.25%',
+            width: "100%",
+            height: "100%",
+            objectFit: "cover", 
+            paddingTop: '100%'
         },
         price: {
             alignSelf: "right"

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from "@material-ui/core/styles";
@@ -14,8 +14,6 @@ import Web3 from 'web3';
 import {
     TOKEN_CONTRACT_ADDRESS,
     TOKEN_CONTRACT_ABI,
-    MULTICALL_CONTRACT_ADDRESS,
-    MULTICALL_CONTRACT_ABI
 } from "../../contract-data/token-contract-data";
 import { Typography } from '@material-ui/core';
 function Buy(props) {

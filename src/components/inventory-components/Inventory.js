@@ -228,7 +228,7 @@ const Inventory = (props) => {
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
-                                        {transactions.map((transaction) => (
+                                        {[...transactions].reverse().map((transaction) => (
                                             <TableRow key={transaction.timestamps+ transaction.tokenBuyers}>
                                                 <TableCell component="th" scope="row">
                                                     {transaction.tokenIds}
