@@ -8,6 +8,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Gravatar from "react-gravatar";
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 
+ 
 const useStyles = makeStyles((theme) => ({
     button: {
         margin: theme.spacing(1),
@@ -50,8 +51,10 @@ const Profile = (props) => {
 
                 {/* user email goes in email */}
                 <Gravatar email="" size={100} rounded />
+               
+                <a href="/updateprofile"> 
                 <button className="edit-btn">Edit Profile</button>
-
+                </a>
                 <div className="user-title">{props.userSessionData.firstname} {props.userSessionData.lastname}</div>
 
                 <div className="wallet-title">[Wallet Address]</div>
