@@ -247,6 +247,9 @@ function App() {
             ) {
                 signInMetamask();
             }
+            if (localStorage.getItem('darkTheme') === 'true') {
+                setDarkTheme(true);
+            }
             setLoadOnce(true);
         }
     });

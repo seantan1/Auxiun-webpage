@@ -116,6 +116,7 @@ const Navbar = (props) => {
 
   const darkThemeToggle = () => {
     setDarkTheme(!darkTheme);
+    localStorage.setItem('darkTheme', JSON.parse(!darkTheme));
   }
 
   return (
