@@ -25,6 +25,8 @@ import MarketPlace from './components/marketplace-components/MarketPlace';
 // profile
 import Profile from "./components/profile-component/Profile";
 
+import UpdateProfile from './components/profile-component/UpdateProfile';
+
 // login
 import Login from "./components/login-components/Login";
 
@@ -310,6 +312,9 @@ function App() {
                         </Route>
                         <Route exact path="/profile">
                             <Profile showAlert={showAlert} userSessionData={userSessionData}/>
+                        </Route>
+                        <Route exact path="/updateprofile">
+                            <UpdateProfile showAlert={showAlert} userSessionData={userSessionData}/>
                         </Route>
                         <Route exact path="/info">
                             <Info />
