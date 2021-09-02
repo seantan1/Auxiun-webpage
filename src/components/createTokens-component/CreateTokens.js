@@ -191,7 +191,6 @@ export default function CreateTokens(props) {
         };
         axios.post(process.env.REACT_APP_DATABASE_API_NFT_URL, formData, config)
         .then(function (data) {
-            console.log(data);
             if (data.data.errors) {
                 props.showAlert("Error", "An unknown error occurred.", "", "error");
             } else if (data.status === 200) {
@@ -204,7 +203,7 @@ export default function CreateTokens(props) {
             }
         })
         .catch((error) => {
-            console.log(error.response.data); 
+            props.showAlert("Error", "An unknown error occurred when attempting to do POST request.", "", "error");
         });
         
     };
@@ -222,8 +221,6 @@ export default function CreateTokens(props) {
                 from: props.account,
             })
             .then(function (result) {
-                console.log(result);
-                // TODO: add explorer tx link
                 props.showAlert(
                     "Success",
                     "NFT has been successfully minted",
