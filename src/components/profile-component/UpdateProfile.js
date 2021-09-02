@@ -5,7 +5,7 @@ import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography, Button, Collapse} from "@material-ui/core";
 import { ChangePassword } from "./ChangePassword";
-
+import "./css/updateProfile.css"
 const UpdateProfile = (props) => {
 
 
@@ -47,7 +47,10 @@ const UpdateProfile = (props) => {
             readOnly: true,
           }}
         />
-
+        <Button variant="outlined" color="primary">
+          <Typography >Update Profile</Typography>
+        </Button>
+        <br></br>
         <Button variant="outlined"
         onClick={handleShowPasswordForm}>
           Change Password
@@ -55,9 +58,7 @@ const UpdateProfile = (props) => {
         <Collapse in={showPasswordForm}>
           <ChangePassword />
         </Collapse>
-        <Button variant="outlined" color="primary">
-          <Typography >Update Profile</Typography>
-        </Button>
+       
       </div>
     </form>
   );
