@@ -42,6 +42,40 @@ const useStyles = makeStyles((theme) => ({
     submit: {
         margin: theme.spacing(3, 0, 2),
     },
+
+    // https://stackoverflow.com/questions/65152941/how-to-change-material-ui-textfileds-border-text-color-and-border-color-on-hov
+    textFieldStyleRoot: props => ({
+        color: props.darkTheme === true ? '#EBEBEB' : "blue",
+        
+        "&:hover": {
+            color: props.darkTheme === true ? '#EBEBEB' : "blue"
+        },
+
+        "&.MuiOutlinedInput-root": {
+            "& fieldset": {
+                borderColor: props.darkTheme === true ? '#EBEBEB' : "#b3b3b3"
+            },
+            "&:hover fieldset": {
+                borderColor: props.darkTheme === true ? '#EBEBEB' : "blue"
+            },
+            "&.Mui-focused fieldset": {
+                borderColor: props.darkTheme === true ? '#EBEBEB' : "blue"
+            }
+        }
+    }),
+
+    textFieldLabel: props => ({
+        color: props.darkTheme === true ? 'gray' : "#b3b3b3",
+        // "&:hover": {
+        //     color: props.darkTheme === true ? '#EBEBEB' : "blue"
+        // },
+        "&$textFieldLabelFocused": {
+            color: props.darkTheme === true ? '#EBEBEB' : "blue"
+        },
+    }),
+    
+    textFieldLabelFocused: () => ({}),
+
 }));
 
 const Login = (props) => {
@@ -74,7 +108,9 @@ const Login = (props) => {
                 }
             }
         },
-    })(TextField);
+    })((props) => <TextField color="default" {...props} />);
+
+
 
     // login form
     const history = useHistory();
@@ -111,7 +147,11 @@ const Login = (props) => {
                 }
             });
     };
-    const classes = useStyles();
+
+    // For the dark theme props (to be passed in useStyles)
+    const darkThemeProps = {darkTheme: darkTheme}
+    
+    const classes = useStyles(darkThemeProps);
 
     return (
         <Container component="main" maxWidth="xs">
@@ -124,7 +164,18 @@ const Login = (props) => {
                     Sign in
                 </Typography>
                 <form className={classes.form} noValidate>
-                    <CssTextField
+                    <TextField 
+                        InputProps={{ 
+                            classes: {
+                                root: classes.textFieldStyleRoot
+                            }
+                        }}
+                        InputLabelProps={{ 
+                            classes: {
+                                root: classes.textFieldLabel,
+                                focused: classes.textFieldLabelFocused
+                            }
+                        }}
                         variant="outlined"
                         margin="normal"
                         required
@@ -133,6 +184,44 @@ const Login = (props) => {
                         label="Email"
                         autoComplete="email"
                         autoFocus
+                        value={userEmailLoginForm}
+                        onChange={userEmailLoginFormHandler}
+                    />
+                     <TextField
+                        InputProps={{ 
+                            classes: {
+                                root: classes.textFieldStyleRoot
+                            }
+                        }}
+                        InputLabelProps={{ 
+                            classes: {
+                                root: classes.textFieldLabel,
+                                focused: classes.textFieldLabelFocused
+                            }
+                        }}
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        name="password"
+                        label="Password"
+                        type="password"
+                        id="password"
+                        value={userPasswordLoginForm}
+                        onChange={userPasswordLoginFormHandler}
+                        autoComplete="current-password"
+                    />
+
+                    {/* <CssTextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="Email"
+                        label="Email"
+                        autoComplete="email"
+                        autoFocus
+                        value={userEmailLoginForm}
                         onChange={userEmailLoginFormHandler}
                     />
                     <CssTextField
@@ -144,9 +233,10 @@ const Login = (props) => {
                         label="Password"
                         type="password"
                         id="password"
+                        value={userPasswordLoginForm}
                         onChange={userPasswordLoginFormHandler}
                         autoComplete="current-password"
-                    />
+                    /> */}
                     <FormControlLabel
                         control={<Checkbox value="remember" color="primary" style ={{ color: darkTheme ? "gray" : '' }} />}
                         label="Remember me"
