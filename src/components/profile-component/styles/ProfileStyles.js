@@ -17,10 +17,8 @@ export const useStyles = makeStyles((theme) => ({
     },
 
     editButton: {
-        // marginTop: 20,
-        // marginRight: 15,
-        // right:"1%",
-        // position: "absolute",
+        // color: "green",
+        fontSize: 15,
     },
 
     smallText: {
@@ -50,22 +48,29 @@ export const useStyles = makeStyles((theme) => ({
     boxShadowContainerLightMode: {
         margin: "auto",
         width: "60%",
-        borderLeft: "1px solid rgba(64, 64, 64, 0.5)",
-        borderRight: "1px solid rgba(64, 64, 64, 0.5)",
-        boxShadow: '20px 0 12px -15px rgba(64, 64, 64, 0.5), -20px 0 12px -15px rgba(64, 64, 64, 0.5)',
+        border: "1px solid rgba(64, 64, 64, 0.5)",
+        borderRadius: 10,
+        boxShadow: '0px 2px 16px 3px rgba(64, 64, 64, 0.2)',
         paddingTop: "4%",
-        paddingBottom: "4%"
+        paddingBottom: "4%",
+        backgroundColor: "rgba(247, 247, 247, 0.4)"
     },
 
     boxShadowContainerDarkMode: {
         margin: "auto",
         width: "60%",
-        borderLeft: "1px solid rgba(219, 219, 219, 0.5)",
-        borderRight: "1px solid rgba(219, 219, 219, 0.5)",
-        boxShadow: '20px 0 12px -15px rgba(219, 219, 219, 0.5), -20px 0 12px -15px rgba(219, 219, 219, 0.5)',
+        border: "1px solid rgba(219, 219, 219, 0.5)",
+        borderRadius: 10,
+        boxShadow: '0px 2px 16px 3px rgba(219, 219, 219, 0.2)',
         paddingTop: "4%",
-        paddingBottom: "4%"
+        paddingBottom: "4%",
+        backgroundColor: "rgba(60,60,60, 0.4)",
     },
+    
+    center: {
+        display: "flex",
+        justifyContent: "space-around"
+    }
 
 
 }));

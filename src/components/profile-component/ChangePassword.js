@@ -36,7 +36,9 @@ export const ChangePassword = () => {
                 value={fields.confirmPassword}
                 onChange={handleInputChange}
                 />
-            <Button variant="outlined" color="primary" onClick={handleUpdatePassword}>Update Password</Button>
+            <Button variant="outlined" color="primary" onClick={handleUpdatePassword}>
+                <Typography>Update Password</Typography>
+            </Button>
         </div>
     )
 }
