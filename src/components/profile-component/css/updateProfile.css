@@ -211,6 +211,16 @@ body {
   grid-gap: 30px;
 }
 
+.page-no-top-padding {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 480px;
+  margin: auto;
+  padding: 1rem;
+  display: grid;
+  grid-gap: 30px;
+}
+
 .substack {
   border: 1px solid #eee;
   background-color: #fff;

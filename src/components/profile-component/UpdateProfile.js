@@ -3,10 +3,24 @@ import "./css/updateProfile.css";
 
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
+import { Typography, Button, Collapse} from "@material-ui/core";
+import { ChangePassword } from "./ChangePassword";
 
 const UpdateProfile = (props) => {
+
+
+  const [showPasswordForm, setShowPasswordForm] = useState(false)
+
+  const handleShowPasswordForm = () => {
+    if(showPasswordForm){
+      setShowPasswordForm(false)
+    } else {
+      setShowPasswordForm(true)
+    }
+  }
   return (
     <form>
+
       <div class="page">
         <h3>Update Profile </h3>
 
@@ -34,8 +48,16 @@ const UpdateProfile = (props) => {
           }}
         />
 
-        <a>Change Password</a>
-        <button>Update Profile</button>
+        <Button variant="outlined"
+        onClick={handleShowPasswordForm}>
+          Change Password
+        </Button>
+        <Collapse in={showPasswordForm}>
+          <ChangePassword />
+        </Collapse>
+        <Button variant="outlined" color="primary">
+          <Typography >Update Profile</Typography>
+        </Button>
       </div>
     </form>
   );
