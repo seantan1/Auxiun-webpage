@@ -10,18 +10,13 @@ import Button from "@material-ui/core/Button";
 import StorefrontIcon from '@material-ui/icons/Storefront';
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
     Link,
-    useParams,
-    useRouteMatch
 } from "react-router-dom";
-import Sell from '../sell-components/Sell';
 function Item(props) {
     const [item, setItem] = useState()
     useEffect(() => {
         setItem(props.data)
+        console.log("LOADINGCARD", props.data.data)
     }, [props.data])
     const useStyles = makeStyles({
         root: {
@@ -32,8 +27,10 @@ function Item(props) {
             }
         },
         media: {
-            height: 0,
-            paddingTop: '56.25%',
+            width: "100%",
+            height: "100%",
+            objectFit: "cover", 
+            paddingTop: '100%'
         },
         price: {
             alignSelf: "right"
@@ -50,23 +47,28 @@ function Item(props) {
         return (
             <Card className={classes.root} variant="outlined">
                 <CardActionArea disableRipple>
+                    <CardContent style={{background: "lightGray", padding: 0}}>
+                        <Typography gutterBottom variant="h5" component="p" style={{textTransform: "uppercase"}}>
+                            {item.type}
+                        </Typography>
+                    </CardContent>
                     <CardMedia
                         className={classes.media}
                         image={`data:${item.data.item_image.contentType};base64,${new Buffer.from(item.data.item_image['data']).toString('base64')}`}
                         title="Contemplative Reptile"
                     />
-                    {console.log(item.data.item_name)}
                     <CardContent>
                         <Typography gutterBottom variant="h5">
                             {item.data.item_name}
                         </Typography>
-                        <Typography variant="caption" color="textSecondary">
-                            <div style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                            }}><StorefrontIcon /><span style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{item.seller}</span></div>
+                        {!item.seller ? null :
+                            <Typography variant="caption" color="textSecondary">
+                                <div style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                }}><StorefrontIcon /><span style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{item.seller}</span></div>
 
-                        </Typography>
+                            </Typography>}
                         <Typography variant="caption" color="textSecondary">
                             <div style={{
                                 display: 'flex',
@@ -78,15 +80,18 @@ function Item(props) {
                             {item.data.item_description}
                         </Typography>
                         <Divider className={classes.divider} light />
+
                         <div style={{ display: "flex" }}>
-                            <Link to={{
-                                pathname: "/sell", 
-                                state:{...props}
-                            }}><Button variant="contained" color="primary">
-                                    Sell
-                                </Button></Link>
-                            <Typography variant="overline" display="block" align="right" style={{ flex: 1 }} gutterBottom>
-                                {item.price + " ETH"}</Typography>
+                            {item.type === "selling" ? null :
+                                <Link to={{
+                                    pathname: "/sell",
+                                    state: { ...props }
+                                }}><Button variant="contained" color="primary">
+                                        Sell
+                                    </Button></Link>}
+                            {!item.seller ? null :
+                                <Typography variant="overline" display="block" align="right" style={{ flex: 1 }} gutterBottom>
+                                    {item.price + " ETH"}</Typography>}
                         </div>
 
 

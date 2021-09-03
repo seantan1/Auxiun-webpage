@@ -1,18 +1,13 @@
 import React, { useState } from 'react'
-import { Button, Checkbox, TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import TreeItem from '@material-ui/lab/TreeItem';
-import FormControl from '@material-ui/core/FormControl';
-import Radio from '@material-ui/core/Radio';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import RadioGroup from '@material-ui/core/RadioGroup';
 import TreeView from '@material-ui/lab/TreeView';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { useForm, Form } from '../form/useForm';
-import Controls from '../form/controls/Controls'
-import './css/MarketPlace.css'
+import Controls from '../form/controls/Controls';
+import Grid from '@material-ui/core/Grid';
+import './css/MarketPlace.css';
 function Filters() {
 
     const useStyles = makeStyles((theme) => ({
@@ -76,7 +71,6 @@ function Filters() {
     };
     const handleSubmit = e => {
         e.preventDefault()
-        console.log(values)
     }
     const {
         values,
@@ -104,26 +98,29 @@ function Filters() {
                 onNodeToggle={handleToggle}
                 onNodeSelect={handleSelect}
             >
+                <Grid container>
+                    <Grid item xs={6} md={12}>
+                        <TreeItem nodeId={"Sort By"} label={"Sort By"} className={classes.treeItem}>
+                            <Controls.RadioGroup
+                                name="sortBy"
+                                value={values.sortBy}
+                                onChange={handleInputChange}
+                                items={sortBy}
+                            />
+                        </TreeItem></Grid><Grid item xs={6} md={12}>
+                        <TreeItem nodeId={"Color"} label={"Color"} className={classes.treeItem}>
+                            {colours.map((name, i) => (
+                                <Controls.Checkbox
+                                    key={`colour` + name}
+                                    name={`colour` + name}
+                                    label={name}
+                                    value={values[`colour` + name]}
+                                    onChange={handleInputChange}
+                                />
+                            ))}
+                        </TreeItem></Grid>
+                </Grid>
 
-                <TreeItem nodeId={"Sort By"} label={"Sort By"} className={classes.treeItem}>
-                    <Controls.RadioGroup
-                        name="sortBy"
-                        value={values.sortBy}
-                        onChange={handleInputChange}
-                        items={sortBy}
-                    />
-                </TreeItem>
-                <TreeItem nodeId={"Color"} label={"Color"} className={classes.treeItem}>
-                    {colours.map((name, i) => (
-                        <Controls.Checkbox
-                            key={`colour` +name}
-                            name={`colour` + name}
-                            label={name}
-                            value={values[`colour` + name]}
-                            onChange={handleInputChange}
-                        />
-                    ))}
-                </TreeItem>
             </TreeView>
             <Controls.Button
                 text="Reset"
@@ -132,7 +129,7 @@ function Filters() {
             <Controls.Button
                 type="submit"
                 text="Save Filter" />
-        </Form >
+        </Form>
     )
 }
 

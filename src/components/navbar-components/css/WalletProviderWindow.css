@@ -46,7 +46,7 @@
 }
 
 .wallet-option-container:hover {
-    border: 2px solid rgb(255, 192, 203);
+    border: 2px solid rgb(0, 0, 0);
     cursor: pointer;
 }
 

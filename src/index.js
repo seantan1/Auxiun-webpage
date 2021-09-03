@@ -5,11 +5,16 @@ import App from './App';
 import 'semantic-ui-css/semantic.min.css'
 
 import reportWebVitals from './reportWebVitals';
+import { createTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles';
 
+let theme = createTheme();
+theme = responsiveFontSizes(theme);
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <ThemeProvider theme={theme}>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+    </ThemeProvider>,
   document.getElementById('root')
 );
 

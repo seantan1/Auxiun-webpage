@@ -16,9 +16,28 @@
 }
 
 .about-banner-text {
-  width: 30%;
-  margin-left: 10%;
+  width: 60%;
+  /* margin-left: 10%; */
+  /* text-align: center; */
+  margin: auto;
+  color: #999999;
+  font-size: 16px;
+  letter-spacing: 1px;
   text-align: center;
+  line-height: 31px;
+  font-family: 'Montserrat', sans-serif;
+
+  /* position: absolute; */
+}
+
+.about-banner-title1{
+  color: rgb(51, 51, 51); 
+  text-align: center;
+  color: rgb(51, 51, 51);
+  font-size: 20px;
+  font-weight: 600;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: -1px;
 }
 
 .about-banner-title{
@@ -26,6 +45,9 @@
   /* margin-left: 20%; */
   font-size: 50px;
   text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: -1px;
+  font-weight: 600;
 }
 
 .banner-text p {

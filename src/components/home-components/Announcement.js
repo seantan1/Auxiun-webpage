@@ -4,7 +4,7 @@ import "./css/Announcement.css";
 const Announcement = () => {
   return (
     <div>
-      <div className="announcement-banner">
+      <div className="announcement-banner" id="announcement">
         <h5 className="announcement-banner-text">Recent Announcements</h5>
         <div class="container-announcement">
           <div class="card">

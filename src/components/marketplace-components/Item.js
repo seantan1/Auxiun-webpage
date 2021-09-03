@@ -23,67 +23,69 @@ function Item(props) {
             width: props.width,
             "&:hover": {
                 boxShadow: "0 40px 70px -12.125px rgba(0,0,0,0.3)",
-            }
+            },
+            height: "100%"
         },
         media: {
-            height: 0,
-            paddingTop: '56.25%',
-        },
+            width: "100%",
+            height: "100%",
+            objectFit: "cover", 
+            paddingTop: '100%'
+    },
         price: {
-            alignSelf: "right"
-        },
+        alignSelf: "right"
+    },
         divider: {
-            margin: `1rem 0`
-        },
+        margin: `1rem 0`
+    },
     });
 
-    const classes = useStyles();
-    if (!item) {
-        return null
-    } else {
-        return (
-            <Link to={{
-                pathname: '/buy',
-                state: { ...props }
-            }}>
+const classes = useStyles();
+if (!item) {
+    return null
+} else {
+    return (
+        <Link to={{
+            pathname: '/buy',
+            state: { ...props }
+        }}>
             <Card className={`${classes.root} animate`} variant="outlined" key={item.token_id + item.seller}>
-                    <CardActionArea disableRipple>
-                        <CardMedia
-                            className={classes.media}
-                            image={`data:${item.data.item_image.contentType};base64,${new Buffer.from(item.data.item_image['data']).toString('base64')}`}
-                            title="Contemplative Reptile"
-                        />
-                        {console.log("Item Name",item.data.item_name)}
-                        <CardContent>
-                            <Typography gutterBottom variant="h5">
-                                {item.data.item_name}
-                            </Typography>
-                            <Typography variant="caption" color="textSecondary">
-                                <div style={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                }}><StorefrontIcon /><span style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{item.seller}</span></div>
-                            </Typography>
-                            <Typography variant="caption" color="textSecondary">
-                                <div style={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                }}><InsertPhotoIcon /><span style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{item.token_id}</span></div>
-                            </Typography>
-                            <Typography variant="body2" color="textSecondary">
-                                {item.data.item_description}
-                            </Typography>
-                            <Divider className={classes.divider} light />
-                            <Typography variant="overline" display="block" align="right" gutterBottom>
-                                {item.price + " ETH"}
+                <CardActionArea disableRipple>
+                    <CardMedia
+                        className={classes.media}
+                        image={`data:${item.data.item_image.contentType};base64,${new Buffer.from(item.data.item_image['data']).toString('base64')}`}
+                        title="Contemplative Reptile"
+                    />
+                    <CardContent>
+                        <Typography gutterBottom variant="h5">
+                            {item.data.item_name}
+                        </Typography>
+                        <Typography variant="caption" color="textSecondary">
+                            <div style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                            }}><StorefrontIcon /><span style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{item.seller}</span></div>
+                        </Typography>
+                        <Typography variant="caption" color="textSecondary">
+                            <div style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                            }}><InsertPhotoIcon /><span style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{item.token_id}</span></div>
+                        </Typography>
+                        <Typography variant="body2" color="textSecondary">
+                            {item.data.item_description}
+                        </Typography>
+                        <Divider className={classes.divider} light />
+                        <Typography variant="overline" display="block" align="right" gutterBottom>
+                            {item.price + " ETH"}
 
-                            </Typography>
-                        </CardContent>
-                    </CardActionArea>
-                </Card>
-            </Link>
-        )
-    }
+                        </Typography>
+                    </CardContent>
+                </CardActionArea>
+            </Card>
+        </Link>
+    )
+}
 }
 
 export default Item
