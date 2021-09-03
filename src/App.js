@@ -228,6 +228,7 @@ function App() {
 
     // useEffect to fetching user session email from localStorage
     useEffect(() => {
+        // localStorage.clear()
         const storageUserSessionData = localStorage.getItem('userSessionData');
         if (storageUserSessionData) {
             const userData = JSON.parse(storageUserSessionData);

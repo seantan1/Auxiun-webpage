@@ -1,43 +1,25 @@
 import { useState, useEffect } from "react";
-import "./css/profile.css";
+import "./styles/profile.css";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
-import { makeStyles } from "@material-ui/core/styles";
 import { withStyles } from "@material-ui/core/styles";
 import Gravatar from "react-gravatar";
-import FileCopyIcon from '@material-ui/icons/FileCopy';
+import {useStyles} from "./styles/ProfileStyles"
+import { NavLink } from "react-router-dom";
 
- 
-const useStyles = makeStyles((theme) => ({
-    button: {
-        margin: theme.spacing(1),
-        borderRadius: "5em",
-        textDecoration: "none",
-    },
-    input: {
-        display: "none",
-    },
-
-    chip: {
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-    },
-}));
 const StyledButton = withStyles({
     root: {
         background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
         borderRadius: "5em",
         border: 0,
         color: "white",
-        height: 28,
-        padding: "0 10px",
+        paddingLeft: 20,
+        paddingRight:20,
         boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
     },
     label: {
-        textTransform: "capitalize",
-        fontSize: 10,
+        fontSize: 16,
     },
 })(Button);
 
@@ -48,31 +30,47 @@ const Profile = (props) => {
         <div>
             <div className="profile-banner profile-text">
                 <div className="profile-banner-background"></div>
-
-                {/* user email goes in email */}
-                <Gravatar email="" size={100} rounded />
+                <div className={classes.boxShadowContainerLightMode}>
+                {/* For dark mode */}
+                {/* <div className={ darkMode ? classes.boxShadowContainerDarkMode : classes.boxShadowContainerLightMode }> */}
+                <Gravatar 
+                    email={props.userSessionData.email} 
+                    className={classes.profileImage}
+                    size={100} 
+                    rounded
+                />
                
-                <a href="/updateprofile"> 
-                <button className="edit-btn">Edit Profile</button>
-                </a>
                 <div className="user-title">{props.userSessionData.firstname} {props.userSessionData.lastname}</div>
-
-                <div className="wallet-title">[Wallet Address]</div>
-
-                <div className="email-title">{props.userSessionData.email}</div>
-
-                <div className="link-btn">
-                    Link the following platforms to your profile
-                    <br />
-                    <button className="game-icon">
-                        {" "}
-                        <i className="steam icon"></i>
-                    </button>
-                    <button className="game-icon">
-                        {" "}
-                        <i className="steam icon"></i>
-                    </button>
+                <div className={classes.container}>
+                    <Typography className={classes.smallText}>[Wallet Address]</Typography>
+                    <br></br>
+                    <Typography className={classes.smallText}>{props.userSessionData.email}</Typography>
                 </div>
+                <a href="/updateprofile"> 
+                    <Button 
+                        variant="contained" 
+                        className={classes.editButton}
+                        color="primary"
+                        >
+                        Edit Profile
+                    </Button>
+                </a>
+                <div className="link-btn">
+                    <Typography className={classes.smallText}>Link the following platforms to your profile</Typography>
+                    <br />
+                    <Button className="game-icon">
+                        <Typography style={{fontSize: 30}}>
+                        <i className="steam icon"></i>
+                        </Typography>
+                    </Button>
+                    <Button className="game-icon">
+                        <Typography style={{fontSize: 30}}>
+                        <i className="steam icon"></i>
+                        </Typography>
+                    </Button>
+                </div>
+                </div>
+                
             </div>
 
             <Container className="bottom-list">
@@ -85,11 +83,14 @@ const Profile = (props) => {
                     </p>
                 </Typography>
                 <div className="banner-text">
-                    <StyledButton>
-                        <a className="banner-text" href="/marketplace">
-                            Explore Marketplace
-                        </a>
-                    </StyledButton>
+                    <NavLink to="/marketplace">
+                        <StyledButton>
+                            {/* <Typography> */}
+                            Marketplace
+                            {/* </Typography> */}
+                        </StyledButton>
+                    </NavLink>
+                    
                 </div>
             </Container>
         </div>
