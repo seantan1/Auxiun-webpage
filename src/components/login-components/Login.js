@@ -58,8 +58,7 @@ const Login = (props) => {
     };
 
     const  login = () => {
-        const localHost = "http://localhost:8000/api/user-login/"
-        axios.post(localHost, {
+        axios.post(process.env.REACT_APP_DATABASE_API_LOGIN_URL, {
             apikey: process.env.REACT_APP_DATABASE_API_KEY,
             email: String(userEmailLoginForm),
             password_hash: String(userPasswordLoginForm),

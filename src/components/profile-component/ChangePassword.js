@@ -33,7 +33,7 @@ export const ChangePassword = (props) => {
 		// Make the request
 		var response;
 		try{
-			response = await axios.patch(process.env.REACT_APP_DATABASE_API_UPDATE_PASSWORD_UR+user._id, data)
+			response = await axios.patch(process.env.REACT_APP_DATABASE_API_UPDATE_PASSWORD_URL+user._id, data)
             console.log(response)
 		} catch(error){
 			console.log(error)
