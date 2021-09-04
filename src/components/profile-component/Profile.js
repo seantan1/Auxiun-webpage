@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import "./css/profile.css";
+// import "./css/profile.css";
 import "./styles/profile.css";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
@@ -44,7 +44,7 @@ const Profile = (props) => {
                     rounded
                 />
                
-                <div className="user-title"> style={{color:darkTheme ? 'aliceblue' : 'black'}} {props.userSessionData.firstname} {props.userSessionData.lastname}</div>
+                <div className="user-title" style={{color:darkTheme ? 'aliceblue' : 'black'}} > {props.userSessionData.firstname} {props.userSessionData.lastname}</div>
                 <div className={classes.container}>
                     <Typography className={classes.smallText}>[Wallet Address]</Typography>
                     <br></br>
