@@ -1,10 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+// import "./css/profile.css";
 import "./styles/profile.css";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
 import Gravatar from "react-gravatar";
+import FileCopyIcon from '@material-ui/icons/FileCopy';
+import darkThemeContext from "../darkThemeContext";
 import {useStyles} from "./styles/ProfileStyles"
 import { NavLink } from "react-router-dom";
 
@@ -25,6 +28,7 @@ const StyledButton = withStyles({
 
 const Profile = (props) => {
     const classes = useStyles();
+    const { darkTheme } = useContext(darkThemeContext);
 
     return (
         <div>
@@ -40,7 +44,7 @@ const Profile = (props) => {
                     rounded
                 />
                
-                <div className="user-title">{props.userSessionData.firstname} {props.userSessionData.lastname}</div>
+                <div className="user-title" style={{color:darkTheme ? 'aliceblue' : 'black'}} > {props.userSessionData.firstname} {props.userSessionData.lastname}</div>
                 <div className={classes.container}>
                     <Typography className={classes.smallText}>[Wallet Address]</Typography>
                     <br></br>

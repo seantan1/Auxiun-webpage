@@ -1,14 +1,18 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import { Button, Checkbox, TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import TreeItem from '@material-ui/lab/TreeItem';
 import TreeView from '@material-ui/lab/TreeView';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { useForm, Form } from '../form/useForm';
-import Controls from '../form/controls/Controls';
+import Controls from '../form/controls/Controls'
+import './css/MarketPlace.css'
+import darkThemeContext from "../darkThemeContext";
 import Grid from '@material-ui/core/Grid';
 import './css/MarketPlace.css';
 function Filters() {
+    const { darkTheme } = useContext(darkThemeContext);
 
     const useStyles = makeStyles((theme) => ({
         treeItem: {
@@ -24,6 +28,31 @@ function Filters() {
             marginTop: "2rem",
             "& .MuiFormControl-root": {
                 display: "flex !important",
+            }
+        },
+        darkInput: {
+            "& input": {
+                color: darkTheme === true ? '#EBEBEB' : "blue"
+            },
+            "& label": {
+                color: darkTheme === true ? 'gray' : "#b3b3b3"
+            },
+            "&:hover label": {
+                color: darkTheme === true ? '#EBEBEB' : "blue"
+            },
+            "& label.Mui-focused": {
+                color: darkTheme === true ? '#EBEBEB' : "blue"
+            },
+            "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                    borderColor: darkTheme === true ? '#EBEBEB' : "#b3b3b3"
+                },
+                "&:hover fieldset": {
+                    borderColor: darkTheme === true ? '#EBEBEB' : "blue"
+                },
+                "&.Mui-focused fieldset": {
+                    borderColor: darkTheme === true ? '#EBEBEB' : "blue"
+                }
             }
         },
 
@@ -82,7 +111,7 @@ function Filters() {
     } = useForm(initialFValues, true, validate);
     const classes = useStyles();
     return (
-        <Form onSubmit={handleSubmit} className={classes.root}>
+        <Form onSubmit={handleSubmit} className={`${classes.root} ${classes.darkInput}`}>
             <Controls.Input
                 name="search"
                 label="Search"
@@ -90,6 +119,7 @@ function Filters() {
                 onChange={handleInputChange}
                 error={errors.search}
             />
+            <br />
             <TreeView
                 defaultCollapseIcon={<ExpandMoreIcon />}
                 defaultExpandIcon={<ChevronRightIcon />}

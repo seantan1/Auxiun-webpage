@@ -6,6 +6,8 @@ import { makeStyles,useTheme, } from "@material-ui/core/styles";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Pagination from '@material-ui/lab/Pagination';
 import Filters from './Filters';
+import darkThemeContext from "../darkThemeContext";
+import { useContext } from "react";
 
 // web3 and axios for NFT data & metadata
 import Web3 from 'web3';
@@ -21,6 +23,7 @@ import { useHistory, withRouter } from 'react-router-dom';
 const axios = require('axios');
 
 function MarketPlace(props) {
+    const { darkTheme } = useContext(darkThemeContext);
     const history = useHistory()
     const theme = useTheme();
     const xs = useMediaQuery(theme.breakpoints.down('sm'));
@@ -38,6 +41,11 @@ function MarketPlace(props) {
             paddingLeft: "0.5rem",
             paddingRight: "0.5rem",
         },
+        pagination: {
+            "& .MuiPaginationItem-root": {
+                color: darkTheme ? '#fff' : ''
+            }
+        }
     }));
 
     const totalPageCount = () => {
@@ -159,7 +167,7 @@ function MarketPlace(props) {
                             flex={"true"}
                             className={classes.top}>
                             <Grid item xs={12}>
-                                <Pagination count={totalPageCount()} onChange={handleChange} defaultValue={1} showFirstButton showLastButton style={{ display: " flex", justifyContent: 'center', alignItems: 'center' }} />
+                                <Pagination count={totalPageCount()} onChange={handleChange} defaultValue={1} showFirstButton showLastButton color={darkTheme ? 'primary' : ''} style={{ display: " flex", justifyContent: 'center', alignItems: 'center' }} />
                             </Grid>
                         </Grid>
                     </Grid>

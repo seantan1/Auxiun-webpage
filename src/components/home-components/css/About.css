@@ -20,7 +20,6 @@
   /* margin-left: 10%; */
   /* text-align: center; */
   margin: auto;
-  color: #999999;
   font-size: 16px;
   letter-spacing: 1px;
   text-align: center;
@@ -31,9 +30,7 @@
 }
 
 .about-banner-title1{
-  color: rgb(51, 51, 51); 
   text-align: center;
-  color: rgb(51, 51, 51);
   font-size: 20px;
   font-weight: 600;
   font-family: 'Montserrat', sans-serif;

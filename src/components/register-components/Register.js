@@ -1,45 +1,84 @@
-import React, { useState } from "react";
-import { useHistory  } from "react-router-dom";
+import React, { useState, useContext } from "react";
+import { useHistory } from "react-router-dom";
 import './css/Register.css';
 
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { withStyles } from "@material-ui/core/styles";
 import Grid from '@material-ui/core/Grid';
-import Alert from '@material-ui/lab/Alert';
+import darkThemeContext from "../darkThemeContext";
+import { makeStyles } from "@material-ui/core/styles";
+
 const axios = require('axios');
 
-// CssTextField
-const CssTextField = withStyles({
-    root: {
-        "& input": {
-            color: "blue"
+const useStyles = makeStyles((theme) => ({
+    // https://stackoverflow.com/questions/65152941/how-to-change-material-ui-textfileds-border-text-color-and-border-color-on-hov
+    textFieldStyleRoot: props => ({
+        color: props.darkTheme === true ? '#EBEBEB' : "blue",
+
+        "&:hover": {
+            color: props.darkTheme === true ? '#EBEBEB' : "blue"
         },
-        "& label": {
-            color: "#b3b3b3"
-        },
-        "&:hover label": {
-            color: "blue"
-        },
-        "& label.Mui-focused": {
-            color: "blue"
-        },
-        "& .MuiOutlinedInput-root": {
+
+        "&.MuiOutlinedInput-root": {
             "& fieldset": {
-                borderColor: "#b3b3b3"
+                borderColor: props.darkTheme === true ? '#EBEBEB' : "#b3b3b3"
             },
             "&:hover fieldset": {
-                borderColor: "blue"
+                borderColor: props.darkTheme === true ? '#EBEBEB' : "blue"
             },
             "&.Mui-focused fieldset": {
-                borderColor: "blue"
+                borderColor: props.darkTheme === true ? '#EBEBEB' : "blue"
             }
         }
-    }
-})(TextField);
+    }),
+
+    textFieldLabel: props => ({
+        color: props.darkTheme === true ? 'gray' : "#b3b3b3",
+        // "&:hover": {
+        //     color: props.darkTheme === true ? '#EBEBEB' : "blue"
+        // },
+        "&$textFieldLabelFocused": {
+            color: props.darkTheme === true ? '#EBEBEB' : "blue"
+        },
+    }),
+
+    textFieldLabelFocused: () => ({}),
+
+}));
 
 export default function Register(props) {
     const history = useHistory();
+    const { darkTheme } = useContext(darkThemeContext);
+
+    // // CssTextField
+    // const CssTextField = withStyles({
+    //     root: {
+    //         "& input": {
+    //             color: darkTheme === true ? '#EBEBEB' : "blue"
+    //         },
+    //         "& label": {
+    //             color: darkTheme === true ? 'gray' : "#b3b3b3"
+    //         },
+    //         "&:hover label": {
+    //             color: darkTheme === true ? '#EBEBEB' : "blue"
+    //         },
+    //         "& label.Mui-focused": {
+    //             color: darkTheme === true ? '#EBEBEB' : "blue"
+    //         },
+    //         "& .MuiOutlinedInput-root": {
+    //             "& fieldset": {
+    //                 borderColor: darkTheme === true ? '#EBEBEB' : "#b3b3b3"
+    //             },
+    //             "&:hover fieldset": {
+    //                 borderColor: darkTheme === true ? '#EBEBEB' : "blue"
+    //             },
+    //             "&.Mui-focused fieldset": {
+    //                 borderColor: darkTheme === true ? '#EBEBEB' : "blue"
+    //             }
+    //         }
+    //     },
+    // })(TextField);
 
     // login form
     const [userEmailRegisterForm, setuserEmailRegisterForm] = useState('');
@@ -94,15 +133,114 @@ export default function Register(props) {
         })
     }
 
+    // For the dark theme props (to be passed in useStyles)
+    const darkThemeProps = { darkTheme: darkTheme }
+
+    const classes = useStyles(darkThemeProps);
+
     return (
-        <div className="register-page">
+        <div className={`register-page`}>
             <div className="content">
                 <h1 className="title-text">Sign Up Today!</h1>
-                <CssTextField className="text-field" label="First Name" style={{width:'300px'}} required variant="outlined" onChange={userFirstNameRegisterFormHandler} /><br></br><br></br>
-                <CssTextField className="text-field" label="Last Name" style={{width:'300px'}} required variant="outlined" onChange={userLastNameRegisterFormHandler} /><br></br><br></br>
-                <CssTextField className="text-field" label="Email" style={{width:'300px'}} required variant="outlined" onChange={userEmailRegisterFormHandler} /><br></br><br></br>
-                <CssTextField className="text-field" label="Password" style={{width:'300px'}} required type="password" variant="outlined" onChange={userPasswordRegisterFormHandler} /><br></br><br></br>
-                <CssTextField className="text-field" label="Confirm Password" style={{width:'300px'}} required type="password" variant="outlined" onChange={userConfirmPasswordRegisterFormHandler} /><br></br><br></br>
+                <TextField
+                    InputProps={{
+                        classes: {
+                            root: classes.textFieldStyleRoot
+                        }
+                    }}
+                    InputLabelProps={{
+                        classes: {
+                            root: classes.textFieldLabel,
+                            focused: classes.textFieldLabelFocused
+                        }
+                    }}
+                    className="text-field"
+                    label="First Name"
+                    style={{ width: '300px' }}
+                    required variant="outlined"
+                    onChange={userFirstNameRegisterFormHandler}
+                /><br></br><br></br>
+                <TextField
+                    InputProps={{
+                        classes: {
+                            root: classes.textFieldStyleRoot
+                        }
+                    }}
+                    InputLabelProps={{
+                        classes: {
+                            root: classes.textFieldLabel,
+                            focused: classes.textFieldLabelFocused
+                        }
+                    }}
+                    className="text-field"
+                    label="Last Name"
+                    style={{ width: '300px' }}
+                    required
+                    variant="outlined"
+                    onChange={userLastNameRegisterFormHandler}
+                />
+                <br></br><br></br>
+                <TextField
+                    InputProps={{
+                        classes: {
+                            root: classes.textFieldStyleRoot
+                        }
+                    }}
+                    InputLabelProps={{
+                        classes: {
+                            root: classes.textFieldLabel,
+                            focused: classes.textFieldLabelFocused
+                        }
+                    }}
+                    className="text-field"
+                    label="Email"
+                    style={{ width: '300px' }}
+                    required
+                    variant="outlined"
+                    onChange={userEmailRegisterFormHandler}
+                />
+                <br></br><br></br>
+                <TextField
+                    InputProps={{
+                        classes: {
+                            root: classes.textFieldStyleRoot
+                        }
+                    }}
+                    InputLabelProps={{
+                        classes: {
+                            root: classes.textFieldLabel,
+                            focused: classes.textFieldLabelFocused
+                        }
+                    }}
+                    className="text-field"
+                    label="Password"
+                    style={{ width: '300px' }}
+                    required
+                    type="password"
+                    variant="outlined"
+                    onChange={userPasswordRegisterFormHandler}
+                /><br></br><br></br>
+                <TextField
+                    InputProps={{
+                        classes: {
+                            root: classes.textFieldStyleRoot
+                        }
+                    }}
+                    InputLabelProps={{
+                        classes: {
+                            root: classes.textFieldLabel,
+                            focused: classes.textFieldLabelFocused
+                        }
+                    }}
+                    className="text-field"
+                    label="Confirm Password"
+                    style={{ width: '300px' }}
+                    required
+                    type="password"
+                    variant="outlined"
+                    onChange={userConfirmPasswordRegisterFormHandler}
+                />
+                <br></br><br></br>
                 <Grid container spacing={1} justify="center">
                     <Grid item>
                         <Button id="sign-up-button" className="sign-up-button" variant="contained" color="primary" onClick={register}>Register</Button>

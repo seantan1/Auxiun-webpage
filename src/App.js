@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { makeStyles } from '@material-ui/core/styles';
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import "./App.css";
 import detectEthereumProvider from "@metamask/detect-provider";
 import Alert from "@material-ui/lab/Alert";
 import AlertTitle from "@material-ui/lab/AlertTitle";
-
-
 
 // component imports
 // global
@@ -14,11 +13,16 @@ import Footer from "./components/footer-components/Footer";
 import NavlinksWindow from "./components/navbar-components/NavlinksWindow";
 import WalletProviderWindow from "./components/navbar-components/WalletProviderWindow";
 import ProfileWindow from "./components/navbar-components/ProfileWindow";
+import darkThemeContext from "./components/darkThemeContext";
+
+//image imports
+import background from './assets/background.png'
+import backgroundDark from './assets/background_dark.png'
 
 // home
 import HomeBanner from "./components/home-components/Banner";
 
- 
+
 // market
 import MarketPlace from './components/marketplace-components/MarketPlace';
 
@@ -77,6 +81,7 @@ const chainNetData = RINKEBY_TEST_NET_DATA;
 const chainBlockExplorerUrl = RINKEBY_TEST_NET_BLOCK_EXPLORER_TX_URL;
 
 function App() {
+
     // load once
     const [loadOnce, setLoadOnce] = useState(false);
 
@@ -115,6 +120,18 @@ function App() {
 
     const [refreshData, setRefreshData] = useState(false);
     const [transactionPending, setTransactionPending] = useState(false);
+
+    const [darkTheme, setDarkTheme] = useState(false);
+
+    const useStyles = makeStyles({
+        darkTheme: {
+            backgroundImage: darkTheme !== true ? `url(${background})` : `url(${backgroundDark})`,
+            backgroundSize: '30%',
+            color: darkTheme === true ? '#EBEBEB' : ''
+        }
+    })
+
+    const classes = useStyles();
 
     // use to toggle the navlinks window
     const [navlinksWindowOpen, setNavlinksWindowOpen] = useState(false);
@@ -222,6 +239,9 @@ function App() {
             ) {
                 signInMetamask();
             }
+            if (localStorage.getItem('darkTheme') === 'true') {
+                setDarkTheme(true);
+            }
             setLoadOnce(true);
         }
     });
@@ -257,81 +277,85 @@ function App() {
                     toggleProfileWindow={toggleProfileWindow}
                 />
             )}
-            <div className="page-content-container">
-                <div className="sticky-navbar">
-                    <Navbar
-                        authorised={authorised}
-                        account={account}
-                        toggleNavlinksWindow={toggleNavlinksWindow}
-                        toggleWalletWindow={toggleWalletWindow}
-                        toggleProfileWindow={toggleProfileWindow}
-                        transactionPending={transactionPending}
-                        networkValid={networkValid}
-                        switchNetworks={switchNetworks}
-                        logOut={logOut}
-                    />
-                    {alert && (
-                        <Alert
-                            className="tx-alert"
-                            severity={alertSeverity}
-                            onClose={() => setAlert(false)}
-                        >
-                            <AlertTitle>{alertTitle}</AlertTitle>
-                            <a href={alertLink} target="_blank" rel="noreferrer">
-                                {alertMessage}
-                            </a>
-                        </Alert>
-                    )}
+
+            <darkThemeContext.Provider value={{ darkTheme, setDarkTheme }}>
+                <div className={`${classes.darkTheme} page-content-container`}>
+                    <div className="sticky-navbar">
+                        <Navbar
+                            authorised={authorised}
+                            account={account}
+                            toggleNavlinksWindow={toggleNavlinksWindow}
+                            toggleWalletWindow={toggleWalletWindow}
+                            toggleProfileWindow={toggleProfileWindow}
+                            transactionPending={transactionPending}
+                            networkValid={networkValid}
+                            switchNetworks={switchNetworks}
+                            logOut={logOut}
+                        />
+                        {alert && (
+                            <Alert
+                                className="tx-alert"
+                                severity={alertSeverity}
+                                onClose={() => setAlert(false)}
+                            >
+                                <AlertTitle>{alertTitle}</AlertTitle>
+                                <a href={alertLink} target="_blank" rel="noreferrer">
+                                    {alertMessage}
+                                </a>
+                            </Alert>
+                        )}
+                    </div>
+
+                    <BrowserRouter>
+                        <Switch>
+                            <Route exact path="/">
+                                <HomeBanner />
+                                <About />
+                                <Team />
+                                <Announcement />
+                                <Roadmap />
+                                <Media />
+                            </Route>
+                            <Route exact path='/marketplace'>
+                                <MarketPlace authorised={authorised} userSessionData={userSessionData} account={account} />
+                            </Route>
+                            <Route exact path="/login">
+                                <Login showAlert={showAlert} />
+                            </Route>
+                            <Route exact path="/register">
+                                <Register showAlert={showAlert} />
+                            </Route>
+                            <Route exact path="/profile">
+                                <Profile showAlert={showAlert} userSessionData={userSessionData} />
+                            </Route>
+                            <Route exact path="/updateprofile">
+                                <UpdateProfile showAlert={showAlert} userSessionData={userSessionData} />
+                            </Route>
+                            <Route exact path="/info">
+                                <Info />
+                            </Route>
+                            <Route exact path="/inventory">
+                                <Inventory authorised={authorised} account={account} />
+                            </Route>
+                            <Route exact path="/sell">
+                                <Sell showAlert={showAlert} authorised={authorised} component={Sell} account={account} />
+                            </Route>
+                            <Route exact path="/buy">
+                                <Buy showAlert={showAlert} authorised={authorised} component={Buy} account={account} />
+                            </Route>
+                            <Route exact path="/createTokens">
+                                <CreateTokens authorised={authorised} showAlert={showAlert} account={account} />
+                            </Route>
+
+                            <Route exact path="/forgot-password">
+                                <ForgotPassword showAlert={showAlert} />
+                            </Route>
+                            <Route render={() => <Redirect to={{ pathname: "/" }} />} />
+                        </Switch>
+                    </BrowserRouter>
+                    <Footer />
                 </div>
-                <BrowserRouter>
-                    <Switch>
-                        <Route exact path="/">
-                            <HomeBanner />
-                            <About/>
-                            <Team/>
-                            <Announcement/>
-                            <Roadmap/>
-                            <Media/>
-                        </Route>
-                        <Route exact path='/marketplace'>
-                            <MarketPlace authorised={authorised} userSessionData={userSessionData} account={account}/>
-                        </Route>
-                        <Route exact path="/login">
-                            <Login showAlert={showAlert} />
-                        </Route>
-                        <Route exact path="/register">
-                            <Register showAlert={showAlert} />
-                        </Route>
-                        <Route exact path="/profile">
-                            <Profile showAlert={showAlert} userSessionData={userSessionData}/>
-                        </Route>
-                        <Route exact path="/updateprofile">
-                            <UpdateProfile showAlert={showAlert} userSessionData={userSessionData}/>
-                        </Route>
-                        <Route exact path="/info">
-                            <Info />
-                        </Route>
-                        <Route exact path="/inventory">
-                            <Inventory authorised={authorised} account={account}/>
-                        </Route>
-                        <Route exact path="/sell">
-                            <Sell showAlert={showAlert} authorised={authorised} component={Sell} account={account}/>
-                        </Route>
-                        <Route exact path="/buy">
-                            <Buy showAlert={showAlert} authorised={authorised} component={Buy} account={account}/>
-                        </Route>
-                        <Route exact path="/createTokens">
-                            <CreateTokens authorised={authorised} showAlert={showAlert} account={account} />
-                        </Route>
-                        
-                        <Route exact path="/forgot-password">
-                            <ForgotPassword showAlert={showAlert} />
-                        </Route>
-                        <Route render={() => <Redirect to={{ pathname: "/" }} />} />
-                    </Switch>
-                </BrowserRouter>
-                <Footer />
-            </div>
+            </darkThemeContext.Provider>
         </div>
     );
 }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useContext } from 'react'
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from "@material-ui/core/styles";
@@ -16,7 +16,9 @@ import {
     TOKEN_CONTRACT_ABI,
 } from "../../contract-data/token-contract-data";
 import { Typography } from '@material-ui/core';
+import darkThemeContext from "../darkThemeContext";
 function Buy(props) {
+    const { darkTheme } = useContext(darkThemeContext);
     const history = useHistory();
     const useStyles = makeStyles((theme) => ({
         gridContainer: {
@@ -31,7 +33,7 @@ function Buy(props) {
             marginTop: "2rem",
         },
         details: {
-            background: "white",
+            background: darkTheme ? '#2c2c2c' : "white",
             padding: "1rem",
             borderRadius: "5px",
         }
