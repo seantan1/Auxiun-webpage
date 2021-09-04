@@ -66,7 +66,7 @@ function a11yProps(index) {
 
 export default function CreateTokens(props) {
     const { darkTheme } = useContext(darkThemeContext);
-    
+
     const useStyles = makeStyles((theme) => ({
         root: {
             "& .MuiTextField-root": {
@@ -77,6 +77,38 @@ export default function CreateTokens(props) {
                 margin: theme.spacing(1),
             },
         },
+        textFieldStyleRoot: props => ({
+            color: props.darkTheme === true ? '#EBEBEB' : "blue",
+
+            "&:hover": {
+                color: props.darkTheme === true ? '#EBEBEB' : "blue"
+            },
+
+            "&.MuiOutlinedInput-root": {
+                "& fieldset": {
+                    borderColor: props.darkTheme === true ? '#EBEBEB' : "#b3b3b3"
+                },
+                "&:hover fieldset": {
+                    borderColor: props.darkTheme === true ? '#EBEBEB' : "blue"
+                },
+                "&.Mui-focused fieldset": {
+                    borderColor: props.darkTheme === true ? '#EBEBEB' : "blue"
+                }
+            }
+        }),
+
+        textFieldLabel: props => ({
+            color: props.darkTheme === true ? 'gray' : "#b3b3b3",
+            // "&:hover": {
+            //     color: props.darkTheme === true ? '#EBEBEB' : "blue"
+            // },
+            "&$textFieldLabelFocused": {
+                color: props.darkTheme === true ? '#EBEBEB' : "blue"
+            },
+        }),
+
+        textFieldLabelFocused: () => ({}),
+
     }));
 
     // CssTextField
@@ -111,7 +143,7 @@ export default function CreateTokens(props) {
         },
     })(TextField);
 
-    const classes = useStyles();
+    // const classes = useStyles();
     const [value, setValue] = useState(0);
 
     //   Game
@@ -273,6 +305,11 @@ export default function CreateTokens(props) {
             });
     };
 
+    // For the dark theme props (to be passed in useStyles)
+    const darkThemeProps = { darkTheme: darkTheme }
+
+    const classes = useStyles(darkThemeProps);
+
     return (
         <div>
             <div className="token-banner">
@@ -292,7 +329,18 @@ export default function CreateTokens(props) {
                         <div className="form-align">
                             <h4></h4>
                             <form className={classes.root} noValidate autoComplete="off">
-                                <CssTextField
+                                <TextField
+                                    InputProps={{
+                                        classes: {
+                                            root: classes.textFieldStyleRoot
+                                        }
+                                    }}
+                                    InputLabelProps={{
+                                        classes: {
+                                            root: classes.textFieldLabel,
+                                            focused: classes.textFieldLabelFocused
+                                        }
+                                    }}
                                     id="game-name"
                                     label="Game Name"
                                     value={addGameForm}
@@ -319,7 +367,18 @@ export default function CreateTokens(props) {
                     <TabPanel value={value} index={1}>
                         <h4 className="token-title">Add A New Item</h4>
                         <form className={classes.root} noValidate autoComplete="off">
-                            <CssTextField
+                            <TextField
+                                InputProps={{
+                                    classes: {
+                                        root: classes.textFieldStyleRoot
+                                    }
+                                }}
+                                InputLabelProps={{
+                                    classes: {
+                                        root: classes.textFieldLabel,
+                                        focused: classes.textFieldLabelFocused
+                                    }
+                                }}
                                 id="select-game"
                                 select
                                 label="Game ID"
@@ -334,32 +393,65 @@ export default function CreateTokens(props) {
                                             {option._id} - {option.game_name}
                                         </MenuItem>
                                     ))}
-                            </CssTextField>
+                            </TextField>
                             <br />
-                            <CssTextField
+                            <TextField
+                                InputProps={{
+                                    classes: {
+                                        root: classes.textFieldStyleRoot
+                                    }
+                                }}
+                                InputLabelProps={{
+                                    classes: {
+                                        root: classes.textFieldLabel,
+                                        focused: classes.textFieldLabelFocused
+                                    }
+                                }}
                                 required
                                 id="item-id"
                                 label="Item ID"
                                 type="text"
                                 value={addItemId}
                                 onChange={addItemIdHandler}
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
+                                // InputLabelProps={{
+                                //     shrink: true,
+                                // }}
                             />
-                            <CssTextField
+                            <TextField
+                                InputProps={{
+                                    classes: {
+                                        root: classes.textFieldStyleRoot
+                                    }
+                                }}
+                                InputLabelProps={{
+                                    classes: {
+                                        root: classes.textFieldLabel,
+                                        focused: classes.textFieldLabelFocused
+                                    }
+                                }}
                                 required
                                 id="item-name"
                                 label="Item Name"
                                 type="text"
                                 value={addItemName}
                                 onChange={addItemNameHandler}
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
+                                // InputLabelProps={{
+                                //     shrink: true,
+                                // }}
                             />
                             <br /> <br />
-                            <CssTextField
+                            <TextField
+                                InputProps={{
+                                    classes: {
+                                        root: classes.textFieldStyleRoot
+                                    }
+                                }}
+                                InputLabelProps={{
+                                    classes: {
+                                        root: classes.textFieldLabel,
+                                        focused: classes.textFieldLabelFocused
+                                    }
+                                }}
                                 id="item-description"
                                 className="item-description"
                                 label="Item Description"
@@ -407,7 +499,18 @@ export default function CreateTokens(props) {
 
                         <div className="form-align">
                             <form className={classes.root} noValidate autoComplete="off">
-                                <CssTextField
+                                <TextField
+                                    InputProps={{
+                                        classes: {
+                                            root: classes.textFieldStyleRoot
+                                        }
+                                    }}
+                                    InputLabelProps={{
+                                        classes: {
+                                            root: classes.textFieldLabel,
+                                            focused: classes.textFieldLabelFocused
+                                        }
+                                    }}
                                     id="game-id"
                                     select
                                     label="Select Game"
@@ -423,8 +526,19 @@ export default function CreateTokens(props) {
                                             </MenuItem>
                                         ))
                                     }
-                                </CssTextField>
-                                <CssTextField
+                                </TextField>
+                                <TextField
+                                    InputProps={{
+                                        classes: {
+                                            root: classes.textFieldStyleRoot
+                                        }
+                                    }}
+                                    InputLabelProps={{
+                                        classes: {
+                                            root: classes.textFieldLabel,
+                                            focused: classes.textFieldLabelFocused
+                                        }
+                                    }}
                                     required
                                     select
                                     id="item-id"
@@ -433,7 +547,6 @@ export default function CreateTokens(props) {
                                     variant="outlined"
                                     value={mintItemId}
                                     onChange={mintItemIdHandler}
-                                    required
                                 >
                                     {nftMetadatasList &&
                                         nftMetadatasList.map((option) => (
@@ -442,7 +555,7 @@ export default function CreateTokens(props) {
                                             </MenuItem>
                                         ))
                                     }
-                                </CssTextField>
+                                </TextField>
                                 <br></br>
                                 <CssTextField
                                     required
@@ -451,7 +564,6 @@ export default function CreateTokens(props) {
                                     className="margin-rght"
                                     value={receiverAddress}
                                     onChange={receiverAddressHandler}
-                                    required
                                 />
                                 <br />
                                 <br />

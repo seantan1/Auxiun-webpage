@@ -6,38 +6,83 @@ import { Button, Icon } from '@material-ui/core';
 import { useState, useContext } from 'react';
 import darkThemeContext from "../darkThemeContext";
 import { Link } from 'react-router-dom';
+import { makeStyles } from "@material-ui/core/styles";
 
 export default function ForgotPassword(props) {
     const { darkTheme } = useContext(darkThemeContext);
 
-    // CssTextField
-    const CssTextField = withStyles({
+    const useStyles = makeStyles((theme) => ({
         root: {
-            "& input": {
-                color: darkTheme === true ? '#EBEBEB' : "blue"
+            "& .MuiTextField-root": {
+                margin: theme.spacing(1),
+                width: "25ch",
             },
-            "& label": {
-                color: darkTheme === true ? 'gray' : "#b3b3b3"
+            button: {
+                margin: theme.spacing(1),
             },
-            "&:hover label": {
-                color: darkTheme === true ? '#EBEBEB' : "blue"
+        },
+        textFieldStyleRoot: props => ({
+            color: props.darkTheme === true ? '#EBEBEB' : "blue",
+
+            "&:hover": {
+                color: props.darkTheme === true ? '#EBEBEB' : "blue"
             },
-            "& label.Mui-focused": {
-                color: darkTheme === true ? '#EBEBEB' : "blue"
-            },
-            "& .MuiOutlinedInput-root": {
+
+            "&.MuiOutlinedInput-root": {
                 "& fieldset": {
-                    borderColor: darkTheme === true ? '#EBEBEB' : "#b3b3b3"
+                    borderColor: props.darkTheme === true ? '#EBEBEB' : "#b3b3b3"
                 },
                 "&:hover fieldset": {
-                    borderColor: darkTheme === true ? '#EBEBEB' : "blue"
+                    borderColor: props.darkTheme === true ? '#EBEBEB' : "blue"
                 },
                 "&.Mui-focused fieldset": {
-                    borderColor: darkTheme === true ? '#EBEBEB' : "blue"
+                    borderColor: props.darkTheme === true ? '#EBEBEB' : "blue"
                 }
             }
-        },
-    })(TextField);
+        }),
+
+        textFieldLabel: props => ({
+            color: props.darkTheme === true ? 'gray' : "#b3b3b3",
+            // "&:hover": {
+            //     color: props.darkTheme === true ? '#EBEBEB' : "blue"
+            // },
+            "&$textFieldLabelFocused": {
+                color: props.darkTheme === true ? '#EBEBEB' : "blue"
+            },
+        }),
+
+        textFieldLabelFocused: () => ({}),
+
+    }));
+
+    // // CssTextField
+    // const CssTextField = withStyles({
+    //     root: {
+    //         "& input": {
+    //             color: darkTheme === true ? '#EBEBEB' : "blue"
+    //         },
+    //         "& label": {
+    //             color: darkTheme === true ? 'gray' : "#b3b3b3"
+    //         },
+    //         "&:hover label": {
+    //             color: darkTheme === true ? '#EBEBEB' : "blue"
+    //         },
+    //         "& label.Mui-focused": {
+    //             color: darkTheme === true ? '#EBEBEB' : "blue"
+    //         },
+    //         "& .MuiOutlinedInput-root": {
+    //             "& fieldset": {
+    //                 borderColor: darkTheme === true ? '#EBEBEB' : "#b3b3b3"
+    //             },
+    //             "&:hover fieldset": {
+    //                 borderColor: darkTheme === true ? '#EBEBEB' : "blue"
+    //             },
+    //             "&.Mui-focused fieldset": {
+    //                 borderColor: darkTheme === true ? '#EBEBEB' : "blue"
+    //             }
+    //         }
+    //     },
+    // })(TextField);
 
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -58,13 +103,75 @@ export default function ForgotPassword(props) {
         }
     }
 
+    // For the dark theme props (to be passed in useStyles)
+    const darkThemeProps = { darkTheme: darkTheme }
+
+    const classes = useStyles(darkThemeProps);
+
     return (
         <div className="forgotPassword-page">
             <div className="fp-content">
                 <h1 className="title-text">Password Reset</h1>
-                <CssTextField className="text-field" style={{ width: '300px' }} label="Email" required variant="outlined" /><br></br><br></br>
-                <CssTextField className="text-field" style={{ width: '300px' }} label="New Password" required type="password" variant="outlined" onChange={onPasswordUpdate} /><br></br><br></br>
-                <CssTextField className="text-field" style={{ width: '300px' }} label="Confirm New Password" required type="password" variant="outlined" onChange={onConfirmPasswordUpdate} /><br></br><br></br>
+                <TextField
+                    InputProps={{
+                        classes: {
+                            root: classes.textFieldStyleRoot
+                        }
+                    }}
+                    InputLabelProps={{
+                        classes: {
+                            root: classes.textFieldLabel,
+                            focused: classes.textFieldLabelFocused
+                        }
+                    }}
+                    className="text-field"
+                    style={{ width: '300px' }}
+                    label="Email"
+                    required
+                    variant="outlined"
+                />
+                <br></br><br></br>
+                <TextField
+                    InputProps={{
+                        classes: {
+                            root: classes.textFieldStyleRoot
+                        }
+                    }}
+                    InputLabelProps={{
+                        classes: {
+                            root: classes.textFieldLabel,
+                            focused: classes.textFieldLabelFocused
+                        }
+                    }}
+                    className="text-field"
+                    style={{ width: '300px' }}
+                    label="New Password"
+                    required
+                    type="password"
+                    variant="outlined"
+                    onChange={onPasswordUpdate}
+                />
+                <br></br><br></br>
+                <TextField
+                    InputProps={{
+                        classes: {
+                            root: classes.textFieldStyleRoot
+                        }
+                    }}
+                    InputLabelProps={{
+                        classes: {
+                            root: classes.textFieldLabel,
+                            focused: classes.textFieldLabelFocused
+                        }
+                    }}
+                    className="text-field"
+                    style={{ width: '300px' }}
+                    label="Confirm New Password"
+                    required type="password"
+                    variant="outlined"
+                    onChange={onConfirmPasswordUpdate}
+                />
+                <br></br><br></br>
                 <Link to={{
                     pathname: "/login",
                 }}>
