@@ -29,6 +29,8 @@ import MarketPlace from './components/marketplace-components/MarketPlace';
 // profile
 import Profile from "./components/profile-component/Profile";
 
+import UpdateProfile from './components/profile-component/UpdateProfile';
+
 // login
 import Login from "./components/login-components/Login";
 
@@ -67,11 +69,14 @@ import {
     RINKEBY_TEST_NET_VERSION,
     RINKEBY_TEST_NET_BLOCK_EXPLORER_TX_URL,
     RINKEBY_TEST_NET_RPC_URL,
+    RINKEBY_TEST_NET_DATA
 } from "./contract-data/rpc-data.js";
 import Sell from "./components/sell-components/Sell";
 import Buy from './components/buy-components/Buy';
 // main net
 const chainNetVersion = RINKEBY_TEST_NET_VERSION;
+// net data
+const chainNetData = RINKEBY_TEST_NET_DATA;
 // eslint-disable-next-line
 const chainBlockExplorerUrl = RINKEBY_TEST_NET_BLOCK_EXPLORER_TX_URL;
 
@@ -92,6 +97,7 @@ function App() {
           authorised: has user authorised/signed-in a wallet
       */
     const [account, setAccount] = useState("");
+    const [networkValid, setNetworkValid] = useState(true);
     const handleAccount = (input_account) => {
         setAccount(input_account);
         localStorage.setItem("account", input_account);
@@ -160,24 +166,16 @@ function App() {
     // metamask accounts change handler
     const handleAccountsChanged = (accounts) => {
         if (accounts.length === 0) {
-            // console.error('Not found accounts');
         } else {
             handleAccount(accounts[0]);
-            // console.log('walletType: ' + walletType + ' addres: ' + account);
         }
     };
 
     // metamask sign in handler
     const signInMetamask = async () => {
         const provider = await detectEthereumProvider();
-        // @ts-ignore
-        if (provider !== window.ethereum) {
-            // console.error('Do you have multiple wallets installed?');
-        }
 
         if (!provider) {
-            console.error("Metamask not found");
-            // error pop up
             showAlert(
                 "Metamask extension not found.",
                 "Install metamask",
@@ -191,29 +189,22 @@ function App() {
         provider.on("accountsChanged", handleAccountsChanged);
 
         provider.on("disconnect", () => {
-            console.log("disconnect");
             handleAuthorised(false);
             handleAccount("");
-        });
-
-        provider.on("chainIdChanged", (chainId) => {
-            console.log("chainIdChanged", chainId);
-            handleAuthorised(false);
-            handleAccount("");
+            setNetworkValid(false);
         });
 
         // detect Network account change
-        provider.on("networkChanged", (networkId) => {
-            console.log("networkChanged", networkId);
+        provider.on("chainChanged", (chainId) => {
             if (window.ethereum.networkVersion !== chainNetVersion) {
                 handleAuthorised(false);
                 handleAccount("");
+                setNetworkValid(false);
             }
         });
 
         if (window.ethereum.networkVersion !== chainNetVersion) {
-            // TODO: alert user to switch network
-            console.log("Wrong network, please switch to rinkeby");
+            setNetworkValid(false);
         }
 
         attemptMetamaskConnection(provider);
@@ -226,17 +217,18 @@ function App() {
             .then(async (params) => {
                 handleAccountsChanged(params);
                 handleAuthorised(true);
+                if (window.ethereum.networkVersion === chainNetVersion) {
+                    setNetworkValid(true);
+                }
             })
             .catch((err) => {
                 handleAuthorised(false);
-
-                if (err.code === 4001) {
-                    // console.error('Please connect to MetaMask.');
-                } else {
-                    // console.error(err);
-                }
             });
     };
+
+    const switchNetworks = () => {
+        window.ethereum.request({ method: 'wallet_switchEthereumChain', params: chainNetData });
+    }
 
     // attempt to fetch credentials from local storage
     useEffect(() => {
@@ -256,11 +248,11 @@ function App() {
 
     // useEffect to fetching user session email from localStorage
     useEffect(() => {
+        // localStorage.clear()
         const storageUserSessionData = localStorage.getItem('userSessionData');
         if (storageUserSessionData) {
             const userData = JSON.parse(storageUserSessionData);
             setUserSessionData(userData);
-            console.log(userSessionData);
         }
     }, [loadOnce]);
 
@@ -296,6 +288,8 @@ function App() {
                             toggleWalletWindow={toggleWalletWindow}
                             toggleProfileWindow={toggleProfileWindow}
                             transactionPending={transactionPending}
+                            networkValid={networkValid}
+                            switchNetworks={switchNetworks}
                             logOut={logOut}
                         />
                         {alert && (
@@ -333,6 +327,9 @@ function App() {
                             </Route>
                             <Route exact path="/profile">
                                 <Profile showAlert={showAlert} userSessionData={userSessionData} />
+                            </Route>
+                            <Route exact path="/updateprofile">
+                                <UpdateProfile showAlert={showAlert} userSessionData={userSessionData} />
                             </Route>
                             <Route exact path="/info">
                                 <Info />

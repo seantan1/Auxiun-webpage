@@ -183,11 +183,6 @@ export default function CreateTokens(props) {
         setAddItemDescription(event.target.value);
     };
 
-    const AddItemImageHandler = (event) => {
-        setAddItemImage(event.target.value);
-    };
-
-
     const receiverAddressHandler = (event) => {
         setReceiverAddress(event.target.value);
     };
@@ -250,35 +245,36 @@ export default function CreateTokens(props) {
 
     // create game item AKA create NFT Metadata
     // DEV NOTE: itemImage variable here is the file for upload, not sure if it will work as is, on Postman is saves as variable type "File"
-    const createGameItem = (
-        gameId,
-        itemId,
-        itemName,
-        itemDescription,
-        itemImage
-    ) => {
-        axios
-            .post(process.env.REACT_APP_DATABASE_API_NFT_URL, {
-                apikey: process.env.REACT_APP_DATABASE_API_KEY,
-                game_id: String(gameId),
-                item_id: String(itemId),
-                item_name: String(itemName),
-                item_description: String(itemDescription),
-                item_image: itemImage,
-            })
-            .then(function (data) {
-                console.log(data);
-                if (data.data.errors) {
-                    props.showAlert("Error", "An unknown error occurred.", "", "error");
-                } else if (data.status === 200) {
-                    props.showAlert(
-                        "Success",
-                        "Game item has been successfully created",
-                        "",
-                        "success"
-                    );
-                }
-            });
+    const createGameItem = (gameId, itemId, itemName, itemDescription, itemImage) => {
+        const formData = new FormData();
+        formData.append('apikey', process.env.REACT_APP_DATABASE_API_KEY);
+        formData.append('game_id', String(gameId));
+        formData.append('item_id', String(itemId));
+        formData.append('item_name', String(itemName));
+        formData.append('item_description', String(itemDescription));
+        formData.append('item_image', itemImage);
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        };
+        axios.post(process.env.REACT_APP_DATABASE_API_NFT_URL, formData, config)
+        .then(function (data) {
+            if (data.data.errors) {
+                props.showAlert("Error", "An unknown error occurred.", "", "error");
+            } else if (data.status === 200) {
+                props.showAlert(
+                    "Success",
+                    "Game item has been successfully created",
+                    "",
+                    "success"
+                );
+            }
+        })
+        .catch((error) => {
+            props.showAlert("Error", "An unknown error occurred when attempting to do POST request.", "", "error");
+        });
+        
     };
 
     // only admin adresses can call this
@@ -294,8 +290,6 @@ export default function CreateTokens(props) {
                 from: props.account,
             })
             .then(function (result) {
-                console.log(result);
-                // TODO: add explorer tx link
                 props.showAlert(
                     "Success",
                     "NFT has been successfully minted",
@@ -309,6 +303,24 @@ export default function CreateTokens(props) {
     const darkThemeProps = { darkTheme: darkTheme }
 
     const classes = useStyles(darkThemeProps);
+    
+    // source: https://stackoverflow.com/questions/46040973/how-to-upload-image-using-reactjs-and-save-into-local-storage
+    const imageUpload = (e) => {
+        const file = e.target.files[0];
+        setAddItemImage(file);
+        // getBase64(file).then(img => {
+        //     setAddItemImage(img);
+        // });
+    };
+
+    const getBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = error => reject(error);
+            reader.readAsDataURL(file);
+        });
+    }
 
     return (
         <div>
@@ -467,15 +479,10 @@ export default function CreateTokens(props) {
                                 <span className="upload-title">Upload Image </span>
                                 <label htmlFor="contained-button-file"></label>
                                 <input
-                                    variant="contained"
-                                    color="primary"
-                                    component="span"
-                                    accept="image/*"
-                                    className={classes.input}
-                                    id="icon-button-file"
                                     type="file"
-                                    onChange={AddItemImageHandler}
-                                />
+                                    id="imageFile"
+                                    name='imageFile'
+                                    onChange={imageUpload} />
                             </div>
                             <br />
                             <br />

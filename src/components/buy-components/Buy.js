@@ -14,8 +14,6 @@ import Web3 from 'web3';
 import {
     TOKEN_CONTRACT_ADDRESS,
     TOKEN_CONTRACT_ABI,
-    MULTICALL_CONTRACT_ADDRESS,
-    MULTICALL_CONTRACT_ABI
 } from "../../contract-data/token-contract-data";
 import { Typography } from '@material-ui/core';
 import darkThemeContext from "../darkThemeContext";
@@ -58,9 +56,7 @@ function Buy(props) {
             history.push('/marketplace');
         })
     }
-    useEffect(() => {
-        console.log(props);
-    }, [props])
+
     const onClick = () => {
         purchaseNFTOnMarket(props.location.state.data.token_id, props.location.state.data.price);
         

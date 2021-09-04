@@ -30,29 +30,32 @@ function Item(props) {
             },
             backgroundColor: darkTheme ? '#2c2c2c' : '',
             color: darkTheme ? 'aliceblue' : '',
+            height: "100%"
         },
         media: {
-            height: 0,
-            paddingTop: '56.25%',
-        },
+            width: "100%",
+            height: "100%",
+            objectFit: "cover", 
+            paddingTop: '100%'
+    },
         price: {
-            alignSelf: "right"
-        },
+        alignSelf: "right"
+    },
         divider: {
             margin: `1rem 0`,
             background: darkTheme ? 'gray' : '',
         },
     });
 
-    const classes = useStyles();
-    if (!item) {
-        return null
-    } else {
-        return (
-            <Link to={{
-                pathname: '/buy',
-                state: { ...props }
-            }}>
+const classes = useStyles();
+if (!item) {
+    return null
+} else {
+    return (
+        <Link to={{
+            pathname: '/buy',
+            state: { ...props }
+        }}>
             <Card className={`${classes.root} animate`} variant="outlined" key={item.token_id + item.seller}>
                     <CardActionArea disableRipple>
                         <CardMedia

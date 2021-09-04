@@ -7,7 +7,7 @@ import darkThemeContext from "../darkThemeContext";
 const Team = () => {
   const { darkTheme } = useContext(darkThemeContext);
   return (
-    <div class="team-section" style={{color: darkTheme ? 'aliceblue' : '#333333' }}>
+    <div class="team-section" id="team" style={{color: darkTheme ? 'aliceblue' : '#333333' }}>
       <p className="team-section">Meet Our Team</p>
 
       <div class="inner-width">

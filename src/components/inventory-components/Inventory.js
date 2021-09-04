@@ -7,7 +7,13 @@ import React, { useState, useEffect, useContext } from 'react'
 import TextField from '@material-ui/core/TextField';
 import darkThemeContext from "../darkThemeContext";
 import Item from './Item';
-
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import moment from 'moment'
 // web3 and axios for NFT data & metadata
 import Web3 from 'web3';
 // contract data
@@ -19,30 +25,38 @@ import {
 } from "../../contract-data/token-contract-data";
 
 const Inventory = (props) => {
-
-    const { darkTheme } = useContext(darkThemeContext);
-    const [chips, setChips] = useState([{}]);
-    const [showBought, setBought] = useState(false);
-    const [showSelling, setSelling] = useState(false);
-    const [showSold, setSold] = useState(false);
-
-    const handleBoughtButtons = () => {
-        setBought(!showBought)
-    }
-    const handleSellingButtons = () => {
-        setSelling(!showSelling)
-    }
-    const handleSoldButtons = () => {
-        setSold(!showSold)
-    }
-
     // axios
     const axios = require('axios');
 
     const theme = useTheme();
     const xs = useMediaQuery(theme.breakpoints.down('sm'));
-    const [item, setItem] = useState([])
+
+    const { darkTheme } = useContext(darkThemeContext);
+    const [owned, setOwned] = useState([])
+    const [onMarket, setOnMarket] = useState([])
     const [pageCount, setPageCount] = useState(0);
+    const [chips, setChips] = useState([{}]);
+    const [showBought, setBought] = useState(false);
+    const [showSelling, setSelling] = useState(false);
+    const [showSold, setSold] = useState(false);
+    const [item, setItem] = useState([])
+    const [transactions, setTransactions] = useState([])
+    const [filteredData, setFilteredData] = useState([])
+    const handleBoughtButtons = () => {
+        setSold(false)
+        setBought(!showBought)
+    }
+    const handleSellingButtons = () => {
+        setSold(false)
+        setSelling(!showSelling)
+    }
+    const handleSoldButtons = () => {
+        setSold(!showSold)
+        setSelling(false)
+        setBought(false)
+    }
+
+
     const useStyles = makeStyles((theme) => ({
         gridContainer: {
             paddingLeft: "4rem",
@@ -66,12 +80,27 @@ const Inventory = (props) => {
     }
 
     const classes = useStyles();
-    const [testSell, setTestSell] = useState("")
-    const testButton = () => {
-        let web3 = new Web3(window.ethereum);
-        let amount = web3.utils.toWei("0.001", 'ether');
-        listNFTOnMarket(String(testSell), amount);
-    }
+
+    useEffect(() => {
+        if (showBought && showSelling) {
+            const data = item.filter(a => a.type === "selling" || "owned").sort(function (a, b) {
+                return a.token_id - b.token_id;
+            });
+            setFilteredData(data)
+        } else if (showBought) {
+            const data = item.filter(a => a.type === "owned").sort(function (a, b) {
+                return a.token_id - b.token_id;
+            });
+            setFilteredData(data)
+        } else if (showSelling) {
+            const data = item.filter(a => a.type === "selling").sort(function (a, b) {
+                return a.token_id - b.token_id;
+            });
+            setFilteredData(data)
+        } else {
+            setFilteredData([])
+        }
+    }, [showBought, showSelling])
     // useEffect
     useEffect(() => {
         if (props.authorised) {
@@ -83,53 +112,79 @@ const Inventory = (props) => {
                 .then(function (result) {
                     console.log("NFTs owned by you (not listed for sale): ", result);
                     // order: tokenIds, tokenURIs
+                    for (const data in result[0]) {
+                        fetchMetadataOwned(result[0][data], result[1][data])
+                    }
                 });
 
             contractMulticall.methods.multiCallNFTsOnMarket(props.account).call()
                 .then(function (result) {
                     console.log("Your NFTs listed on the marketplace: ", result);
                     // order: tokenIds, tokenURIs, tokenPrices, tokenSellers
+                    for (const data in result[0]) {
+
+                        fetchMetadataOnMarket(result[0][data], result[1][data], result[2][data], result[3][data])
+                    }
                 });
 
             contractMulticall.methods.multiCallTransactionDataByUser(props.account).call()
                 .then(function (result) {
                     console.log("Your marketplace transactions: ", result);
+                    for (const data in result[0]) {
+
+                        fetchMetadataTransactions(result[0][data], result[1][data], result[2][data], result[3][data], result[4][data], result[5][data], result[6][data])
+                    }
                     // order: tokenIds, tokenBuyers, tokenSellers, prices, timestamps, transactionType (true means buy (you are the buyer), false means sell)
                 });
         }
     }, [props.authorised]);
 
-    // function to list your NFT on market
-    const listNFTOnMarket = (tokenId, price) => {
-        let web3 = new Web3(window.ethereum);
-        let contract = new web3.eth.Contract(TOKEN_CONTRACT_ABI, TOKEN_CONTRACT_ADDRESS);
-        contract.methods.listNFTOnMarket(tokenId, price).send({
-            from: props.account
-        }).then(function (result) {
-            console.log(result);
-            // TODO: add alert
-        });
-    }
 
-    const handleTestSell= (e) => {
-        setTestSell(e.target.value);
-    }
-    // TEST function: axios call function
-    const fetchMetadata = (tokenid, uri, price, seller) => {
+    const fetchMetadataOwned = (tokenid, uri) => {
         // axios fetching metadata of NFT
         axios.get(uri).then(response => {
-            console.log(seller)
             const itemData = {
                 token_id: tokenid,
                 data: response['data'][0],
-                price: price,
-                seller: seller
+                type: "owned"
+            }
+            setItem(item => [...item, itemData])
+        });
+    }
+    const fetchMetadataTransactions = (tokenIds, tokenUri, tokenBuyers, tokenSellers, prices, timestamps, transactionType) => {
+        // axios fetching metadata of NFT
+        let web3 = new Web3(window.ethereum);
+        axios.get(tokenUri).then(response => {
+            const itemData = {
+                tokenIds: tokenIds,
+                tokenName: response.data[0].item_name,
+                tokenBuyers: tokenBuyers,
+                tokenSellers: tokenSellers,
+                prices: web3.utils.fromWei(prices, 'ether'),
+                timestamps: timestamps,
+                transactionType: transactionType
+            }
+            setTransactions(transactions => [...transactions, itemData])
+        });
+    }
+    const fetchMetadataOnMarket = (tokenIds, tokenURIs, tokenPrices, tokenSellers) => {
+        // axios fetching metadata of NFT
+        let web3 = new Web3(window.ethereum);
+        axios.get(tokenURIs).then(response => {
+            const itemData = {
+                token_id: tokenIds,
+                data: response['data'][0],
+                price: web3.utils.fromWei(tokenPrices, 'ether'),
+                seller: tokenSellers,
+                type: "selling"
             }
             setItem(item => [...item, itemData])
         });
     }
 
+
     return (
+
         <div className="inventory-page">
             <div className='inventory-content'>
                 <div className='inventory-header'>
@@ -161,11 +216,36 @@ const Inventory = (props) => {
 
                 <Card style={{backgroundColor: darkTheme ? '#272727' : ''}}>
                     <Grid container spacing={2} className='inventory-items'>
-                            <TextField value={testSell} onChange={handleTestSell}></TextField>
-                        <Button variant="contained" color="primary" onClick={testButton}>
-                            Danny's Test Button
-                        </Button>
-                        {loadItems(item)}
+
+                        {!showSold ? loadItems(filteredData) :
+                                <Table aria-label="simple table">
+                                    <TableHead>
+                                        <TableRow>
+                                            <TableCell>Token ID</TableCell> 
+                                            <TableCell align="right">NFT Name</TableCell>
+                                            <TableCell align="right">Buyer Address</TableCell>
+                                            <TableCell align="right">Seller Address</TableCell>
+                                            <TableCell align="right">Price</TableCell>
+                                            <TableCell align="right">Date</TableCell>
+                                            <TableCell align="right">Transaction Type</TableCell>
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        {[...transactions].reverse().map((transaction) => (
+                                            <TableRow key={transaction.timestamps+ transaction.tokenBuyers}>
+                                                <TableCell component="th" scope="row">
+                                                    {transaction.tokenIds}
+                                                </TableCell>
+                                                <TableCell align="right">{transaction.tokenName}</TableCell>
+                                                <TableCell align="right">{transaction.tokenBuyers}</TableCell>
+                                                <TableCell align="right">{transaction.tokenSellers}</TableCell>
+                                                <TableCell align="right">{transaction.prices}</TableCell>
+                                                <TableCell align="right">{moment.unix(transaction.timestamps).format('LLLL')}</TableCell>
+                                                <TableCell align="right">{transaction.transactionType? "PURCHASED" : "SOLD"}</TableCell>
+                                            </TableRow>
+                                        ))}
+                                    </TableBody>
+                                </Table>}
                     </Grid>
                 </Card>
             </div>
@@ -174,3 +254,9 @@ const Inventory = (props) => {
 }
 
 export default Inventory;
+// tokenIds: tokenIds,
+// tokenBuyers: tokenBuyers,
+// tokenSellers: tokenSellers,
+// prices: prices,
+// timestamps: timestamps,
+// transactionType: transactionType

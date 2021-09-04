@@ -8,7 +8,7 @@ import darkThemeContext from "../darkThemeContext";
   const { darkTheme } = useContext(darkThemeContext);
   return (
     <div>
-      <div className="about-banner">
+      <div className="about-banner" id="about">
           <div id="page-name-bar-heading">
             <p className="about-banner-title">About Us</p>
             <p className="about-banner-title1" style={{color: darkTheme ? 'aliceblue' : '#333333' }}>A LITTLE SOMETHING ABOUT US</p>

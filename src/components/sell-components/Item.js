@@ -5,7 +5,6 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-import StorefrontIcon from '@material-ui/icons/Storefront';
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 function Item(props) {
     const [item, setItem] = useState()
@@ -21,8 +20,10 @@ function Item(props) {
             }
         },
         media: {
-            height: 0,
-            paddingTop: '56.25%',
+            width: "100%",
+            height: "100%",
+            objectFit: "cover", 
+            paddingTop: '100%'
         },
         price: {
             alignSelf: "right"
@@ -44,17 +45,9 @@ function Item(props) {
                         image={`data:${item.data.item_image.contentType};base64,${new Buffer.from(item.data.item_image['data']).toString('base64')}`}
                         title="Contemplative Reptile"
                     />
-                    {console.log(item.data.item_name)}
                     <CardContent>
                         <Typography gutterBottom variant="h5">
                             {item.data.item_name}
-                        </Typography>
-                        <Typography variant="caption" color="textSecondary">
-                            <div style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                            }}><StorefrontIcon /><span style={{whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis"}}>{item.seller}</span></div>
-
                         </Typography>
                         <Typography variant="caption" color="textSecondary">
                             <div style={{

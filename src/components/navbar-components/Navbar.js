@@ -44,9 +44,6 @@ const Navbar = (props) => {
     setAnchorEl(null);
   };
 
-  useEffect(() => {
-    console.log(localStorage.userSessionData ? "true" : "false")
-  }, [])
   // hook for nav bar css change on scroll
   const [backgroundColor, setbackgroundColor] = useState("none");
   const [fontColor, setfontColor] = useState("blue");
@@ -94,7 +91,7 @@ const Navbar = (props) => {
       setfontColor((prevState) => (prevState = "blue"));
     } else {
       setbackgroundColor(
-        (prevState) => (prevState = "rgb(242, 242, 242")
+        (prevState) => (prevState = "rgb(242, 242, 242)")
       );
       setfontColor((prevState) => (prevState = "black"));
     }
@@ -162,23 +159,23 @@ const Navbar = (props) => {
             />
 
             <div className="connect-wallet-button-container">
-              {localStorage.userSessionData ?
-                <>{!props.authorised && (
-                  <button
-                    className="connect-wallet-button"
-                    onClick={props.toggleWalletWindow}
-                  >
-                    Connect Wallet
-                  </button>
-                )}
-                  {props.authorised && (
-                    <button
-                      className="connect-wallet-button"
-                      onClick={props.toggleWalletWindow}
-                    >
-                      {props.account.substring(0, 11)}...
-                    </button>
-                  )}</> : null}
+              {localStorage.userSessionData &&
+                <div>
+                  {
+                    props.authorised ?
+                      <div>
+                        {
+                          props.networkValid ?
+                            <button className="connect-wallet-button" onClick={props.toggleWalletWindow}>{props.account.substring(0, 11)}...</button>
+                            :
+                            <button className="connect-wallet-button" onClick={props.switchNetworks}>Switch to Rinkeby Network</button>
+                        }
+                      </div>
+                      :
+                      <button className="connect-wallet-button" onClick={props.toggleWalletWindow}>Connect Wallet</button>
+                  }
+                </div>
+              }
 
               <Button
                 aria-controls="customized-menu"
