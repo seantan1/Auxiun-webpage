@@ -182,13 +182,16 @@ MenuItem {
     height: 50px;
 }
 
-.toggle {
-    /* margin-top: 5%; */
-    /* transform: rotate(270deg); */
-    /* left: 95%; */
+.toggle_logged_in {
     position: fixed;
     top: 23px;
     right: 210px;
+}
+
+.toggle_logged_out {
+    position: fixed;
+    top: 16px;
+    right: 100px;
 }
 
 /* Responsive NavBar */

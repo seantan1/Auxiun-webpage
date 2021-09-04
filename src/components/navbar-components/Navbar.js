@@ -156,7 +156,9 @@ const Navbar = (props) => {
               onChange={darkThemeToggle}
               checked={darkTheme}
               size={50}
-              className='toggle'
+              className={
+                localStorage.userSessionData ?
+                  'toggle_logged_in' : 'toggle_logged_out'}
             />
 
             <div className="connect-wallet-button-container">

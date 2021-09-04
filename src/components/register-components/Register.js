@@ -142,11 +142,12 @@ export default function Register(props) {
         <div className={`register-page`}>
             <div className="content">
                 <h1 className="title-text">Sign Up Today!</h1>
-                <TextField InputProps={{
-                    classes: {
-                        root: classes.textFieldStyleRoot
-                    }
-                }}
+                <TextField
+                    InputProps={{
+                        classes: {
+                            root: classes.textFieldStyleRoot
+                        }
+                    }}
                     InputLabelProps={{
                         classes: {
                             root: classes.textFieldLabel,
