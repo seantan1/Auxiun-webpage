@@ -11,7 +11,7 @@ import './css/MarketPlace.css'
 import darkThemeContext from "../darkThemeContext";
 import Grid from '@material-ui/core/Grid';
 import './css/MarketPlace.css';
-function Filters() {
+function Filters(props) {
     const { darkTheme } = useContext(darkThemeContext);
 
     const useStyles = makeStyles((theme) => ({
@@ -100,6 +100,7 @@ function Filters() {
     };
     const handleSubmit = e => {
         e.preventDefault()
+        props.setFilter(values);
     }
     const {
         values,
