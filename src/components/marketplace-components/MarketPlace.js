@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import './css/MarketPlace.css'
 import Item from './Item'
 import Grid from '@material-ui/core/Grid';
-import { makeStyles,useTheme, } from "@material-ui/core/styles";
+import { makeStyles, useTheme, } from "@material-ui/core/styles";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Pagination from '@material-ui/lab/Pagination';
 import Filters from './Filters';
@@ -32,7 +32,8 @@ function MarketPlace(props) {
     const [minValue, setMinValue] = useState(0);
     const [maxValue, setMaxValue] = useState(25);
     const [pageSize, setPageSize] = useState(25);
-
+    const [filter, setFilter] = useState()
+    const [filtered, setFiltered] = useState([])
     const useStyles = makeStyles((theme) => ({
         gridContainer: {
             paddingLeft: "4rem",
@@ -48,7 +49,9 @@ function MarketPlace(props) {
             }
         }
     }));
-
+    useEffect(() => {
+        setFiltered(item)
+    }, [item])
     const totalPageCount = () => {
         return (Math.ceil(item.length / pageSize))
     }
@@ -68,6 +71,7 @@ function MarketPlace(props) {
             setError("Log in to access the market place")
         }
         if (props.userSessionData && props.account && item) {
+            setFiltered(item.sort((a, b) => a.data.item_popularity < b.data.item_popularity ? 1 : -1))
             setError("")
         }
     }, [props.userSessionData, props.account, item])
@@ -83,9 +87,43 @@ function MarketPlace(props) {
             setMaxValue(value * pageSize)
         }
     }
+    const filterData = () => {
+        let data = item;
+        if (filter.search) {
+            console.log("Searching")
+            data = data.filter(item => String(item.data.item_name).toLowerCase().includes(String(filter.search).toLowerCase()))
+        }
+        switch (filter.sortBy) {
+            case "mostpopular":
+                console.log("Sorting", "Most Popular")
+                data = data.sort((a, b) => a.data.item_popularity < b.data.item_popularity ? 1 : -1)
+                console.log("Sorting", data)
+                break;
+            case "leastpopular":
+                console.log("Sorting", "Least Popular")
+                data = data.sort((a, b) => b.data.item_popularity < a.data.item_popularity ? 1 : -1)
+                console.log("Sorting", data)
+                break;
+            case "mostexpensive":
+                console.log("Sorting", "Most Expensive")
+                data = data.sort((a, b) => a.price > b.price ? 1 : -1)
+                console.log("Sorting", data)
+                break;
+            case "leastexpensive":
+                console.log("Sorting", "Least Expensive")
+                data = data.sort((a, b) => a.price < b.price ? 1 : -1)
+                console.log("Sorting", data)
+                break;
+            default:
+        }
+        setFiltered(data)
+        console.log("Sorted", data)
+    }
+
     useEffect(() => {
         history.push("/marketplace")
     }, [props.account, history])
+
     const loadItems = (data) => {
         const items = [];
         for (const item in data) {
@@ -97,15 +135,24 @@ function MarketPlace(props) {
         }
         return items;
     }
+    useEffect(() => {
+        console.log("FILTEREDDATA", filtered)
+    }, [filtered])
+    useEffect(() => {
+        if (filter) {
+            filterData()
+        }
 
+        console.log("Filters", filter)
+    }, [filter])
     //this is just to adjust the styling on cards in trending without affecting the others. Remove when backend for
     //trending is implemented -- Harris
     const loadTrendingItems = (data) => {
         console.log(data);
         const items = [].concat(data)
-        .sort((a,b) => a.data.item_popularity < b.data.item_popularity ? 1 : -1)
-        .map((item, i) => <Item key={i} data={item} />);
-        
+            .sort((a, b) => a.data.item_popularity < b.data.item_popularity ? 1 : -1)
+            .map((item, i) => <Item key={i} data={item} />);
+
         return items;
     }
 
@@ -150,16 +197,17 @@ function MarketPlace(props) {
                 <Grid container className={classes.gridContainer} >
 
                     <Grid item xs={12} sm={"auto"} md={2}>
-                        <Filters />
+                        <Filters setFilter={setFilter} />
                     </Grid>
 
                     <Grid item xs={12} sm={12} md={10}>
                         <MarketplaceCarousel loadItems={loadTrendingItems} item={item} />
+                        <Typography variant="subtitle">Displaying {filtered.length} Results</Typography>
                         <Grid
                             container
                             className={(xs ? classes.gridItemContainer : classes.gridContainer)}
                         >
-                            {loadItems(item.slice(minValue, maxValue))}
+                            {loadItems(filtered.slice(minValue, maxValue))}
                         </Grid>
                         <br></br><br></br>
                         <Grid

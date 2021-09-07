@@ -63,7 +63,6 @@ if (!item) {
                             image={`data:${item.data.item_image.contentType};base64,${new Buffer.from(item.data.item_image['data']).toString('base64')}`}
                             title="Contemplative Reptile"
                         />
-                        {console.log("Item Name",item.data.item_name)}
                         <CardContent>
                             <Typography gutterBottom variant="h5">
                                 {item.data.item_name}
