@@ -1,5 +1,6 @@
 import React from "react";
 import "./css/Media.css";
+import { useContext } from "react";
 
 import TwitterImage from "../../assets/twitter.png";
 import TelegramImage from "../../assets/telegram.png";
@@ -9,13 +10,15 @@ import SocialMedia from "../../assets/social-media.svg";
 import LinkedinTeam from "../../assets/linkedin-team.svg";
 import ArticleImage from "../../assets/article.svg";
 import ChatImage from "../../assets/chat.svg";
+import darkThemeContext from "../darkThemeContext";
 
 
 const Media = () => {
+  const { darkTheme } = useContext(darkThemeContext);
   return (
     <div>
       <div className="media-banner media-banner-text">
-        <h5 className="image-title">A Global Community</h5>
+        <h5 className="image-title" style={{color: darkTheme ? 'aliceblue' : ''}}>A Global Community</h5>
         <h5 className="media-text">
           Learn more about our project, chat with the team and others in the
           community, have your say in shaping the future of the project

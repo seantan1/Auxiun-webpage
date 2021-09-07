@@ -58,6 +58,8 @@ import Media from "./components/home-components/Media";
 
 import Roadmap from "./components/home-components/Roadmap";
 
+//faq
+import Faq from "./components/faq-components/Faq"
 
 // About Page
 import About from "./components/home-components/About";
@@ -345,6 +347,9 @@ function App() {
                             </Route>
                             <Route exact path="/createTokens">
                                 <CreateTokens authorised={authorised} showAlert={showAlert} account={account} />
+                            </Route>
+                            <Route exact path="/faq">
+                                <Faq />
                             </Route>
 
                             <Route exact path="/forgot-password">
