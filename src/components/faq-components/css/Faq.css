@@ -1,0 +1,28 @@
+.faq-content {
+    padding-top: 180px;
+    height: 60vh;
+}
+
+.faq-heading {
+  /* padding-top: 180px; */
+  padding-left: 20%;
+}
+
+.faq-accordian {
+    /* margin-left: 20%; */
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+    width: 60%;
+    margin-bottom: 0.5%;
+}
+
+.faq-question {
+    font-size: 1.3rem !important;
+    font-weight: 500 !important;
+}
+
+.faq-answer {
+    
+}
+
