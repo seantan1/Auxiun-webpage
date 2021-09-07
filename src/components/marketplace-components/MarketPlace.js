@@ -32,6 +32,7 @@ function MarketPlace(props) {
     const [minValue, setMinValue] = useState(0);
     const [maxValue, setMaxValue] = useState(25);
     const [pageSize, setPageSize] = useState(25);
+
     const useStyles = makeStyles((theme) => ({
         gridContainer: {
             paddingLeft: "4rem",
@@ -100,12 +101,11 @@ function MarketPlace(props) {
     //this is just to adjust the styling on cards in trending without affecting the others. Remove when backend for
     //trending is implemented -- Harris
     const loadTrendingItems = (data) => {
-        const items = [];
-        for (const item in data) {
-            items.push(
-                <Item data={data[item]} />
-            )
-        }
+        console.log(data);
+        const items = [].concat(data)
+        .sort((a,b) => a.data.item_popularity < b.data.item_popularity ? 1 : -1)
+        .map((item, i) => <Item key={i} data={item} />);
+        
         return items;
     }
 

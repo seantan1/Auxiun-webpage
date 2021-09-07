@@ -17,6 +17,10 @@ import {
 } from "../../contract-data/token-contract-data";
 import { Typography } from '@material-ui/core';
 import darkThemeContext from "../darkThemeContext";
+
+// axios
+const axios = require('axios');
+
 function Buy(props) {
     const { darkTheme } = useContext(darkThemeContext);
     const history = useHistory();
@@ -38,6 +42,17 @@ function Buy(props) {
             borderRadius: "5px",
         }
     }));
+
+    useEffect(() => {
+        // console.log(props.location.state.data.data._id);
+        // axios increase popularity
+        axios.patch(process.env.REACT_APP_DATABASE_API_INCREASE_POPULARITY+props.location.state.data.data._id, {
+            apikey: process.env.REACT_APP_DATABASE_API_KEY
+        })
+        .then(function (data) {
+            console.log(data);
+        });
+    }, [props.location.state.data])
 
     // function to purchase NFT on market
     // WARNING: you need to fetch the price properly and pass it into the function, if you put a lower amount the transaction will revert,
@@ -77,6 +92,8 @@ function Buy(props) {
                         <Typography variant="h3" display="block" gutterBottom>Buy this NFT</Typography>
                         <Typography variant="h6" display="block" gutterBottom>{"NAME"}</Typography>
                         <Typography variant="body1" display="block" gutterBottom>{props.location.state.data.data.item_name}</Typography>
+                        <Typography variant="h6" display="block" gutterBottom>{"POPULARITY"}</Typography>
+                        <Typography variant="body1" display="block" gutterBottom>{props.location.state.data.data.item_popularity}</Typography>
                         <Typography variant="h6" component="p" display="block" gutterBottom>{"CURRENTLY OWNED BY"}</Typography>
                         <Typography variant="body1" display="block" gutterBottom>{props.location.state.data.seller}</Typography>
                         <Typography variant="h6" component="p" display="block" gutterBottom>{"DESCRIPTION"}</Typography>
