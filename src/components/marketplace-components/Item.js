@@ -83,6 +83,9 @@ if (!item) {
                             <Typography variant="body2" color= {darkTheme ? 'aliceblue' : ''}>
                                 {item.data.item_description}
                             </Typography>
+                            <Typography variant="body2" color= {darkTheme ? 'aliceblue' : ''}>
+                                {"Popularity: "+item.data.item_popularity}
+                            </Typography>
                             <Divider className={classes.divider} light />
                             <Typography variant="overline" display="block" align="right" gutterBottom>
                                 {item.price + " ETH"}
