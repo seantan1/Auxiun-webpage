@@ -1,5 +1,9 @@
+.faq-content {
+    padding-top: 180px;
+}
+
 .faq-heading {
-  padding-top: 180px;
+  /* padding-top: 180px; */
   padding-left: 20%;
 }
 

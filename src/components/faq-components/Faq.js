@@ -52,6 +52,48 @@ export default function Pricing() {
                         Users can unsubscribe from the footer of every newsletter email sent.
                     </Typography>
                 </AccordionDetails>
-            </Accordion>        </div>
+            </Accordion>
+            <Accordion className='faq-accordian' style={{ color: darkTheme ? 'aliceblue' : '' }}>
+                <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    style={{ backgroundColor: darkTheme ? '#424242' : '' }}
+                >
+                    <Typography className='faq-question'>Can we Trust Auxiun Marketplace?</Typography>
+                </AccordionSummary>
+                <AccordionDetails className='faq-answer' style={{ backgroundColor: darkTheme ? '#4C4C4C' : 'lightgray' }}>
+                    <Typography>
+                        Yes! We use the upmost security when storing your data!
+                    </Typography>
+                </AccordionDetails>
+            </Accordion>
+
+            <h1 className='faq-heading'>Finance</h1>
+            <Accordion className='faq-accordian' style={{ color: darkTheme ? 'aliceblue' : '' }}>
+                <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    style={{ backgroundColor: darkTheme ? '#424242' : '' }}
+                >
+                    <Typography className='faq-question'>Is Auxiun Marketplace Free?</Typography>
+                </AccordionSummary>
+                <AccordionDetails className='faq-answer' style={{ backgroundColor: darkTheme ? '#4C4C4C' : 'lightgray' }}>
+                    <Typography >
+                        There is no ongoing subscription required to use the marketplace.
+                    </Typography>
+                </AccordionDetails>
+            </Accordion>
+            <Accordion className='faq-accordian' style={{ color: darkTheme ? 'aliceblue' : '' }}>
+                <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    style={{ backgroundColor: darkTheme ? '#424242' : '' }}
+                >
+                    <Typography className='faq-question'>What is the Currency Used to Purchase the NFTs?</Typography>
+                </AccordionSummary>
+                <AccordionDetails className='faq-answer' style={{ backgroundColor: darkTheme ? '#4C4C4C' : 'lightgray' }}>
+                    <Typography>
+                        Currently, the only currency supported is Etherium
+                    </Typography>
+                </AccordionDetails>
+            </Accordion>
+        </div>
     );
 }

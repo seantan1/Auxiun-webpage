@@ -147,7 +147,7 @@ export default function Pricing() {
               <ul>
                 {footer.description.map((item) => (
                   <li key={item}>
-                    <Link href="#" variant="subtitle1" style={{color: darkTheme ? 'aliciablue' : '#AAAAAA'}}>
+                    <Link href="#" variant="subtitle1" style={{color: darkTheme ? 'aliceblue' : '#AAAAAA'}}>
                       {item}
                     </Link>
                   </li>
