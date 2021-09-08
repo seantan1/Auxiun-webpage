@@ -1,0 +1,10 @@
+.watch-content {
+    padding-top: 180px;
+}
+
+.watch-card {
+    width: 75%;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+}

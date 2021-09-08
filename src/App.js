@@ -75,6 +75,7 @@ import {
 } from "./contract-data/rpc-data.js";
 import Sell from "./components/sell-components/Sell";
 import Buy from './components/buy-components/Buy';
+import Watch from "./components/watch-components/Watch";
 // main net
 const chainNetVersion = RINKEBY_TEST_NET_VERSION;
 // net data
@@ -350,6 +351,9 @@ function App() {
                             </Route>
                             <Route exact path="/faq">
                                 <Faq />
+                            </Route>
+                            <Route exact path="/watch">
+                                <Watch />
                             </Route>
 
                             <Route exact path="/forgot-password">
