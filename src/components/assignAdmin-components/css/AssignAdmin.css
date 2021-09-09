@@ -1,0 +1,13 @@
+.admin-banner {
+  padding-top: 20rem;
+  /* padding-bottom: 4em; */
+  /* width: 30%; */
+  height: 100vh;
+  text-align: center;
+  width: 50%;
+  margin-left: 25%;
+} 
+
+.admin-list{
+  margin-top: 20%;
+}

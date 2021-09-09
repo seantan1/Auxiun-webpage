@@ -43,6 +43,8 @@ import Inventory from "./components/inventory-components/Inventory";
 // import CreateTokens from "./components/createTokens-components/CreateTokens";
 import CreateTokens from "./components/createTokens-component/CreateTokens";
 
+import AssignAdmin from "./components/assignAdmin-components/AssignAdmin";
+
 // team 
 import Team from "./components/home-components/Team";
 
@@ -322,6 +324,12 @@ function App() {
                         </Route>
                         <Route exact path="/createTokens">
                             <CreateTokens authorised={authorised} showAlert={showAlert} account={account} />
+                        </Route>
+                        <Route exact path="/createTokens">
+                            <CreateTokens authorised={authorised} showAlert={showAlert} account={account} />
+                        </Route>
+                        <Route exact path="/assign-admin">
+                            <AssignAdmin authorised={authorised} showAlert={showAlert} account={account} />
                         </Route>
                         
                         <Route exact path="/forgot-password">
