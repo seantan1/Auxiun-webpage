@@ -344,7 +344,7 @@ function App() {
                                 <Sell showAlert={showAlert} authorised={authorised} component={Sell} account={account} />
                             </Route>
                             <Route exact path="/buy">
-                                <Buy showAlert={showAlert} authorised={authorised} component={Buy} account={account} />
+                                <Buy showAlert={showAlert} authorised={authorised} component={Buy} account={account} userSessionData={userSessionData} />
                             </Route>
                             <Route exact path="/createTokens">
                                 <CreateTokens authorised={authorised} showAlert={showAlert} account={account} />
@@ -353,7 +353,7 @@ function App() {
                                 <Faq />
                             </Route>
                             <Route exact path="/watch">
-                                <Watch />
+                                <Watch userSessionData={userSessionData} />
                             </Route>
 
                             <Route exact path="/forgot-password">

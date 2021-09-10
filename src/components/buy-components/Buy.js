@@ -76,8 +76,20 @@ function Buy(props) {
 
     const onClick = () => {
         purchaseNFTOnMarket(props.location.state.data.token_id, props.location.state.data.price);
-
     }
+
+    // add nftMetadata to user's watchlist on database
+    const addToWatchList = (user_id, nftMetadata_id) => {
+        axios.post(process.env.REACT_APP_DATABASE_API_WATCHLISTS, {
+            apikey: process.env.REACT_APP_DATABASE_API_KEY,
+            user_id: user_id,
+            nftMetadata_id: nftMetadata_id
+        })
+        .then(function (data) {
+            props.showAlert("Success", "Item has been added to watchlist", "", "success");
+        });
+    }
+
     const classes = useStyles();
     if (!props.location.state) {
         return (
@@ -119,7 +131,9 @@ function Buy(props) {
                                 {"Buy"}
                             </Button>
                             <Fab color="primary" aria-label="add" size='small' style={{ position:'relative', left: '10%' }}>
-                                <AddIcon />
+                                <AddIcon onClick={() => {
+                                    addToWatchList(props.userSessionData._id, props.location.state.data.data._id)
+                                }}/>
                             </Fab>
                         </div>
                     </Grid>
