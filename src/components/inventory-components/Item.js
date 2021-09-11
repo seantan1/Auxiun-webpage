@@ -9,34 +9,42 @@ import Divider from "@material-ui/core/Divider";
 import Button from "@material-ui/core/Button";
 import StorefrontIcon from '@material-ui/icons/Storefront';
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
-import {
-    Link,
-} from "react-router-dom";
+import darkThemeContext from "../darkThemeContext";
+import { useContext } from "react";
+import { Link } from 'react-router-dom';
+
 function Item(props) {
     const [item, setItem] = useState()
     useEffect(() => {
         setItem(props.data)
         console.log("LOADINGCARD", props.data.data)
     }, [props.data])
+    const { darkTheme } = useContext(darkThemeContext);
+   
     const useStyles = makeStyles({
         root: {
             margin: "auto",
             boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
+            width: props.width,
             "&:hover": {
-                boxShadow: "0 16px 70px -12.125px rgba(0,0,0,0.3)"
-            }
+                boxShadow: "0 40px 70px -12.125px rgba(0,0,0,0.3)",
+            },
+            backgroundColor: darkTheme ? '#2c2c2c' : '',
+            color: darkTheme ? 'aliceblue' : '',
+            height: "100%"
         },
         media: {
             width: "100%",
             height: "100%",
             objectFit: "cover", 
             paddingTop: '100%'
-        },
+    },
         price: {
-            alignSelf: "right"
-        },
+        alignSelf: "right"
+    },
         divider: {
-            margin: `1rem 0`
+            margin: `1rem 0`,
+            background: darkTheme ? 'gray' : '',
         },
     });
 
