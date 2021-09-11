@@ -2,6 +2,8 @@ import React, { useEffect, useContext } from 'react'
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from "@material-ui/core/styles";
+import AddIcon from '@material-ui/icons/Add';
+import Fab from '@material-ui/core/Fab';
 import './css/Buy.css'
 import {
     withRouter,
@@ -46,12 +48,12 @@ function Buy(props) {
     useEffect(() => {
         // console.log(props.location.state.data.data._id);
         // axios increase popularity
-        axios.patch(process.env.REACT_APP_DATABASE_API_INCREASE_POPULARITY+props.location.state.data.data._id, {
+        axios.patch(process.env.REACT_APP_DATABASE_API_INCREASE_POPULARITY + props.location.state.data.data._id, {
             apikey: process.env.REACT_APP_DATABASE_API_KEY
         })
-        .then(function (data) {
-            console.log(data);
-        });
+            .then(function (data) {
+                console.log(data);
+            });
     }, [props.location.state.data])
 
     // function to purchase NFT on market
@@ -74,12 +76,24 @@ function Buy(props) {
 
     const onClick = () => {
         purchaseNFTOnMarket(props.location.state.data.token_id, props.location.state.data.price);
-        
     }
+
+    // add nftMetadata to user's watchlist on database
+    const addToWatchList = (user_id, nftMetadata_id) => {
+        axios.post(process.env.REACT_APP_DATABASE_API_WATCHLISTS, {
+            apikey: process.env.REACT_APP_DATABASE_API_KEY,
+            user_id: user_id,
+            nftMetadata_id: nftMetadata_id
+        })
+        .then(function (data) {
+            props.showAlert("Success", "Item has been added to watchlist", "", "success");
+        });
+    }
+
     const classes = useStyles();
     if (!props.location.state) {
         return (
-            <Redirect to="/marketplace"/>
+            <Redirect to="/marketplace" />
         )
     } else {
         return (
@@ -108,6 +122,7 @@ function Buy(props) {
                         <Typography variant="body2" display="block" gutterBottom>
                             {props.location.state.data.price + " ETH"}
                         </Typography>
+                        <div style={{ display: 'flex' }}>
                             <Button
                                 variant={"contained"}
                                 size={"large"}
@@ -115,6 +130,12 @@ function Buy(props) {
                                 onClick={onClick}>
                                 {"Buy"}
                             </Button>
+                            <Fab color="primary" aria-label="add" size='small' style={{ position:'relative', left: '10%' }}>
+                                <AddIcon onClick={() => {
+                                    addToWatchList(props.userSessionData._id, props.location.state.data.data._id)
+                                }}/>
+                            </Fab>
+                        </div>
                     </Grid>
                 </Grid>
             </div>

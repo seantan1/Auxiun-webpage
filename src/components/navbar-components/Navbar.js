@@ -212,7 +212,7 @@ const Navbar = (props) => {
                     </StyledMenuItem>
                   </a> : null}
                 {localStorage.userSessionData ?
-                  <a className="dot-links" href="/">
+                  <a className="dot-links" href="/watch">
                     <StyledMenuItem>
                       <ListItemIcon>
                         <FavoriteRoundedIcon fontSize="small" />

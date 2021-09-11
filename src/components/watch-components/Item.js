@@ -14,13 +14,14 @@ import { useContext } from "react";
 import { Link } from 'react-router-dom';
 
 function Item(props) {
+    // console.log('props', props);
     const [item, setItem] = useState()
     useEffect(() => {
         setItem(props.data)
-        console.log("LOADINGCARD", props.data.data)
+        // console.log("LOADINGCARD", props.data.data)
     }, [props.data])
     const { darkTheme } = useContext(darkThemeContext);
-   
+
     const useStyles = makeStyles({
         root: {
             margin: "auto",
@@ -36,12 +37,12 @@ function Item(props) {
         media: {
             width: "100%",
             height: "100%",
-            objectFit: "cover", 
+            objectFit: "cover",
             paddingTop: '100%'
-    },
+        },
         price: {
-        alignSelf: "right"
-    },
+            alignSelf: "right"
+        },
         divider: {
             margin: `1rem 0`,
             background: darkTheme ? 'gray' : '',
@@ -55,19 +56,19 @@ function Item(props) {
         return (
             <Card className={classes.root} variant="outlined">
                 <CardActionArea disableRipple>
-                    <CardContent style={{background: "lightGray", padding: 0}}>
-                        <Typography gutterBottom variant="h5" component="p" style={{textTransform: "uppercase"}}>
+                    <CardContent style={{ background: "lightGray", padding: 0 }}>
+                        <Typography gutterBottom variant="h5" component="p" style={{ textTransform: "uppercase" }}>
                             {item.type}
                         </Typography>
                     </CardContent>
                     <CardMedia
                         className={classes.media}
-                        image={`data:${item.data.item_image.contentType};base64,${new Buffer.from(item.data.item_image['data']).toString('base64')}`}
-                        title="Contemplative Reptile"
+                        image={`data:${props.data.item_image.contentType};base64,${new Buffer.from(props.data.item_image['data']).toString('base64')}`}
+                        title={props.data.item_name}
                     />
                     <CardContent>
                         <Typography gutterBottom variant="h5">
-                            {item.data.item_name}
+                            {props.data.item_name}
                         </Typography>
                         {!item.seller ? null :
                             <Typography variant="caption" color="textSecondary">
@@ -84,25 +85,24 @@ function Item(props) {
                             }}><InsertPhotoIcon /><span style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{item.token_id}</span></div>
 
                         </Typography>
-                        <Typography variant="body2" color="textSecondary">
-                            {item.data.item_description}
+                        <Typography variant="body2" color={darkTheme ? 'aliceblue' : "textSecondary"}>
+                            {props.data.item_description}
                         </Typography>
                         <Divider className={classes.divider} light />
 
-                        <div style={{ display: "flex" }}>
-                            {item.type === "selling" ? null :
-                                <Link to={{
-                                    pathname: "/sell",
-                                    state: { ...props }
-                                }}><Button variant="contained" color="primary">
-                                        Sell
-                                    </Button></Link>}
-                            {!item.seller ? null :
-                                <Typography variant="overline" display="block" align="right" style={{ flex: 1 }} gutterBottom>
-                                    {item.price + " ETH"}</Typography>}
-                        </div>
-
-
+                        {/* <div style={{ display: "flex", justifyContent: 'space-between' }}> */}
+                            <Button variant="contained" color="primary" style={{ width: "45%" }} onClick={ () => props.deleteWatchItem(props.watchlistId)}>
+                                Unwatch
+                            </Button>
+                            <Link to={{
+                                pathname: '/buy',
+                                state: { ...props.data.data }
+                            }}>
+                                <Button variant="contained" color="primary" style={{ width: "45%", marginLeft: 20 }}>
+                                    Buy
+                                </Button>
+                            </Link >
+                        {/* </div> */}
                     </CardContent>
                 </CardActionArea>
             </Card>
