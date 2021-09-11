@@ -14,11 +14,11 @@ import { useContext } from "react";
 import { Link } from 'react-router-dom';
 
 function Item(props) {
-    console.log('props', props);
+    // console.log('props', props);
     const [item, setItem] = useState()
     useEffect(() => {
         setItem(props.data)
-        console.log("LOADINGCARD", props.data.data)
+        // console.log("LOADINGCARD", props.data.data)
     }, [props.data])
     const { darkTheme } = useContext(darkThemeContext);
 
@@ -91,7 +91,7 @@ function Item(props) {
                         <Divider className={classes.divider} light />
 
                         {/* <div style={{ display: "flex", justifyContent: 'space-between' }}> */}
-                            <Button variant="contained" color="primary" style={{ width: "45%" }}>
+                            <Button variant="contained" color="primary" style={{ width: "45%" }} onClick={ () => props.deleteWatchItem(props.data._id)}>
                                 Unwatch
                             </Button>
                             <Link to={{

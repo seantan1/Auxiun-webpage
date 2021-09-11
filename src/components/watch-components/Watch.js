@@ -16,7 +16,7 @@ export default function Watch(props) {
     let storeArray = [];
 
     useEffect(() => {
-        console.log(props.userSessionData._id)
+        // console.log(props.userSessionData._id)
         // axios fetching watchlist by user_id
         if (props.userSessionData._id !== undefined) {
             axios.get(process.env.REACT_APP_DATABASE_API_FETCH_WATCHLISTS_BY_USER_ID + props.userSessionData._id).then(response => {
@@ -27,6 +27,7 @@ export default function Watch(props) {
                 // nftMetadata can be fetched using the nftMetadata_id
                 response.data.data.forEach((watchlist) => {
                     axios.get(process.env.REACT_APP_DATABASE_API_NFT_URL + watchlist.nftMetadata_id).then(response => {
+                        // console.log("id: " + response.data.data._id);
                         // eslint-disable-next-line react-hooks/exhaustive-deps
                         storeArray = [...storeArray, response.data.data ];
                         setData(storeArray);
@@ -36,12 +37,19 @@ export default function Watch(props) {
         }
     }, [props.userSessionData])
 
-    const loadItems = (data) => {
+    const deleteWatchItem = (watchlist_id) => {
+        axios.delete(process.env.REACT_APP_DATABASE_API_WATCHLISTS + watchlist_id).then(response => {
+            console.log(response);
+            props.showAlert("Success", "Item has been removed from watchlist", "", "success");
+        })
+    }
+
+    const loadItems = (data, deleteWatchItemCallback) => {
         let itemList = [];
         data.forEach(item => {
             itemList.push(
             <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
-                <Item data={item} />
+                <Item data={item} deleteWatchItem={deleteWatchItemCallback} />
             </Grid>
             )
         })
@@ -53,7 +61,7 @@ export default function Watch(props) {
             <h1 style={{paddingLeft:'15%'}}>You're Currently Watching</h1>
             <Card className='watch-card' style={{ backgroundColor: darkTheme ? '#424242' : '' }}>
                 <Grid container spacing={2}>
-                    {loadItems(data)}
+                    {loadItems(data, deleteWatchItem)}
                 </Grid>
             </Card>
         </div>

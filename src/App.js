@@ -353,7 +353,7 @@ function App() {
                                 <Faq />
                             </Route>
                             <Route exact path="/watch">
-                                <Watch userSessionData={userSessionData} />
+                                <Watch userSessionData={userSessionData} showAlert={showAlert} />
                             </Route>
 
                             <Route exact path="/forgot-password">
