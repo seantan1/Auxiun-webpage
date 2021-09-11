@@ -54,57 +54,58 @@ function Item(props) {
         return null
     } else {
         return (
-            <Link to={{
-                pathname: '/buy',
-                state: { ...props.data }
-            }}>
-                <Card className={classes.root} variant="outlined">
-                    <CardActionArea disableRipple>
-                        <CardContent style={{ background: "lightGray", padding: 0 }}>
-                            <Typography gutterBottom variant="h5" component="p" style={{ textTransform: "uppercase" }}>
-                                {item.type}
-                            </Typography>
-                        </CardContent>
-                        <CardMedia
-                            className={classes.media}
-                            image={`data:${props.data.item_image.contentType};base64,${new Buffer.from(props.data.item_image['data']).toString('base64')}`}
-                            title={props.data.item_name}
-                        />
-                        <CardContent>
-                            <Typography gutterBottom variant="h5">
-                                {props.data.item_name}
-                            </Typography>
-                            {!item.seller ? null :
-                                <Typography variant="caption" color="textSecondary">
-                                    <div style={{
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                    }}><StorefrontIcon /><span style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{item.seller}</span></div>
-
-                                </Typography>}
+            <Card className={classes.root} variant="outlined">
+                <CardActionArea disableRipple>
+                    <CardContent style={{ background: "lightGray", padding: 0 }}>
+                        <Typography gutterBottom variant="h5" component="p" style={{ textTransform: "uppercase" }}>
+                            {item.type}
+                        </Typography>
+                    </CardContent>
+                    <CardMedia
+                        className={classes.media}
+                        image={`data:${props.data.item_image.contentType};base64,${new Buffer.from(props.data.item_image['data']).toString('base64')}`}
+                        title={props.data.item_name}
+                    />
+                    <CardContent>
+                        <Typography gutterBottom variant="h5">
+                            {props.data.item_name}
+                        </Typography>
+                        {!item.seller ? null :
                             <Typography variant="caption" color="textSecondary">
                                 <div style={{
                                     display: 'flex',
                                     alignItems: 'center',
-                                }}><InsertPhotoIcon /><span style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{item.token_id}</span></div>
+                                }}><StorefrontIcon /><span style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{item.seller}</span></div>
 
-                            </Typography>
-                            <Typography variant="body2" color={darkTheme ? 'aliceblue' : "textSecondary"}>
-                                {props.data.item_description}
-                            </Typography>
-                            <Divider className={classes.divider} light />
+                            </Typography>}
+                        <Typography variant="caption" color="textSecondary">
+                            <div style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                            }}><InsertPhotoIcon /><span style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{item.token_id}</span></div>
 
-                            <div style={{ display: "flex" }}>
-                                <Button variant="contained" color="primary" style={{ width: "100%" }}>
-                                    Unwatch
+                        </Typography>
+                        <Typography variant="body2" color={darkTheme ? 'aliceblue' : "textSecondary"}>
+                            {props.data.item_description}
+                        </Typography>
+                        <Divider className={classes.divider} light />
+
+                        {/* <div style={{ display: "flex", justifyContent: 'space-between' }}> */}
+                            <Button variant="contained" color="primary" style={{ width: "45%" }}>
+                                Unwatch
+                            </Button>
+                            <Link to={{
+                                pathname: '/buy',
+                                state: { ...props.data.data }
+                            }}>
+                                <Button variant="contained" color="primary" style={{ width: "45%", marginLeft: 20 }}>
+                                    Buy
                                 </Button>
-                            </div>
-
-
-                        </CardContent>
-                    </CardActionArea>
-                </Card>
-            </Link>
+                            </Link >
+                        {/* </div> */}
+                    </CardContent>
+                </CardActionArea>
+            </Card>
         )
     }
 }
