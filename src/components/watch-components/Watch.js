@@ -23,13 +23,10 @@ export default function Watch(props) {
                 // this is an array of watchlists which contains
                 // 1. user_id
                 // 2. nftMetadata_id
-                // console.log(response.data.data);
-                // setData(response.data.data)
 
                 // nftMetadata can be fetched using the nftMetadata_id
                 response.data.data.forEach((watchlist) => {
                     axios.get(process.env.REACT_APP_DATABASE_API_NFT_URL + watchlist.nftMetadata_id).then(response => {
-                        // console.log('harris', response.data.data);
                         // eslint-disable-next-line react-hooks/exhaustive-deps
                         storeArray = [...storeArray, response.data.data ];
                         setData(storeArray);
