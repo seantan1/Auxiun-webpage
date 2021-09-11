@@ -91,7 +91,7 @@ function Item(props) {
                         <Divider className={classes.divider} light />
 
                         {/* <div style={{ display: "flex", justifyContent: 'space-between' }}> */}
-                            <Button variant="contained" color="primary" style={{ width: "45%" }} onClick={ () => props.deleteWatchItem(props.data._id)}>
+                            <Button variant="contained" color="primary" style={{ width: "45%" }} onClick={ () => props.deleteWatchItem(props.watchlistId)}>
                                 Unwatch
                             </Button>
                             <Link to={{
