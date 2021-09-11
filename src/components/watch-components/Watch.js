@@ -13,8 +13,10 @@ export default function Watch(props) {
     const { darkTheme } = useContext(darkThemeContext);
 
     const [data, setData] = useState([])
+    let storeArray = [];
 
     useEffect(() => {
+        console.log(props.userSessionData._id)
         // axios fetching watchlist by user_id
         if (props.userSessionData._id !== undefined) {
             axios.get(process.env.REACT_APP_DATABASE_API_FETCH_WATCHLISTS_BY_USER_ID + props.userSessionData._id).then(response => {
@@ -22,12 +24,15 @@ export default function Watch(props) {
                 // 1. user_id
                 // 2. nftMetadata_id
                 // console.log(response.data.data);
+                // setData(response.data.data)
 
                 // nftMetadata can be fetched using the nftMetadata_id
                 response.data.data.forEach((watchlist) => {
                     axios.get(process.env.REACT_APP_DATABASE_API_NFT_URL + watchlist.nftMetadata_id).then(response => {
-                        // console.log(response.data.data);
-                        setData([...data, response.data.data]);
+                        // console.log('harris', response.data.data);
+                        // eslint-disable-next-line react-hooks/exhaustive-deps
+                        storeArray = [...storeArray, response.data.data ];
+                        setData(storeArray);
                     })
                 });
             });
@@ -43,13 +48,12 @@ export default function Watch(props) {
             </Grid>
             )
         })
-        console.log('list', itemList)
         return itemList;
     }
 
     return (
         <div className='watch-content'>
-            <h1>You're Currently Watching</h1>
+            <h1 style={{paddingLeft:'15%'}}>You're Currently Watching</h1>
             <Card className='watch-card' style={{ backgroundColor: darkTheme ? '#424242' : '' }}>
                 <Grid container spacing={2}>
                     {loadItems(data)}
