@@ -52,8 +52,30 @@ MenuItem {
     font-size: 1rem;
 }
 
+.navbar-links-dark {
+    /* background-color: black; */
+    cursor: default;
+    /* width: 50%; */
+    margin: auto;
+    /* margin-left: 33%; */
+    font-size: 10px;
+}
+
+.navbar-links-dark a {
+    padding-left: 1em;
+    padding-right: 1em;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
 .navbar-links a:hover {
     color: rgba(40, 32, 159, 0.489) !important;
+    transition: 0.2s;
+}
+
+.navbar-links-dark a:hover {
+    color: gray !important;
+    transition: 0.2s;
 }
 
 .nav-bar-links-display-in-mobile {
@@ -112,6 +134,11 @@ MenuItem {
     /* font-size: 0.5rem; */
 }
 
+.nav-title-dark {
+    font-weight: bolder;
+    color: aliceblue;
+}
+
 .horiz-icon {
     font-size: 16px;
     background-color: rgb(64, 64, 64);
@@ -156,6 +183,17 @@ MenuItem {
     height: 50px;
 }
 
+.toggle_logged_in {
+    position: fixed;
+    top: 23px;
+    right: 210px;
+}
+
+.toggle_logged_out {
+    position: fixed;
+    top: 16px;
+    right: 100px;
+}
 
 /* Responsive NavBar */
 

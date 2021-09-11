@@ -1,14 +1,18 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import { Button, Checkbox, TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import TreeItem from '@material-ui/lab/TreeItem';
 import TreeView from '@material-ui/lab/TreeView';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { useForm, Form } from '../form/useForm';
-import Controls from '../form/controls/Controls';
+import Controls from '../form/controls/Controls'
+import './css/MarketPlace.css'
+import darkThemeContext from "../darkThemeContext";
 import Grid from '@material-ui/core/Grid';
 import './css/MarketPlace.css';
-function Filters() {
+function Filters(props) {
+    const { darkTheme } = useContext(darkThemeContext);
 
     const useStyles = makeStyles((theme) => ({
         treeItem: {
@@ -26,6 +30,31 @@ function Filters() {
                 display: "flex !important",
             }
         },
+        darkInput: {
+            "& input": {
+                color: darkTheme === true ? '#EBEBEB' : "blue"
+            },
+            "& label": {
+                color: darkTheme === true ? 'gray' : "#b3b3b3"
+            },
+            "&:hover label": {
+                color: darkTheme === true ? '#EBEBEB' : "blue"
+            },
+            "& label.Mui-focused": {
+                color: darkTheme === true ? '#EBEBEB' : "blue"
+            },
+            "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                    borderColor: darkTheme === true ? '#EBEBEB' : "#b3b3b3"
+                },
+                "&:hover fieldset": {
+                    borderColor: darkTheme === true ? '#EBEBEB' : "blue"
+                },
+                "&.Mui-focused fieldset": {
+                    borderColor: darkTheme === true ? '#EBEBEB' : "blue"
+                }
+            }
+        },
 
     }));
     const sortBy = [
@@ -34,7 +63,6 @@ function Filters() {
         { id: 'mostexpensive', title: 'Most Expensive' },
         { id: 'leastexpensive', title: 'Least Expensive' },
     ]
-    const colours = ["Blue", "Black", "Red", "Pink", "Yellow", "Grey", "Orange", "White", "Green", "Brown"]
     const [expanded, setExpanded] = useState([]);
     const [selected, setSelected] = useState([]);
 
@@ -51,16 +79,6 @@ function Filters() {
     const initialFValues = {
         search: '',
         sortBy: 'mostpopular',
-        colourBlue: false,
-        colourBlack: false,
-        colourRed: false,
-        colourPink: false,
-        colourYellow: false,
-        colourGrey: false,
-        colourOrange: false,
-        colourWhite: false,
-        colourGreen: false,
-        colourBrown: false,
     }
     const handleToggle = (event, nodeIds) => {
         setExpanded(nodeIds);
@@ -71,6 +89,7 @@ function Filters() {
     };
     const handleSubmit = e => {
         e.preventDefault()
+        props.setFilter(values);
     }
     const {
         values,
@@ -82,7 +101,7 @@ function Filters() {
     } = useForm(initialFValues, true, validate);
     const classes = useStyles();
     return (
-        <Form onSubmit={handleSubmit} className={classes.root}>
+        <Form onSubmit={handleSubmit} className={`${classes.root} ${classes.darkInput}`}>
             <Controls.Input
                 name="search"
                 label="Search"
@@ -90,6 +109,7 @@ function Filters() {
                 onChange={handleInputChange}
                 error={errors.search}
             />
+            <br />
             <TreeView
                 defaultCollapseIcon={<ExpandMoreIcon />}
                 defaultExpandIcon={<ChevronRightIcon />}
@@ -107,24 +127,14 @@ function Filters() {
                                 onChange={handleInputChange}
                                 items={sortBy}
                             />
-                        </TreeItem></Grid><Grid item xs={6} md={12}>
-                        <TreeItem nodeId={"Color"} label={"Color"} className={classes.treeItem}>
-                            {colours.map((name, i) => (
-                                <Controls.Checkbox
-                                    key={`colour` + name}
-                                    name={`colour` + name}
-                                    label={name}
-                                    value={values[`colour` + name]}
-                                    onChange={handleInputChange}
-                                />
-                            ))}
-                        </TreeItem></Grid>
+                        </TreeItem>
+                        </Grid>
                 </Grid>
 
             </TreeView>
             <Controls.Button
                 text="Reset"
-                color="default"
+                color="initial"
                 onClick={resetForm} />
             <Controls.Button
                 type="submit"

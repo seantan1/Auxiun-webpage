@@ -3,6 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
 import { makeStyles } from "@material-ui/core/styles";
+import { useContext } from "react";
 import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
 import TextField from "@material-ui/core/TextField";
@@ -13,12 +14,19 @@ import InstagramIcon from "@material-ui/icons/Instagram";
 import YouTubeIcon from "@material-ui/icons/YouTube";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
 import TwitterIcon from "@material-ui/icons/Twitter";
+import darkThemeContext from "../darkThemeContext";
+import { withStyles } from "@material-ui/core/styles";
+
+//image imports
+import background from '../../assets/background.png'
+import backgroundDark from '../../assets/background_dark.png'
 
 import "./css/Footer.css";
 
 function Copyright() {
+  const { darkTheme } = useContext(darkThemeContext);
   return (
-    <Typography variant="body2" color="textSecondary" align="center">
+    <Typography variant="body2" style={{color: darkTheme ? 'aliciablue' : '#AAAAAA'}} align="center">
       {"Copyright © "}
       <Link color="inherit" href="https://material-ui.com/">
         Capstone NFT
@@ -28,42 +36,6 @@ function Copyright() {
     </Typography>
   );
 }
-
-const useStyles = makeStyles((theme) => ({
-  "@global": {
-    ul: {
-      margin: 0,
-      padding: 0,
-      listStyle: "none",
-    },
-  },
-  appBar: {
-    borderBottom: `1px solid ${theme.palette.divider}`,
-  },
-  toolbar: {
-    flexWrap: "wrap",
-  },
-  toolbarTitle: {
-    flexGrow: 1,
-  },
-  link: {
-    margin: theme.spacing(1, 1.5),
-  },
-  heroContent: {
-    padding: theme.spacing(8, 0, 6),
-  },
-
-  footer: {
-    borderTop: `1px solid ${theme.palette.divider}`,
-    marginTop: theme.spacing(40),
-    paddingTop: theme.spacing(3),
-    // paddingBottom: theme.spacing(0),
-    [theme.breakpoints.up("sm")]: {
-      paddingTop: theme.spacing(6),
-      paddingBottom: theme.spacing(6),
-    },
-  },
-}));
 
 const footers = [
   {
@@ -85,7 +57,83 @@ const footers = [
 ];
 
 export default function Pricing() {
+  const { darkTheme } = useContext(darkThemeContext);
+  const useStyles = makeStyles((theme) => ({
+    "@global": {
+      ul: {
+        margin: 0,
+        padding: 0,
+        listStyle: "none",
+      },
+    },
+    appBar: {
+      borderBottom: `1px solid ${theme.palette.divider}`,
+      
+    },
+    toolbar: {
+      flexWrap: "wrap",
+    },
+    toolbarTitle: {
+      flexGrow: 1,
+    },
+    link: {
+      margin: theme.spacing(1, 1.5),
+    },
+    heroContent: {
+      padding: theme.spacing(8, 0, 6),
+    },
+
+    helperText: {
+      color: darkTheme ? 'aliciablue' : '#AAAAAA'
+    },
+
+    footer: {
+      borderTop: darkTheme ? '1px solid white' : '1px solid #AAAAAA',
+      marginTop: theme.spacing(40),
+      paddingTop: theme.spacing(3),
+      // paddingBottom: theme.spacing(0),
+      [theme.breakpoints.up("sm")]: {
+        paddingTop: theme.spacing(6),
+        paddingBottom: theme.spacing(6),
+      },
+    },
+  }));
+
   const classes = useStyles();
+
+   // CssTextField
+   const CssTextField = withStyles({
+    root: {
+        "& input": {
+            color: darkTheme === true ? '#EBEBEB' : "blue"
+        },
+        "& label": {
+            color: darkTheme === true ? '#EBEBEB' : "#b3b3b3"
+        },
+        "&:hover label": {
+            color: darkTheme === true ? '#EBEBEB' : "blue"
+        },
+        "& label.Mui-focused": {
+            color: darkTheme === true ? '#EBEBEB' : "blue"
+        },
+        "& .MuiOutlinedInput-root": {
+            "& fieldset": {
+                borderColor: darkTheme === true ? '#EBEBEB' : "#b3b3b3"
+            },
+            "&:hover fieldset": {
+                borderColor: darkTheme === true ? '#EBEBEB' : "blue"
+            },
+            "&.Mui-focused fieldset": {
+                borderColor: darkTheme === true ? '#EBEBEB' : "blue"
+            }
+        },
+      "& .MuiFormHelperText-root": {
+        "&.MuiFormHelperText-contained": {
+          color: darkTheme ? 'aliceblue' : ""
+        }
+      }
+    },
+})(TextField);
 
   return (
     <React.Fragment>
@@ -93,13 +141,13 @@ export default function Pricing() {
         <Grid container spacing={4} justifyContent="space-evenly">
           {footers.map((footer) => (
             <Grid item xs={6} sm={3} key={footer.title}>
-              <Typography variant="h6" color="textPrimary" gutterBottom>
+              <Typography variant="h6" gutterBottom>
                 {footer.title}
               </Typography>
               <ul>
                 {footer.description.map((item) => (
                   <li key={item}>
-                    <Link href="#" variant="subtitle1" color="textSecondary">
+                    <Link href="#" variant="subtitle1" style={{color: darkTheme ? 'aliceblue' : '#AAAAAA'}}>
                       {item}
                     </Link>
                   </li>
@@ -118,7 +166,7 @@ export default function Pricing() {
             </Typography>
           </Grid>
           <Grid item xs={12} sm={6}>
-            <TextField
+            <CssTextField
               id="outlined-basic"
               label="Email Address"
               variant="outlined"
@@ -126,7 +174,7 @@ export default function Pricing() {
             />
 
             <Button
-              className="subscribe-btn"
+              className={darkTheme ? 'subscribe-btn-dark' : "subscribe-btn"}
               variant="contained"
               color="primary"
             >
@@ -136,7 +184,7 @@ export default function Pricing() {
         </Grid>
 
         <hr />
-         
+
         <Box mt={5}>
           <Copyright />
         </Box>

@@ -3,8 +3,9 @@ import './css/Inventory.css';
 import { Button, Card, Chip, Grid } from '@material-ui/core';
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import TextField from '@material-ui/core/TextField';
+import darkThemeContext from "../darkThemeContext";
 import Item from './Item';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -30,6 +31,7 @@ const Inventory = (props) => {
     const theme = useTheme();
     const xs = useMediaQuery(theme.breakpoints.down('sm'));
 
+    const { darkTheme } = useContext(darkThemeContext);
     const [owned, setOwned] = useState([])
     const [onMarket, setOnMarket] = useState([])
     const [pageCount, setPageCount] = useState(0);
@@ -211,7 +213,8 @@ const Inventory = (props) => {
                         <br></br><br></br><br></br>
                     </div>
                 </div>
-                <Card>
+
+                <Card style={{backgroundColor: darkTheme ? '#272727' : ''}}>
                     <Grid container spacing={2} className='inventory-items'>
 
                         {!showSold ? loadItems(filteredData) :

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
@@ -6,6 +6,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
+import { withStyles } from "@material-ui/core/styles";
 
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -17,6 +18,8 @@ import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 
 import AddIcon from "@material-ui/icons/Add";
 import SendIcon from "@material-ui/icons/Send";
+
+import darkThemeContext from "../darkThemeContext";
 
 // web3 and axios for NFT data & metadata
 import Web3 from "web3";
@@ -61,20 +64,86 @@ function a11yProps(index) {
     };
 }
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        "& .MuiTextField-root": {
-            margin: theme.spacing(1),
-            width: "25ch",
-        },
-        button: {
-            margin: theme.spacing(1),
-        },
-    },
-}));
-
 export default function CreateTokens(props) {
-    const classes = useStyles();
+    const { darkTheme } = useContext(darkThemeContext);
+
+    const useStyles = makeStyles((theme) => ({
+        root: {
+            "& .MuiTextField-root": {
+                margin: theme.spacing(1),
+                width: "25ch",
+            },
+            button: {
+                margin: theme.spacing(1),
+            },
+        },
+        textFieldStyleRoot: props => ({
+            color: props.darkTheme === true ? '#EBEBEB' : "blue",
+
+            "&:hover": {
+                color: props.darkTheme === true ? '#EBEBEB' : "blue"
+            },
+
+            "&.MuiOutlinedInput-root": {
+                "& fieldset": {
+                    borderColor: props.darkTheme === true ? '#EBEBEB' : "#b3b3b3"
+                },
+                "&:hover fieldset": {
+                    borderColor: props.darkTheme === true ? '#EBEBEB' : "blue"
+                },
+                "&.Mui-focused fieldset": {
+                    borderColor: props.darkTheme === true ? '#EBEBEB' : "blue"
+                }
+            }
+        }),
+
+        textFieldLabel: props => ({
+            color: props.darkTheme === true ? 'gray' : "#b3b3b3",
+            // "&:hover": {
+            //     color: props.darkTheme === true ? '#EBEBEB' : "blue"
+            // },
+            "&$textFieldLabelFocused": {
+                color: props.darkTheme === true ? '#EBEBEB' : "blue"
+            },
+        }),
+
+        textFieldLabelFocused: () => ({}),
+
+    }));
+
+    // CssTextField
+    const CssTextField = withStyles({
+        root: {
+            "& input": {
+                color: darkTheme === true ? '#EBEBEB' : "blue"
+            },
+            "& label": {
+                color: darkTheme === true ? 'gray' : "#b3b3b3"
+            },
+            "&:hover label": {
+                color: darkTheme === true ? '#EBEBEB' : "blue"
+            },
+            "& label.Mui-focused": {
+                color: darkTheme === true ? '#EBEBEB' : "blue"
+            },
+            "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                    borderColor: darkTheme === true ? '#EBEBEB' : "#b3b3b3"
+                },
+                "&:hover fieldset": {
+                    borderColor: darkTheme === true ? '#EBEBEB' : "blue"
+                },
+                "&.Mui-focused fieldset": {
+                    borderColor: darkTheme === true ? '#EBEBEB' : "blue"
+                }
+            },
+            "& .MuiInputBase-multiline": {
+                color: darkTheme === true ? '#EBEBEB' : "blue"
+            }
+        },
+    })(TextField);
+
+    // const classes = useStyles();
     const [value, setValue] = useState(0);
 
     //   Game
@@ -230,6 +299,11 @@ export default function CreateTokens(props) {
             });
     };
 
+    // For the dark theme props (to be passed in useStyles)
+    const darkThemeProps = { darkTheme: darkTheme }
+
+    const classes = useStyles(darkThemeProps);
+    
     // source: https://stackoverflow.com/questions/46040973/how-to-upload-image-using-reactjs-and-save-into-local-storage
     const imageUpload = (e) => {
         const file = e.target.files[0];
@@ -268,6 +342,17 @@ export default function CreateTokens(props) {
                             <h4></h4>
                             <form className={classes.root} noValidate autoComplete="off">
                                 <TextField
+                                    InputProps={{
+                                        classes: {
+                                            root: classes.textFieldStyleRoot
+                                        }
+                                    }}
+                                    InputLabelProps={{
+                                        classes: {
+                                            root: classes.textFieldLabel,
+                                            focused: classes.textFieldLabelFocused
+                                        }
+                                    }}
                                     id="game-name"
                                     label="Game Name"
                                     value={addGameForm}
@@ -295,6 +380,17 @@ export default function CreateTokens(props) {
                         <h4 className="token-title">Add A New Item</h4>
                         <form className={classes.root} noValidate autoComplete="off">
                             <TextField
+                                InputProps={{
+                                    classes: {
+                                        root: classes.textFieldStyleRoot
+                                    }
+                                }}
+                                InputLabelProps={{
+                                    classes: {
+                                        root: classes.textFieldLabel,
+                                        focused: classes.textFieldLabelFocused
+                                    }
+                                }}
                                 id="select-game"
                                 select
                                 label="Game ID"
@@ -312,29 +408,62 @@ export default function CreateTokens(props) {
                             </TextField>
                             <br />
                             <TextField
+                                InputProps={{
+                                    classes: {
+                                        root: classes.textFieldStyleRoot
+                                    }
+                                }}
+                                InputLabelProps={{
+                                    classes: {
+                                        root: classes.textFieldLabel,
+                                        focused: classes.textFieldLabelFocused
+                                    }
+                                }}
                                 required
                                 id="item-id"
                                 label="Item ID"
                                 type="text"
                                 value={addItemId}
                                 onChange={addItemIdHandler}
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
+                                // InputLabelProps={{
+                                //     shrink: true,
+                                // }}
                             />
                             <TextField
+                                InputProps={{
+                                    classes: {
+                                        root: classes.textFieldStyleRoot
+                                    }
+                                }}
+                                InputLabelProps={{
+                                    classes: {
+                                        root: classes.textFieldLabel,
+                                        focused: classes.textFieldLabelFocused
+                                    }
+                                }}
                                 required
                                 id="item-name"
                                 label="Item Name"
                                 type="text"
                                 value={addItemName}
                                 onChange={addItemNameHandler}
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
+                                // InputLabelProps={{
+                                //     shrink: true,
+                                // }}
                             />
                             <br /> <br />
                             <TextField
+                                InputProps={{
+                                    classes: {
+                                        root: classes.textFieldStyleRoot
+                                    }
+                                }}
+                                InputLabelProps={{
+                                    classes: {
+                                        root: classes.textFieldLabel,
+                                        focused: classes.textFieldLabelFocused
+                                    }
+                                }}
                                 id="item-description"
                                 className="item-description"
                                 label="Item Description"
@@ -378,6 +507,17 @@ export default function CreateTokens(props) {
                         <div className="form-align">
                             <form className={classes.root} noValidate autoComplete="off">
                                 <TextField
+                                    InputProps={{
+                                        classes: {
+                                            root: classes.textFieldStyleRoot
+                                        }
+                                    }}
+                                    InputLabelProps={{
+                                        classes: {
+                                            root: classes.textFieldLabel,
+                                            focused: classes.textFieldLabelFocused
+                                        }
+                                    }}
                                     id="game-id"
                                     select
                                     label="Select Game"
@@ -395,6 +535,17 @@ export default function CreateTokens(props) {
                                     }
                                 </TextField>
                                 <TextField
+                                    InputProps={{
+                                        classes: {
+                                            root: classes.textFieldStyleRoot
+                                        }
+                                    }}
+                                    InputLabelProps={{
+                                        classes: {
+                                            root: classes.textFieldLabel,
+                                            focused: classes.textFieldLabelFocused
+                                        }
+                                    }}
                                     required
                                     select
                                     id="item-id"
@@ -403,7 +554,6 @@ export default function CreateTokens(props) {
                                     variant="outlined"
                                     value={mintItemId}
                                     onChange={mintItemIdHandler}
-                                    required
                                 >
                                     {nftMetadatasList &&
                                         nftMetadatasList.map((option) => (
@@ -414,14 +564,13 @@ export default function CreateTokens(props) {
                                     }
                                 </TextField>
                                 <br></br>
-                                <TextField
+                                <CssTextField
                                     required
                                     id="wallet-address"
                                     label="Wallet Address"
                                     className="margin-rght"
                                     value={receiverAddress}
                                     onChange={receiverAddressHandler}
-                                    required
                                 />
                                 <br />
                                 <br />

@@ -3,11 +3,13 @@ import React, { useState } from 'react'
 import { Card } from "@material-ui/core"
 import Grid from '@material-ui/core/Grid';
 import ReactElasticCarousel from "react-elastic-carousel";
+import darkThemeContext from "../darkThemeContext";
+import { useContext } from "react";
 
 const MarketplaceCarousel = (props) => {
+    const { darkTheme } = useContext(darkThemeContext);
     const [width, setWidth] = useState(window.innerWidth);
     const isMobile = (width <= 550);
-    console.log(isMobile)
 
     const breakPoints = [
         { width: 1, itemsToShow: 1 },
@@ -19,7 +21,7 @@ const MarketplaceCarousel = (props) => {
     return (
         <div className='carouselContent'>
             <h1>Trending</h1>
-            <Card className='carouselCard'>
+            <Card className='carouselCard' style={{backgroundColor: darkTheme ? '#272727' : ''}}>
                 <ReactElasticCarousel
                     breakPoints={breakPoints}
                     itemsToScroll={1}

@@ -1,10 +1,13 @@
 import React from "react";
 import "./css/Roadmap.css";
+import darkThemeContext from "../darkThemeContext";
+import { useContext } from "react";
 
 const Roadmap = () => {
+  const { darkTheme } = useContext(darkThemeContext);
   return (
     <div>
-      <h6 className="roadmap-title">Roadmap</h6>
+      <h6 className="roadmap-title" style={{ color: darkTheme ? 'aliceblue' : '#333' }}>Roadmap</h6>
       <div class="timeline">
         <div class="container left">
           <div class="date">Jun 2020</div>

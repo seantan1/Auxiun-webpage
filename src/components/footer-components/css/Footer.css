@@ -6,4 +6,9 @@
   background-color: black !important;
  }
 
- 
+.subscribe-btn-dark {
+  margin-top: 3% !important;
+  margin-left: 3% !important;
+  color: black !important;
+  background-color: aliceblue !important;
+}
