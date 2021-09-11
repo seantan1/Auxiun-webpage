@@ -56,18 +56,18 @@ function MarketPlace(props) {
         return (Math.ceil(item.length / pageSize))
     }
     useEffect(() => {
-        console.log(props.account)
-        console.log(props.userSessionData)
+        //console.log(props.account)
+        //console.log(props.userSessionData)
         if (!item) {
-            console.log("3")
+            //console.log("3")
             setError("There are no NFTs available")
         }
         if (!props.account) {
-            console.log("2")
+            //console.log("2")
             setError("Please connect MetaMask")
         }
         if (!props.userSessionData) {
-            console.log("1")
+            //console.log("1")
             setError("Log in to access the market place")
         }
         if (props.userSessionData && props.account && item) {
@@ -76,8 +76,8 @@ function MarketPlace(props) {
         }
     }, [props.userSessionData, props.account, item])
     function handleChange(event, value) {
-        console.log("value", value)
-        console.log("pagesize", pageSize)
+        //console.log("value", value)
+        //console.log("pagesize", pageSize)
         setPageSize(pageSize)
         if (value <= 1) {
             setMinValue(0)
@@ -90,34 +90,34 @@ function MarketPlace(props) {
     const filterData = () => {
         let data = item;
         if (filter.search) {
-            console.log("Searching")
+            //console.log("Searching")
             data = data.filter(item => String(item.data.item_name).toLowerCase().includes(String(filter.search).toLowerCase()))
         }
         switch (filter.sortBy) {
             case "mostpopular":
-                console.log("Sorting", "Most Popular")
+                //console.log("Sorting", "Most Popular")
                 data = data.sort((a, b) => a.data.item_popularity < b.data.item_popularity ? 1 : -1)
-                console.log("Sorting", data)
+                //console.log("Sorting", data)
                 break;
             case "leastpopular":
-                console.log("Sorting", "Least Popular")
+                //console.log("Sorting", "Least Popular")
                 data = data.sort((a, b) => b.data.item_popularity < a.data.item_popularity ? 1 : -1)
-                console.log("Sorting", data)
+                //console.log("Sorting", data)
                 break;
             case "mostexpensive":
-                console.log("Sorting", "Most Expensive")
+                //console.log("Sorting", "Most Expensive")
                 data = data.sort((a, b) => a.price > b.price ? 1 : -1)
-                console.log("Sorting", data)
+                //console.log("Sorting", data)
                 break;
             case "leastexpensive":
-                console.log("Sorting", "Least Expensive")
+                //console.log("Sorting", "Least Expensive")
                 data = data.sort((a, b) => a.price < b.price ? 1 : -1)
-                console.log("Sorting", data)
+                //console.log("Sorting", data)
                 break;
             default:
         }
         setFiltered(data)
-        console.log("Sorted", data)
+        //console.log("Sorted", data)
     }
 
     useEffect(() => {
@@ -136,19 +136,19 @@ function MarketPlace(props) {
         return items;
     }
     useEffect(() => {
-        console.log("FILTEREDDATA", filtered)
+        //console.log("FILTEREDDATA", filtered)
     }, [filtered])
     useEffect(() => {
         if (filter) {
             filterData()
         }
 
-        console.log("Filters", filter)
+        //console.log("Filters", filter)
     }, [filter])
     //this is just to adjust the styling on cards in trending without affecting the others. Remove when backend for
     //trending is implemented -- Harris
     const loadTrendingItems = (data) => {
-        console.log(data);
+        //console.log(data);
         const items = [].concat(data)
             .sort((a, b) => a.data.item_popularity < b.data.item_popularity ? 1 : -1)
             .map((item, i) => <Item key={i} data={item} />);
@@ -165,22 +165,22 @@ function MarketPlace(props) {
             let contractMulticall = new web3.eth.Contract(MULTICALL_CONTRACT_ABI, MULTICALL_CONTRACT_ADDRESS);
             contractMulticall.methods.multiCallNFTsOnMarket().call()
                 .then(function (result) {
-                    console.log("multifetch", result);
+                    //console.log("multifetch", result);
                     // TODO: might want to change this to your liking
                     // currently there should be 3 NFT in total listed on sale
                     for (const data in result[0]) {
                         fetchMetadata(result[0][data], result[1][data], String(web3.utils.fromWei(result[2][data])), result[3][data])
                     }
                     // price needs to be converted from wei to ethers using the web3.utils.fromWei function
-                    //console.log("Price: " + String(web3.utils.fromWei(result[2][0])) + " ethers"); // example
+                    ////console.log("Price: " + String(web3.utils.fromWei(result[2][0])) + " ethers"); // example
                 });
         }
     }, [props.authorised]);
 
     // TEST function: axios call function
-    const fetchMetadata = (tokenid, uri, price, seller) => {
+    const fetchMetadata = async(tokenid, uri, price, seller) => {
         // axios fetching metadata of NFT
-        axios.get(uri).then(response => {
+        await axios.get(uri).then(response => {
             const itemData = {
                 token_id: tokenid,
                 data: response['data'][0],

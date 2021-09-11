@@ -63,7 +63,6 @@ function Filters(props) {
         { id: 'mostexpensive', title: 'Most Expensive' },
         { id: 'leastexpensive', title: 'Least Expensive' },
     ]
-    const colours = ["Blue", "Black", "Red", "Pink", "Yellow", "Grey", "Orange", "White", "Green", "Brown"]
     const [expanded, setExpanded] = useState([]);
     const [selected, setSelected] = useState([]);
 
@@ -80,16 +79,6 @@ function Filters(props) {
     const initialFValues = {
         search: '',
         sortBy: 'mostpopular',
-        colourBlue: false,
-        colourBlack: false,
-        colourRed: false,
-        colourPink: false,
-        colourYellow: false,
-        colourGrey: false,
-        colourOrange: false,
-        colourWhite: false,
-        colourGreen: false,
-        colourBrown: false,
     }
     const handleToggle = (event, nodeIds) => {
         setExpanded(nodeIds);
@@ -138,24 +127,14 @@ function Filters(props) {
                                 onChange={handleInputChange}
                                 items={sortBy}
                             />
-                        </TreeItem></Grid><Grid item xs={6} md={12}>
-                        <TreeItem nodeId={"Color"} label={"Color"} className={classes.treeItem}>
-                            {colours.map((name, i) => (
-                                <Controls.Checkbox
-                                    key={`colour` + name}
-                                    name={`colour` + name}
-                                    label={name}
-                                    value={values[`colour` + name]}
-                                    onChange={handleInputChange}
-                                />
-                            ))}
-                        </TreeItem></Grid>
+                        </TreeItem>
+                        </Grid>
                 </Grid>
 
             </TreeView>
             <Controls.Button
                 text="Reset"
-                color="default"
+                color="initial"
                 onClick={resetForm} />
             <Controls.Button
                 type="submit"
