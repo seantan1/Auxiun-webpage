@@ -23,7 +23,6 @@ export default function Watch(props) {
                 // 1. user_id
                 // 2. nftMetadata_id
                 let storeArray = [];
-                let watchlistIdArray = [];
                 // nftMetadata can be fetched using the nftMetadata_id
                 response.data.data.forEach((watchlist) => {
                     axios.get(process.env.REACT_APP_DATABASE_API_NFT_URL + watchlist.nftMetadata_id).then(response => {
@@ -43,6 +42,7 @@ export default function Watch(props) {
         axios.delete(process.env.REACT_APP_DATABASE_API_WATCHLISTS + watchlist_id).then(response => {
             console.log(response);
             props.showAlert("Success", "Item has been removed from watchlist", "", "success");
+            window.location.reload(false);
         })
     }
 
