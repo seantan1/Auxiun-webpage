@@ -34,9 +34,7 @@ const Profile = (props) => {
         <div>
             <div className="profile-banner profile-text">
                 <div className="profile-banner-background"></div>
-                <div className={classes.boxShadowContainerLightMode}>
-                {/* For dark mode */}
-                {/* <div className={ darkMode ? classes.boxShadowContainerDarkMode : classes.boxShadowContainerLightMode }> */}
+                <div className={ darkTheme ? classes.boxShadowContainerDarkMode : classes.boxShadowContainerLightMode }>
                 <Gravatar 
                     email={props.userSessionData.email} 
                     className={classes.profileImage}
@@ -46,8 +44,6 @@ const Profile = (props) => {
                
                 <div className="user-title" style={{color:darkTheme ? 'aliceblue' : 'black'}} > {props.userSessionData.firstname} {props.userSessionData.lastname}</div>
                 <div className={classes.container}>
-                    <Typography className={classes.smallText}>[Wallet Address]</Typography>
-                    <br></br>
                     <Typography className={classes.smallText}>{props.userSessionData.email}</Typography>
                 </div>
                 <a href="/updateprofile"> 

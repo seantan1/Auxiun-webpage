@@ -1,7 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useContext } from "react";
 import "./styles/updateProfile.css";
 import TextField from "@material-ui/core/TextField";
-import { makeStyles } from "@material-ui/core/styles";
 import { Typography, Button, Collapse} from "@material-ui/core";
 import { ChangePassword } from "./ChangePassword";
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
@@ -9,8 +8,8 @@ import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 import { useStyles } from "./styles/UpdatedProfileStyles"
 import "./styles/updateProfile.css"
 import { useForm } from "../hooks/useForm";
-import { Profiler } from "react";
 import { ProfileAlert } from "./ProfileAlert";
+import darkThemeContext from "../darkThemeContext";
 const axios = require("axios");
 
 
@@ -65,10 +64,12 @@ const UpdateProfile = (props) => {
 		}
 		
     }
+    const { darkTheme } = useContext(darkThemeContext);
+
 
   return (
     <div className="page">
-        <div className={classes.borderedContainerLight}>
+        <div className={darkTheme ? classes.borderedContainerDark : classes.borderedContainerLight}>
 			<Collapse in={showAlert}>
 				<ProfileAlert setShowAlert={setShowAlert} alertMessage={alertMessage} />
 			</Collapse>
