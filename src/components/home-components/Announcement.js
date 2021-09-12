@@ -1,12 +1,19 @@
 import React from "react";
 import "./css/Announcement.css";
 import darkThemeContext from "../darkThemeContext";
-import { useContext } from "react";
+import { useEffect, useContext } from "react";
+
+// Scrolling Animation
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const Announcement = () => {
+  useEffect(() => {
+    AOS.init();
+  });
   const { darkTheme } = useContext(darkThemeContext);
   return (
-    <div>
+    <div data-aos="fade-right" data-aos-delay="350">
       <div className="announcement-banner" id="announcement">
         <h5 className="announcement-banner-text">Recent Announcements</h5>
         <div class="container-announcement">
@@ -17,7 +24,10 @@ const Announcement = () => {
                 alt="rover"
               />
             </div>
-            <div class="card-body" style={{ backgroundColor: darkTheme ? '#2c2c2c' : '#fff' }}>
+            <div
+              class="card-body"
+              style={{ backgroundColor: darkTheme ? "#2c2c2c" : "#fff" }}
+            >
               <h4>
                 Fornite Inspired This MBA To Launch An Award-Winning NFT Startup
               </h4>
@@ -28,10 +38,14 @@ const Announcement = () => {
               </p>
               <a href="https://www.businessbecause.com/news/entrepreneurs/7655/mba-nft-startup?sponsored">
                 {" "}
-                <button style={{
-                  backgroundColor: darkTheme ? '#4b4b4b' : '',
-                  color: darkTheme ? 'white' : ''
-                }}>Read More</button>
+                <button
+                  style={{
+                    backgroundColor: darkTheme ? "#4b4b4b" : "",
+                    color: darkTheme ? "white" : "",
+                  }}
+                >
+                  Read More
+                </button>
               </a>
             </div>
           </div>
@@ -42,7 +56,10 @@ const Announcement = () => {
                 alt="ballons"
               />
             </div>
-            <div class="card-body" style={{ backgroundColor: darkTheme ? '#2c2c2c' : '#fff' }}>
+            <div
+              class="card-body"
+              style={{ backgroundColor: darkTheme ? "#2c2c2c" : "#fff" }}
+            >
               {/* <span class="tag tag-purple">Popular</span> */}
               <h4>
                 Can an NFT Artist Sell Virtually the Same Work More Than Once?
@@ -53,10 +70,14 @@ const Announcement = () => {
               </p>
 
               <a href="https://slate.com/technology/2021/06/nft-legal-questions-ali-sabet-quarantine-magic-in-motion.html">
-                <button style={{
-                  backgroundColor: darkTheme ? '#4b4b4b' : '',
-                  color: darkTheme ? 'white' : ''
-                }}>Read More</button>
+                <button
+                  style={{
+                    backgroundColor: darkTheme ? "#4b4b4b" : "",
+                    color: darkTheme ? "white" : "",
+                  }}
+                >
+                  Read More
+                </button>
               </a>
             </div>
           </div>
@@ -68,7 +89,10 @@ const Announcement = () => {
                 alt="city"
               />
             </div>
-            <div class="card-body" style={{ backgroundColor: darkTheme ? '#2c2c2c' : '#fff' }}>
+            <div
+              class="card-body"
+              style={{ backgroundColor: darkTheme ? "#2c2c2c" : "#fff" }}
+            >
               <h4>
                 Vine’s creator is now working on NFT blockchain video games
               </h4>
@@ -77,10 +101,14 @@ const Announcement = () => {
                 Peach, has a new project called Supdrive.
               </p>
               <a href="https://www.theverge.com/2021/8/19/22632765/vine-creator-dom-hofmann-blockchain-video-game-nft-supdrive">
-                <button style={{
-                  backgroundColor: darkTheme ? '#4b4b4b' : '',
-                  color: darkTheme ? 'white' : ''
-                }}>Read More</button>
+                <button
+                  style={{
+                    backgroundColor: darkTheme ? "#4b4b4b" : "",
+                    color: darkTheme ? "white" : "",
+                  }}
+                >
+                  Read More
+                </button>
               </a>
             </div>
           </div>
