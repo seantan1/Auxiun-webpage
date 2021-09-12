@@ -1,12 +1,19 @@
 import React from "react";
 import "./css/Roadmap.css";
 import darkThemeContext from "../darkThemeContext";
-import { useContext } from "react";
+import { useEffect,useContext } from "react";
+
+// Scrolling Animation
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const Roadmap = () => {
+  useEffect(() => {
+    AOS.init();
+  });
   const { darkTheme } = useContext(darkThemeContext);
   return (
-    <div>
+    <div data-aos="slide-left" data-aos-delay="150" >
       <h6 className="roadmap-title" style={{ color: darkTheme ? 'aliceblue' : '#333' }}>Roadmap</h6>
       <div class="timeline">
         <div class="container left">
