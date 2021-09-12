@@ -49,7 +49,9 @@ function Item(props) {
 
 const classes = useStyles();
 if (!item) {
-    return null
+    return (
+        <Card className={`${classes.root} animate`} variant="outlined"> </Card>
+    )
 } else {
     return (
         <Link to={{

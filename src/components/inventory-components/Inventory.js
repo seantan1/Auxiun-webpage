@@ -190,13 +190,13 @@ const Inventory = (props) => {
                 <div className='inventory-header'>
                     <div className='selector-switch'>
                         <Button variant="contained" color="primary" className='selector-switch__button' onClick={handleBoughtButtons}>
-                            Bought
+                            Owned
                         </Button>
                         <Button variant="contained" color="primary" className='selector-switch__button' onClick={handleSellingButtons}>
                             Selling
                         </Button>
                         <Button variant="contained" color="primary" className='selector-switch__button' onClick={handleSoldButtons}>
-                            Sold
+                            Transactions
                         </Button>
                         <br></br><br></br>
                     </div>
