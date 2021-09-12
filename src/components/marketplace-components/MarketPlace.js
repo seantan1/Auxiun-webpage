@@ -19,6 +19,7 @@ import {
 import { Typography } from '@material-ui/core';
 import MarketplaceCarousel from './MarketplaceCarousel';
 import { useHistory, withRouter } from 'react-router-dom';
+import LoadCards from './LoadCards';
 // axios
 const axios = require('axios');
 
@@ -34,6 +35,7 @@ function MarketPlace(props) {
     const [pageSize, setPageSize] = useState(25);
     const [filter, setFilter] = useState()
     const [filtered, setFiltered] = useState([])
+    const [nftSize, setNftSize] = useState(1)
     const useStyles = makeStyles((theme) => ({
         gridContainer: {
             paddingLeft: "4rem",
@@ -50,7 +52,9 @@ function MarketPlace(props) {
         }
     }));
     useEffect(() => {
+        console.log("yep")
         setFiltered(item)
+        setNftSize(nftSize => nftSize - 1)
     }, [item])
     const totalPageCount = () => {
         return (Math.ceil(item.length / pageSize))
@@ -87,63 +91,47 @@ function MarketPlace(props) {
             setMaxValue(value * pageSize)
         }
     }
-    const filterData = () => {
+    const filterData = async () => {
         let data = item;
-        if (filter.search) {
-            //console.log("Searching")
-            data = data.filter(item => String(item.data.item_name).toLowerCase().includes(String(filter.search).toLowerCase()))
-        }
+        // data = filter.search && data.filter(item => String(item.data.item_name).toLowerCase().includes(String(filter.search).toLowerCase()))
+        // }
+        console.log("filtering by", filter.sortBy)
         switch (filter.sortBy) {
             case "mostpopular":
-                //console.log("Sorting", "Most Popular")
+                console.log("Sorting", "Most Popular")
+                console.log("Sorting", data)
                 data = data.sort((a, b) => a.data.item_popularity < b.data.item_popularity ? 1 : -1)
-                //console.log("Sorting", data)
                 break;
             case "leastpopular":
-                //console.log("Sorting", "Least Popular")
-                data = data.sort((a, b) => b.data.item_popularity < a.data.item_popularity ? 1 : -1)
-                //console.log("Sorting", data)
+                console.log("Sorting", "Least Popular")
+                console.log("Sorting", data)
+                data = data.sort((a, b) => a.data.item_popularity > b.data.item_popularity ? 1 : -1)
                 break;
             case "mostexpensive":
-                //console.log("Sorting", "Most Expensive")
+                console.log("Sorting", "Most Expensive")
+                console.log("Sorting", data)
                 data = data.sort((a, b) => a.price > b.price ? 1 : -1)
-                //console.log("Sorting", data)
                 break;
             case "leastexpensive":
-                //console.log("Sorting", "Least Expensive")
+                console.log("Sorting", "Least Expensive")
+                console.log("Sorting", data)
                 data = data.sort((a, b) => a.price < b.price ? 1 : -1)
-                //console.log("Sorting", data)
                 break;
             default:
+                break;
         }
         setFiltered(data)
-        //console.log("Sorted", data)
     }
 
     useEffect(() => {
         history.push("/marketplace")
     }, [props.account, history])
 
-    const loadItems = (data) => {
-        const items = [];
-        for (const item in data) {
-            items.push(
-                <Grid item xs={6} md={4} lg={3} xl={2}>
-                    <Item data={data[item]} />
-                </Grid>
-            )
-        }
-        return items;
-    }
-    useEffect(() => {
-        //console.log("FILTEREDDATA", filtered)
-    }, [filtered])
     useEffect(() => {
         if (filter) {
             filterData()
         }
-
-        //console.log("Filters", filter)
+        console.log(filter)
     }, [filter])
     //this is just to adjust the styling on cards in trending without affecting the others. Remove when backend for
     //trending is implemented -- Harris
@@ -168,29 +156,48 @@ function MarketPlace(props) {
                     //console.log("multifetch", result);
                     // TODO: might want to change this to your liking
                     // currently there should be 3 NFT in total listed on sale
-                    for (const data in result[0]) {
-                        fetchMetadata(result[0][data], result[1][data], String(web3.utils.fromWei(result[2][data])), result[3][data])
-                    }
+                    setNftSize(result[0].length)
+                    console.log("result", result)
+                    fetchURLs({
+                        tokenid: result[0],
+                        uri: result[1].map((e) => axios.get(e)),
+                        price: result[2].map((e) => String(web3.utils.fromWei(e))),
+                        seller: result[3]
+                    })
                     // price needs to be converted from wei to ethers using the web3.utils.fromWei function
                     ////console.log("Price: " + String(web3.utils.fromWei(result[2][0])) + " ethers"); // example
                 });
         }
     }, [props.authorised]);
 
-    // TEST function: axios call function
-    const fetchMetadata = async(tokenid, uri, price, seller) => {
-        // axios fetching metadata of NFT
-        await axios.get(uri).then(response => {
-            const itemData = {
-                token_id: tokenid,
-                data: response['data'][0],
-                price: price,
-                seller: seller
-            }
-            setItem(item => [...item, itemData])
-        });
+    async function fetchURLs(nftData) {
+        try {
+            axios.all(nftData.uri).then(axios.spread((...responses) => {
+                for (const response in responses) {
+                    const data = {
+                        token_id: nftData.tokenid[response],
+                        data: responses[response].data[0],
+                        price: nftData.price[response],
+                        seller: nftData.seller[response]
+                    }
+                    setItem(item => [...item, data])
+                }
+
+            }))
+
+        } catch (error) {
+            console.log(error);
+        }
     }
 
+    useEffect(() => {
+        load()
+    }, [filtered])
+    const load=() => {
+        return (
+            <LoadCards minValue={minValue} maxValue={maxValue} filtered={filtered} />
+        )
+    }
     return (
         <div className="marketplace-container" id="marketplace">
             {error ? <Grid item xs={12} style={{ textAlign: "center" }}><Typography variant="h3">{error}</Typography></Grid> :
@@ -207,7 +214,7 @@ function MarketPlace(props) {
                             container
                             className={(xs ? classes.gridItemContainer : classes.gridContainer)}
                         >
-                            {loadItems(filtered.slice(minValue, maxValue))}
+                        {load()}      
                         </Grid>
                         <br></br><br></br>
                         <Grid

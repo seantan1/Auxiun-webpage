@@ -78,7 +78,7 @@ function Filters(props) {
 
     const initialFValues = {
         search: '',
-        sortBy: 'mostpopular',
+        sortBy: '',
     }
     const handleToggle = (event, nodeIds) => {
         setExpanded(nodeIds);
