@@ -89,6 +89,7 @@ function Filters(props) {
     };
     const handleSubmit = e => {
         e.preventDefault()
+        props.setLoading(true)
         props.setFilter(values);
     }
     const {
