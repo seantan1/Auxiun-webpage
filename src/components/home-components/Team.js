@@ -1,10 +1,20 @@
-import React from "react";
 import "./css/Team.css";
-import TeamImage from "../../assets/TeamImage.svg";
+
+import React, { useEffect } from "react";
+
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const Team = () => {
+  useEffect(() => {
+    AOS.init({
+      offset: 500,
+      duration: 1000,
+      easing: "ease",
+    });
+  });
   return (
-    <div class="team-section" id="team">
+    <div class="team-section" id="team" data-aos="fade-left">
       <p className="team-section">Meet Our Team</p>
 
       <div class="inner-width">

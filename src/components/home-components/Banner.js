@@ -8,6 +8,9 @@ import { withStyles } from "@material-ui/core/styles";
 
 import { useDencrypt } from "use-dencrypt-effect";
 
+import AOS from "aos";
+import "aos/dist/aos.css";
+
 // Animated Text
 const values = ["gamer", "content creator", "artist"];
 const options = {
@@ -58,56 +61,44 @@ const Banner = () => {
 
   return (
     <div className="banner">
-      {/* <div class="waveWrapper waveAnimation">
-        <div className="banner">
-          <div class="waveWrapperInner bgTop">
-            <div class="wave waveTop"></div>
+      <div className="banner-text">
+        <Container maxWidth="sm">
+          <div className="homepage-title">
+            <Typography className="homepage-title" variant="h4" component="h4">
+              NFT Marketplace for Gamers and Creators
+            </Typography>
           </div>
-          <div class="waveWrapperInner bgMiddle">
-            <div class="wave waveMiddle"></div>
+          <br />
+          <div className="homepage-caption">
+            <Typography variant="caption" display="block" gutterBottom>
+              Are you a passionate {result}? Check out our Marketplace!
+            </Typography>
           </div>
-          <div class="waveWrapperInner bgBottom">
-            <div class="wave waveBottom"></div>
-          </div> */}
-          <div className="banner-text">
-            <Container maxWidth="sm">
-              <div className="homepage-title">
-                <Typography className="homepage-title" variant="h4" component="h4">
-                  NFT Marketplace for Gamers and Creators
-                </Typography>
-              </div>
-              <br />
-              <div className="homepage-caption">
-                <Typography variant="caption" display="block" gutterBottom>
-                  Are you a passionate {result}? Check out our Marketplace!
-                </Typography>
-              </div>
-              <a href="/marketplace" class="btn">
-                <svg width="577" height="62">
-                  <defs>
-                    <linearGradient id="grad1">
-                      <stop offset="100%" stop-color="#000000" />
-                      <stop offset="100%" stop-color="#000000" />
-                    </linearGradient>
-                  </defs>
-                  <rect
-                    x="5"
-                    y="5"
-                    rx="25"
-                    fill="none"
-                    stroke="url(#grad1)"
-                    width="266"
-                    height="50"
-                  ></rect>
-                </svg>
-                <span>Explore Marketplace</span>
-              </a>
-            </Container>
-            </div>
-         {/* </div> */}
+          <a href="/marketplace" class="btn">
+            <svg width="577" height="62">
+              <defs>
+                <linearGradient id="grad1">
+                  <stop offset="100%" stop-color="#000000" />
+                  <stop offset="100%" stop-color="#000000" />
+                </linearGradient>
+              </defs>
+              <rect
+                x="5"
+                y="5"
+                rx="25"
+                fill="none"
+                stroke="url(#grad1)"
+                width="266"
+                height="50"
+              ></rect>
+            </svg>
+            <span>Explore Marketplace</span>
+          </a>
+        </Container>
+      </div>
+      {/* </div> */}
       {/* </div>  */}
     </div>
-
   );
 };
 

@@ -1,15 +1,27 @@
-import React from "react";
 import "./css/About.css";
 import BlockchainImage from "../../assets/blockchain.svg";
- const About = () => {
+
+import React, { useEffect } from "react";
+
+import AOS from "aos";
+import "aos/dist/aos.css";
+
+const About = () => {
+  useEffect(() => {
+    AOS.init({
+      offset: 500,
+      duration: 1000,
+      easing: "ease",
+    });
+  });
   return (
     <div>
-      <div className="about-banner" id="about">
-          <div id="page-name-bar-heading">
-            <p className="about-banner-title">About Us</p>
-            <p className="about-banner-title1">A LITTLE SOMETHING ABOUT US</p>
-          </div>
-          <div className="about-banner-text">
+      <div className="about-banner" id="about" data-aos="fade-left">
+        <div id="page-name-bar-heading">
+          <p className="about-banner-title">About Us</p>
+          <p className="about-banner-title1">A LITTLE SOMETHING ABOUT US</p>
+        </div>
+        <div className="about-banner-text">
           Montreal-based start-up working to revolutionise in-game transactions
           and wealth focusing on in-game economics and media ownership. We work
           on integrating our in-house technology to incorporate blockchain

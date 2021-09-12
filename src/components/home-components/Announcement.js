@@ -1,9 +1,20 @@
-import React from "react";
 import "./css/Announcement.css";
 
+import React, { useEffect } from "react";
+
+import AOS from "aos";
+import "aos/dist/aos.css";
+
 const Announcement = () => {
+  useEffect(() => {
+    AOS.init({
+      offset: 500,
+      duration: 1000,
+      easing: "ease",
+    });
+  });
   return (
-    <div>
+    <div data-aos="fade-right">
       <div className="announcement-banner" id="announcement">
         <h5 className="announcement-banner-text">Recent Announcements</h5>
         <div class="container-announcement">
