@@ -66,9 +66,6 @@ const useStyles = makeStyles((theme) => ({
 
     textFieldLabel: props => ({
         color: props.darkTheme === true ? 'gray' : "#b3b3b3",
-        // "&:hover": {
-        //     color: props.darkTheme === true ? '#EBEBEB' : "blue"
-        // },
         "&$textFieldLabelFocused": {
             color: props.darkTheme === true ? '#EBEBEB' : "blue"
         },

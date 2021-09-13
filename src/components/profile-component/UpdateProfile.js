@@ -14,8 +14,12 @@ const axios = require("axios");
 
 
 const UpdateProfile = (props) => {
+    const { darkTheme } = useContext(darkThemeContext);
+    // For the dark theme props (to be passed in useStyles)
+    const darkThemeProps = {darkTheme: darkTheme}
+    const classes = useStyles(darkThemeProps)
 
-    const classes = useStyles()
+    
     const [showPasswordForm, setShowPasswordForm] = useState(false)
 	const [showAlert, setShowAlert] = useState(false)
 	const [alertMessage, setAlertMessage] =useState({error: false, message: ""})
@@ -64,7 +68,7 @@ const UpdateProfile = (props) => {
 		}
 		
     }
-    const { darkTheme } = useContext(darkThemeContext);
+   
 
 
   return (
@@ -78,6 +82,18 @@ const UpdateProfile = (props) => {
             </div>
 
             <TextField
+                variant={"filled"}
+                InputProps={{ 
+                    classes: {
+                        root: classes.textFieldFilledStyleRoot
+                    }
+                }}
+                FormHelperTextProps={{ 
+                    classes: {
+                        root: classes.textFieldLabel,
+                        focused: classes.textFieldLabelFocused
+                    }
+                }}
                 id="firstname"
                 placeholder={props.userSessionData.firstname}
                 name="firstname"
@@ -87,6 +103,18 @@ const UpdateProfile = (props) => {
             />
 
             <TextField
+                variant={"filled"}
+                InputProps={{ 
+                    classes: {
+                        root: classes.textFieldFilledStyleRoot
+                    }
+                }}
+                FormHelperTextProps={{ 
+                    classes: {
+                        root: classes.textFieldLabel,
+                        focused: classes.textFieldLabelFocused
+                    }
+                }}
                 id="lastname"
                 placeholder={props.userSessionData.lastname}
                 name="lastname"
@@ -95,13 +123,13 @@ const UpdateProfile = (props) => {
                 helperText="Lastname"
             />
             
-            <Button variant="outlined" color="primary" onClick={handleUpdateUser}>
+            <Button variant={ darkTheme ? "contained": "outlined"} color="primary" onClick={handleUpdateUser}>
             <Typography>Update Profile</Typography>
             </Button>
             <br></br>
 
             <Button 
-                variant="outlined"
+                variant={ darkTheme ? "contained": "outlined"}
                 onClick={handleShowPasswordForm}>
                 Change Password
                 {
