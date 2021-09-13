@@ -52,6 +52,10 @@ function MarketPlace(props) {
             }
         }
     }));
+
+    useEffect(() => {
+        console.log(props)
+    }, [props])
     useEffect(() => {
         console.log("yep")
         setFiltered(item)
@@ -92,50 +96,62 @@ function MarketPlace(props) {
             setMaxValue(value * pageSize)
         }
     }
-    const filterData = () => {
-        let data = item;
-        if(filter.search) {
-            data = data.filter(item => String(item.data.item_name).toLowerCase().includes(String(filter.search).toLowerCase()))
-        }
-        console.log("filtering by", filter.sortBy)
-        switch (filter.sortBy) {
-            case "mostpopular":
-                console.log("Sorting", "Most Popular")
-                console.log("Sorting", data)
-                data = data.sort((a, b) => b.data.item_popularity - a.data.item_popularity)
-                break;
-            case "leastpopular":
-                console.log("Sorting", "Least Popular")
-                console.log("Sorting", data)
-                data = data.sort((a, b) => a.data.item_popularity - b.data.item_popularity )
-                break;
-            case "mostexpensive":
-                console.log("Sorting", "Most Expensive")
-                console.log("Sorting", data)
-                data = data.sort((a, b) => b.price - a.price)
-                break;
-            case "leastexpensive":
-                console.log("Sorting", "Least Expensive")
-                console.log("Sorting", data)
-                data = data.sort((a, b) => a.price - b.price)
-                break;
-            default:
-                break;
-        }
-        setFiltered(data)
-        setLoading(false)
+    const filterData = (search) => {
+            let data = item;
+            if (filter?.search) {
+                data = data.filter(item => String(item.data.item_name).toLowerCase().includes(String(filter.search).toLowerCase()))
+            } else if (search) {
+
+                data = data.filter(item => String(item.data.item_name).toLowerCase().includes(String(search).toLowerCase()))
+                console.log(data)
+            }
+
+            if (filter?.sortBy) {
+                switch (filter.sortBy) {
+                    case "mostpopular":
+                        console.log("Sorting", "Most Popular")
+                        console.log("Sorting", data)
+                        data = data.sort((a, b) => b.data.item_popularity - a.data.item_popularity)
+                        break;
+                    case "leastpopular":
+                        console.log("Sorting", "Least Popular")
+                        console.log("Sorting", data)
+                        data = data.sort((a, b) => a.data.item_popularity - b.data.item_popularity)
+                        break;
+                    case "mostexpensive":
+                        console.log("Sorting", "Most Expensive")
+                        console.log("Sorting", data)
+                        data = data.sort((a, b) => b.price - a.price)
+                        break;
+                    case "leastexpensive":
+                        console.log("Sorting", "Least Expensive")
+                        console.log("Sorting", data)
+                        data = data.sort((a, b) => a.price - b.price)
+                        break;
+                    default:
+                        break;
+                }
+            }
+            setFiltered(data)
+            setLoading(false)
     }
 
-    useEffect(() => {
-        history.push("/marketplace")
-    }, [props.account, history])
+    // useEffect(() => {
+    //     //history.push("/marketplace")
+    // }, [props.account, history])
 
+    useEffect(() => {
+        console.log(item.length, nftSize)
+        if(item.length === nftSize) {
+            console.log("filtering")
+            filterData(props.location.state.search)
+        }
+    }, [props.location.state.search,item, nftSize])
     useEffect(() => {
         if (filter) {
             console.log(filter)
             filterData()
         }
-
     }, [filter])
     //this is just to adjust the styling on cards in trending without affecting the others. Remove when backend for
     //trending is implemented -- Harris
@@ -200,7 +216,7 @@ function MarketPlace(props) {
     const loadingCards = (size) => {
         const data = []
         for (let i = 0; i < size; i++) {
-            data.push(<Grid item xs={6} md={4} lg={3} xl={2}>
+            data.push(<Grid item xs={6} md={4} lg={3} xl={2} key={"loading"+i}>
                 <Item/>
             </Grid>)
         }
@@ -208,7 +224,7 @@ function MarketPlace(props) {
     }
 
     useEffect(() => {
-        console.log(loading? "trueloading": "falseloading")
+        console.log(loading ? "trueloading" : "falseloading")
     }, [loading])
     return (
         <div className="marketplace-container" id="marketplace">
@@ -216,7 +232,7 @@ function MarketPlace(props) {
                 <Grid container className={classes.gridContainer} >
 
                     <Grid item xs={12} sm={"auto"} md={2}>
-                        <Filters setFilter={setFilter} setLoading={setLoading}/>
+                        <Filters setFilter={setFilter} setLoading={setLoading} search={props.location.state?.search} />
                     </Grid>
 
                     <Grid item xs={12} sm={12} md={10}>
@@ -226,7 +242,7 @@ function MarketPlace(props) {
                             container
                             className={(xs ? classes.gridItemContainer : classes.gridContainer)}
                         >
-                            {loading ? loadingCards(nftSize) :  <LoadCards minValue={minValue} maxValue={maxValue} filtered={filtered} />}
+                            {loading ? loadingCards(nftSize) : <LoadCards minValue={minValue} maxValue={maxValue} filtered={filtered} />}
 
                         </Grid>
                         <br></br><br></br>

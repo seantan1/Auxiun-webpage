@@ -95,13 +95,13 @@ function Item(props) {
                                 Unwatch
                             </Button>
                             <Link to={{
-                                pathname: '/buy',
-                                state: { ...props.data.data }
+                                pathname: "/marketplace",
+                                state:  {search: props.data.item_name }
                             }}>
                                 <Button variant="contained" color="primary" style={{ width: "45%", marginLeft: 20 }}>
                                     Buy
                                 </Button>
-                            </Link >
+                            </Link>
                         {/* </div> */}
                     </CardContent>
                 </CardActionArea>
