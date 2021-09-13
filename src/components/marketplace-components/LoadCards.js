@@ -8,7 +8,7 @@ function LoadCards(props) {
     return (
         (props.filtered?
             props.filtered.slice(props.minValue, props.maxValue).map((item, index) => (
-                <Grid item xs={6} md={4} lg={3} xl={2}>
+                <Grid item xs={6} md={4} lg={3} xl={2} key={item.token_id}>
                     <Item data={item} />
                 </Grid>
     
