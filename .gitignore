@@ -1,5 +1,10 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+# Scripts for git because I cant be bothered entering my creds
+git_token.sh
+git_push.sh
+git_pull.sh
+
 # dependencies
 /node_modules
 /.pnp
