@@ -111,7 +111,6 @@ export default function Register(props) {
         }
 
         axios.post(process.env.REACT_APP_DATABASE_API_REGISTER_URL, {
-            apikey: String(process.env.REACT_APP_DATABASE_API_KEY),
             email: String(userEmailRegisterForm),
             firstname: String(userFirstNameRegisterForm),
             lastname: String(userLastNameRegisterForm),

@@ -35,28 +35,34 @@ function Item(props) {
         media: {
             width: "100%",
             height: "100%",
-            objectFit: "cover", 
+            objectFit: "cover",
             paddingTop: '100%'
-    },
+        },
         price: {
-        alignSelf: "right"
-    },
+            alignSelf: "right"
+        },
         divider: {
             margin: `1rem 0`,
             background: darkTheme ? 'gray' : '',
         },
     });
 
-const classes = useStyles();
-if (!item) {
-    return null
-} else {
-    return (
-        <Link to={{
-            pathname: '/buy',
-            state: { ...props }
-        }}>
-            <Card className={`${classes.root} animate`} variant="outlined" key={item.token_id + item.seller}>
+    const classes = useStyles();
+    if (!item) {
+        return (
+            <Card className={`${classes.root} animate`} variant="outlined">
+                <CardContent>
+                    <Typography varient={"h3"} component="p">Loading...</Typography>
+                </CardContent>
+            </Card>
+        )
+    } else {
+        return (
+            <Link to={{
+                pathname: '/buy',
+                state: { ...props }
+            }}>
+                <Card className={`${classes.root} animate`} variant="outlined" key={item.token_id + item.seller}>
                     <CardActionArea disableRipple>
                         <CardMedia
                             className={classes.media}
@@ -77,13 +83,13 @@ if (!item) {
                                 <div style={{
                                     display: 'flex',
                                     alignItems: 'center',
-                                }}><InsertPhotoIcon style={{ color: darkTheme ? 'gray' : '' }}  /><span style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", color: darkTheme ? 'aliceblue' : '' }}>{item.token_id}</span></div>
+                                }}><InsertPhotoIcon style={{ color: darkTheme ? 'gray' : '' }} /><span style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", color: darkTheme ? 'aliceblue' : '' }}>{item.token_id}</span></div>
                             </Typography>
-                            <Typography variant="body2" color= {darkTheme ? 'aliceblue' : ''}>
+                            <Typography variant="body2" color={darkTheme ? 'aliceblue' : ''}>
                                 {item.data.item_description}
                             </Typography>
-                            <Typography variant="body2" color= {darkTheme ? 'aliceblue' : ''}>
-                                {"Popularity: "+item.data.item_popularity}
+                            <Typography variant="body2" color={darkTheme ? 'aliceblue' : ''}>
+                                {"Popularity: " + item.data.item_popularity}
                             </Typography>
                             <Divider className={classes.divider} light />
                             <Typography variant="overline" display="block" align="right" gutterBottom>

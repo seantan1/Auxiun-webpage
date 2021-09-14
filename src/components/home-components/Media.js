@@ -1,6 +1,6 @@
 import React from "react";
 import "./css/Media.css";
-import { useContext } from "react";
+import { useEffect,useContext } from "react";
 
 import TwitterImage from "../../assets/twitter.png";
 import TelegramImage from "../../assets/telegram.png";
@@ -12,11 +12,17 @@ import ArticleImage from "../../assets/article.svg";
 import ChatImage from "../../assets/chat.svg";
 import darkThemeContext from "../darkThemeContext";
 
+// Scrolling Animation
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const Media = () => {
+  useEffect(() => {
+    AOS.init();
+  });
   const { darkTheme } = useContext(darkThemeContext);
   return (
-    <div>
+    <div data-aos="slide-right" data-aos-delay="150" data-aos-easing="ease-in-sine">
       <div className="media-banner media-banner-text">
         <h5 className="image-title" style={{color: darkTheme ? 'aliceblue' : ''}}>A Global Community</h5>
         <h5 className="media-text">

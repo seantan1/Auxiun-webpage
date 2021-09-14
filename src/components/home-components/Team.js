@@ -1,13 +1,21 @@
 import React from "react";
 import "./css/Team.css";
-import { useContext } from "react";
+import { useEffect, useContext } from "react";
 import TeamImage from "../../assets/TeamImage.svg";
 import darkThemeContext from "../darkThemeContext";
 
+// Scrolling Animation
+import AOS from "aos";
+import "aos/dist/aos.css";
+
 const Team = () => {
+  useEffect(() => {
+    AOS.init();
+  });
   const { darkTheme } = useContext(darkThemeContext);
   return (
-    <div class="team-section" id="team" style={{color: darkTheme ? 'aliceblue' : '#333333' }}>
+    <div class="team-section" id="team" data-aos="fade-left"
+    style={{color: darkTheme ? 'aliceblue' : '#333333' }}>
       <p className="team-section">Meet Our Team</p>
 
       <div class="inner-width">

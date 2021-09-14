@@ -1,10 +1,18 @@
 import { TextField, Typography, Button } from '@material-ui/core'
-import React from 'react'
+import React, {useContext} from 'react'
 import { Label } from 'semantic-ui-react'
 import { useForm } from '../hooks/useForm'
+import darkThemeContext from "../darkThemeContext";
+import { useStyles } from './styles/UpdatedProfileStyles';
 const axios = require("axios")
 
 export const ChangePassword = (props) => {
+
+    const { darkTheme } = useContext(darkThemeContext);
+    // For the dark theme props (to be passed in useStyles)
+    const darkThemeProps = {darkTheme: darkTheme}
+    const classes = useStyles(darkThemeProps)
+
     const initialState = {currentPassword: "", newPassword: "", confirmPassword: ""}
     const {fields, handleInputChange} = useForm(initialState)
 
@@ -56,31 +64,64 @@ export const ChangePassword = (props) => {
 
     return (
         <div className="page-no-top-padding">
-            <TextField 
+            <TextField
+                InputProps={{ 
+                    classes: {
+                        root: classes.textFieldStyleRoot
+                    }
+                }}
+                InputLabelProps={{ 
+                    classes: {
+                        root: classes.textFieldLabel,
+                        focused: classes.textFieldLabelFocused
+                    }
+                }}
                 type="password" 
                 label="Current Password"
                 name="currentPassword" 
                 value={fields.currentPassword}
                 onChange={handleInputChange}
                 />
-            <TextField 
+            <TextField
+                InputProps={{ 
+                    classes: {
+                        root: classes.textFieldStyleRoot
+                    }
+                }}
+                InputLabelProps={{ 
+                    classes: {
+                        root: classes.textFieldLabel,
+                        focused: classes.textFieldLabelFocused
+                    }
+                }}
                 type="password"
                 label="New Password"
                 name="newPassword"
                 value={fields.newPassword}
                 onChange={handleInputChange}
                 />
-            <TextField 
+            <TextField
+                InputProps={{ 
+                    classes: {
+                        root: classes.textFieldStyleRoot
+                    }
+                }}
+                InputLabelProps={{ 
+                    classes: {
+                        root: classes.textFieldLabel,
+                        focused: classes.textFieldLabelFocused
+                    }
+                }}
                 type="password" 
                 label="Confirm Password"
                 name="confirmPassword" 
                 value={fields.confirmPassword}
                 onChange={handleInputChange}
                 />
-            <Button variant="outlined" color="primary" onClick={handleUpdatePassword}>
+            <Button variant={darkTheme ? "contained" : "outlined"} color="primary" onClick={handleUpdatePassword}>
                 <Typography>Update Password</Typography>
             </Button>
-            <Label style={{color: "#0055b0"}}>You will need to log in again with your new password</Label>
+            <div className={classes.labelStyle}>You will need to log in again with your new password</div>
         </div>
     )
 }

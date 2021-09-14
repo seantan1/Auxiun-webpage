@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { Button, Checkbox, TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import TreeItem from '@material-ui/lab/TreeItem';
@@ -78,8 +78,9 @@ function Filters(props) {
 
     const initialFValues = {
         search: '',
-        sortBy: 'mostpopular',
+        sortBy: '',
     }
+
     const handleToggle = (event, nodeIds) => {
         setExpanded(nodeIds);
     };
@@ -89,6 +90,7 @@ function Filters(props) {
     };
     const handleSubmit = e => {
         e.preventDefault()
+        props.setLoading(true)
         props.setFilter(values);
     }
     const {
@@ -105,7 +107,7 @@ function Filters(props) {
             <Controls.Input
                 name="search"
                 label="Search"
-                value={values.search}
+                value={props.search || values.search}
                 onChange={handleInputChange}
                 error={errors.search}
             />

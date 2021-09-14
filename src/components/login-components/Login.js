@@ -66,9 +66,6 @@ const useStyles = makeStyles((theme) => ({
 
     textFieldLabel: props => ({
         color: props.darkTheme === true ? 'gray' : "#b3b3b3",
-        // "&:hover": {
-        //     color: props.darkTheme === true ? '#EBEBEB' : "blue"
-        // },
         "&$textFieldLabelFocused": {
             color: props.darkTheme === true ? '#EBEBEB' : "blue"
         },
@@ -128,7 +125,6 @@ const Login = (props) => {
 
     const login = () => {
         axios.post(process.env.REACT_APP_DATABASE_API_LOGIN_URL, {
-            apikey: process.env.REACT_APP_DATABASE_API_KEY,
             email: String(userEmailLoginForm),
             password_hash: String(userPasswordLoginForm),
         })
