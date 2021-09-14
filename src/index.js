@@ -6,6 +6,13 @@ import 'semantic-ui-css/semantic.min.css'
 
 import reportWebVitals from './reportWebVitals';
 import { createTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles';
+import axios from 'axios'
+
+// For Axios Headers
+axios.interceptors.request.use(function (config) {
+  config.headers.Authorization = process.env.REACT_APP_DATABASE_API_KEY;
+  return config;
+});
 
 let theme = createTheme();
 theme = responsiveFontSizes(theme);
