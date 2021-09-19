@@ -142,11 +142,11 @@ function MarketPlace(props) {
 
     useEffect(() => {
         console.log(item.length, nftSize)
-        if(item.length === nftSize) {
+        if(item.length === nftSize && props.location?.state?.search) {
             console.log("filtering")
             filterData(props.location.state.search)
         }
-    }, [props.location.state.search,item, nftSize])
+    }, [props.location.state?.search,item, nftSize])
     useEffect(() => {
         if (filter) {
             console.log(filter)
