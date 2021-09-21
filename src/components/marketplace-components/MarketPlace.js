@@ -16,10 +16,11 @@ import {
     MULTICALL_CONTRACT_ADDRESS,
     MULTICALL_CONTRACT_ABI
 } from "../../contract-data/token-contract-data";
-import { Typography } from '@material-ui/core';
+import { Card, Typography } from '@material-ui/core';
 import MarketplaceCarousel from './MarketplaceCarousel';
 import { useHistory, withRouter } from 'react-router-dom';
 import LoadCards from './LoadCards';
+import { Skeleton } from '@material-ui/lab';
 // axios
 const axios = require('axios');
 
@@ -217,7 +218,19 @@ function MarketPlace(props) {
         const data = []
         for (let i = 0; i < size; i++) {
             data.push(<Grid item xs={6} md={4} lg={3} xl={2} key={"loading"+i}>
-                <Item/>
+                <Card style={{
+                    backgroundColor: darkTheme ? '#2c2c2c' : '',
+                    padding: 10
+                }}>
+                <Skeleton variant="rect" width={230} height={230} />
+                <br />
+                <br />
+                <Skeleton animation="wave" />
+                <Skeleton animation="wave" />
+                <Skeleton animation="wave" />
+
+                </Card>
+                
             </Grid>)
         }
         return data;
