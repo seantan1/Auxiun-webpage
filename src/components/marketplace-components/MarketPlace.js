@@ -8,6 +8,7 @@ import Pagination from '@material-ui/lab/Pagination';
 import Filters from './Filters';
 import darkThemeContext from "../darkThemeContext";
 import { useContext } from "react";
+import { motion } from 'framer-motion';
 
 // web3 and axios for NFT data & metadata
 import Web3 from 'web3';
@@ -98,43 +99,43 @@ function MarketPlace(props) {
         }
     }
     const filterData = (search) => {
-            let data = item;
-            if (filter?.search) {
-                data = data.filter(item => String(item.data.item_name).toLowerCase().includes(String(filter.search).toLowerCase()))
-            } else if (search) {
+        let data = item;
+        if (filter?.search) {
+            data = data.filter(item => String(item.data.item_name).toLowerCase().includes(String(filter.search).toLowerCase()))
+        } else if (search) {
 
-                data = data.filter(item => String(item.data.item_name).toLowerCase().includes(String(search).toLowerCase()))
-                console.log(data)
-            }
+            data = data.filter(item => String(item.data.item_name).toLowerCase().includes(String(search).toLowerCase()))
+            console.log(data)
+        }
 
-            if (filter?.sortBy) {
-                switch (filter.sortBy) {
-                    case "mostpopular":
-                        console.log("Sorting", "Most Popular")
-                        console.log("Sorting", data)
-                        data = data.sort((a, b) => b.data.item_popularity - a.data.item_popularity)
-                        break;
-                    case "leastpopular":
-                        console.log("Sorting", "Least Popular")
-                        console.log("Sorting", data)
-                        data = data.sort((a, b) => a.data.item_popularity - b.data.item_popularity)
-                        break;
-                    case "mostexpensive":
-                        console.log("Sorting", "Most Expensive")
-                        console.log("Sorting", data)
-                        data = data.sort((a, b) => b.price - a.price)
-                        break;
-                    case "leastexpensive":
-                        console.log("Sorting", "Least Expensive")
-                        console.log("Sorting", data)
-                        data = data.sort((a, b) => a.price - b.price)
-                        break;
-                    default:
-                        break;
-                }
+        if (filter?.sortBy) {
+            switch (filter.sortBy) {
+                case "mostpopular":
+                    console.log("Sorting", "Most Popular")
+                    console.log("Sorting", data)
+                    data = data.sort((a, b) => b.data.item_popularity - a.data.item_popularity)
+                    break;
+                case "leastpopular":
+                    console.log("Sorting", "Least Popular")
+                    console.log("Sorting", data)
+                    data = data.sort((a, b) => a.data.item_popularity - b.data.item_popularity)
+                    break;
+                case "mostexpensive":
+                    console.log("Sorting", "Most Expensive")
+                    console.log("Sorting", data)
+                    data = data.sort((a, b) => b.price - a.price)
+                    break;
+                case "leastexpensive":
+                    console.log("Sorting", "Least Expensive")
+                    console.log("Sorting", data)
+                    data = data.sort((a, b) => a.price - b.price)
+                    break;
+                default:
+                    break;
             }
-            setFiltered(data)
-            setLoading(false)
+        }
+        setFiltered(data)
+        setLoading(false)
     }
 
     // useEffect(() => {
@@ -143,11 +144,11 @@ function MarketPlace(props) {
 
     useEffect(() => {
         console.log(item.length, nftSize)
-        if(item.length === nftSize && props.location?.state?.search) {
+        if (item.length === nftSize && props.location?.state?.search) {
             console.log("filtering")
             filterData(props.location.state.search)
         }
-    }, [props.location.state?.search,item, nftSize])
+    }, [props.location.state?.search, item, nftSize])
     useEffect(() => {
         if (filter) {
             console.log(filter)
@@ -217,20 +218,20 @@ function MarketPlace(props) {
     const loadingCards = (size) => {
         const data = []
         for (let i = 0; i < size; i++) {
-            data.push(<Grid item xs={6} md={4} lg={3} xl={2} key={"loading"+i}>
+            data.push(<Grid item xs={6} md={4} lg={3} xl={2} key={"loading" + i}>
                 <Card style={{
                     backgroundColor: darkTheme ? '#2c2c2c' : '',
                     padding: 10
                 }}>
-                <Skeleton variant="rect" width={230} height={230} />
-                <br />
-                <br />
-                <Skeleton animation="wave" />
-                <Skeleton animation="wave" />
-                <Skeleton animation="wave" />
+                    <Skeleton variant="rect" width={230} height={230} />
+                    <br />
+                    <br />
+                    <Skeleton animation="wave" />
+                    <Skeleton animation="wave" />
+                    <Skeleton animation="wave" />
 
                 </Card>
-                
+
             </Grid>)
         }
         return data;
@@ -240,37 +241,39 @@ function MarketPlace(props) {
         console.log(loading ? "trueloading" : "falseloading")
     }, [loading])
     return (
-        <div className="marketplace-container" id="marketplace">
-            {error ? <Grid item xs={12} style={{ textAlign: "center" }}><Typography variant="h3">{error}</Typography></Grid> :
-                <Grid container className={classes.gridContainer} >
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }} exit={{ opacity: 0 }}>
+            <div className="marketplace-container" id="marketplace">
+                {error ? <Grid item xs={12} style={{ textAlign: "center" }}><Typography variant="h3">{error}</Typography></Grid> :
+                    <Grid container className={classes.gridContainer} >
 
-                    <Grid item xs={12} sm={"auto"} md={2}>
-                        <Filters setFilter={setFilter} setLoading={setLoading} search={props.location.state?.search} />
-                    </Grid>
-
-                    <Grid item xs={12} sm={12} md={10}>
-                        <MarketplaceCarousel loadItems={loadTrendingItems} item={item} />
-                        <Typography variant="subtitle">Displaying {filtered.length} Results</Typography>
-                        <Grid
-                            container
-                            className={(xs ? classes.gridItemContainer : classes.gridContainer)}
-                        >
-                            {loading ? loadingCards(nftSize) : <LoadCards minValue={minValue} maxValue={maxValue} filtered={filtered} />}
-
+                        <Grid item xs={12} sm={"auto"} md={2}>
+                            <Filters setFilter={setFilter} setLoading={setLoading} search={props.location.state?.search} />
                         </Grid>
-                        <br></br><br></br>
-                        <Grid
-                            container
-                            flex={"true"}
-                            className={classes.top}>
-                            <Grid item xs={12}>
-                                <Pagination count={totalPageCount()} onChange={handleChange} defaultValue={1} showFirstButton showLastButton color={darkTheme ? 'primary' : ''} style={{ display: " flex", justifyContent: 'center', alignItems: 'center' }} />
+
+                        <Grid item xs={12} sm={12} md={10}>
+                            <MarketplaceCarousel loadItems={loadTrendingItems} item={item} />
+                            <Typography variant="subtitle">Displaying {filtered.length} Results</Typography>
+                            <Grid
+                                container
+                                className={(xs ? classes.gridItemContainer : classes.gridContainer)}
+                            >
+                                {loading ? loadingCards(nftSize) : <LoadCards minValue={minValue} maxValue={maxValue} filtered={filtered} />}
+
+                            </Grid>
+                            <br></br><br></br>
+                            <Grid
+                                container
+                                flex={"true"}
+                                className={classes.top}>
+                                <Grid item xs={12}>
+                                    <Pagination count={totalPageCount()} onChange={handleChange} defaultValue={1} showFirstButton showLastButton color={darkTheme ? 'primary' : ''} style={{ display: " flex", justifyContent: 'center', alignItems: 'center' }} />
+                                </Grid>
                             </Grid>
                         </Grid>
-                    </Grid>
 
-                </Grid>}
-        </div>
+                    </Grid>}
+            </div>
+        </motion.div>
     )
 
 

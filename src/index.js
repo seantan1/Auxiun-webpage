@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import 'semantic-ui-css/semantic.min.css'
+import { BrowserRouter } from 'react-router-dom';
 
 import reportWebVitals from './reportWebVitals';
 import { createTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles';
@@ -19,9 +20,11 @@ theme = responsiveFontSizes(theme);
 ReactDOM.render(
   <ThemeProvider theme={theme}>
     <React.StrictMode>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </React.StrictMode>
-    </ThemeProvider>,
+  </ThemeProvider>,
   document.getElementById('root')
 );
 
