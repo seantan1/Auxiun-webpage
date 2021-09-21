@@ -5,6 +5,7 @@ import Controls from '../form/controls/Controls'
 import { useForm, Form } from '../form/useForm';
 import './css/Sell.css'
 import Item from './Item';
+import { motion } from 'framer-motion';
 import {
     withRouter,
     useHistory,
@@ -77,28 +78,30 @@ function Sell(props) {
     } = useForm(initialFValues, true, validate);
     const classes = useStyles();
     return (
-        <div className="sell-page">
-            <Grid container className={classes.gridContainer}>
-                <Grid item xs={12} md={6} style={{ display: 'flex', alignItems: 'center' }}>
-                    <Item data={props.location.state.data}></Item>
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+            <div className="sell-page">
+                <Grid container className={classes.gridContainer}>
+                    <Grid item xs={12} md={6} style={{ display: 'flex', alignItems: 'center' }}>
+                        <Item data={props.location.state.data}></Item>
+                    </Grid>
+                    <Grid item xs={12} md={6} style={{ display: 'flex', flexDirection: 'column', alignItems: "flex-start" }}>
+                        <Typography variant="h3">Sell your nft</Typography>
+                        <Form onSubmit={handleSubmit}>
+                            <Controls.Input
+                                name="sellprice"
+                                label="Sell Price"
+                                value={values.sellprice}
+                                onChange={handleInputChange}
+                                error={errors.sellprice}
+                            />
+                            <Controls.Button
+                                type="submit"
+                                text="Sell this nft" />
+                        </Form>
+                    </Grid>
                 </Grid>
-                <Grid item xs={12} md={6} style={{ display: 'flex', flexDirection: 'column', alignItems: "flex-start" }}>
-                    <Typography variant="h3">Sell your nft</Typography>
-                    <Form onSubmit={handleSubmit}>
-                        <Controls.Input
-                            name="sellprice"
-                            label="Sell Price"
-                            value={values.sellprice}
-                            onChange={handleInputChange}
-                            error={errors.sellprice}
-                        />
-                        <Controls.Button
-                            type="submit"
-                            text="Sell this nft" />
-                    </Form>
-                </Grid>
-            </Grid>
-        </div>
+            </div>
+        </motion.div>
     )
 }
 

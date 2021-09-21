@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { makeStyles } from '@material-ui/core/styles';
-import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Redirect, useLocation } from "react-router-dom";
 import "./App.css";
 import detectEthereumProvider from "@metamask/detect-provider";
 import Alert from "@material-ui/lab/Alert";
 import AlertTitle from "@material-ui/lab/AlertTitle";
+import { AnimatePresence } from "framer-motion";
 
 // component imports
 // global
@@ -76,6 +77,7 @@ import {
 import Sell from "./components/sell-components/Sell";
 import Buy from './components/buy-components/Buy';
 import Watch from "./components/watch-components/Watch";
+import Home from "./components/home-components/Home";
 // main net
 const chainNetVersion = RINKEBY_TEST_NET_VERSION;
 // net data
@@ -126,6 +128,7 @@ function App() {
     const [transactionPending, setTransactionPending] = useState(false);
 
     const [darkTheme, setDarkTheme] = useState(false);
+    const location = useLocation();
 
     const useStyles = makeStyles({
         darkTheme: {
@@ -310,59 +313,56 @@ function App() {
                         )}
                     </div>
 
-                    <BrowserRouter>
-                        <Switch>
-                            <Route exact path="/">
-                                <HomeBanner />
-                                <About />
-                                <Team />
-                                <Announcement />
-                                <Roadmap />
-                                <Media />
-                            </Route>
-                            <Route exact path='/marketplace'>
-                                <MarketPlace authorised={authorised} userSessionData={userSessionData} account={account} />
-                            </Route>
-                            <Route exact path="/login">
-                                <Login showAlert={showAlert} />
-                            </Route>
-                            <Route exact path="/register">
-                                <Register showAlert={showAlert} />
-                            </Route>
-                            <Route exact path="/profile">
-                                <Profile showAlert={showAlert} userSessionData={userSessionData} />
-                            </Route>
-                            <Route exact path="/updateprofile">
-                                <UpdateProfile showAlert={showAlert} userSessionData={userSessionData} />
-                            </Route>
-                            <Route exact path="/info">
-                                <Info />
-                            </Route>
-                            <Route exact path="/inventory">
-                                <Inventory authorised={authorised} account={account} />
-                            </Route>
-                            <Route exact path="/sell">
-                                <Sell showAlert={showAlert} authorised={authorised} component={Sell} account={account} />
-                            </Route>
-                            <Route exact path="/buy">
-                                <Buy showAlert={showAlert} authorised={authorised} component={Buy} account={account} userSessionData={userSessionData} />
-                            </Route>
-                            <Route exact path="/createTokens">
-                                <CreateTokens authorised={authorised} showAlert={showAlert} account={account} />
-                            </Route>
-                            <Route exact path="/faq">
-                                <Faq />
-                            </Route>
-                            <Route exact path="/watch">
-                                <Watch userSessionData={userSessionData} showAlert={showAlert} />
-                            </Route>
+                    {/* <BrowserRouter> */}
+                        <AnimatePresence exitBeforeEnter>
+                            <Switch location={location} key={location.pathname}>
+                                <Route exact path="/">
+                                    <Home />
+                                </Route>
+                                <Route exact path='/marketplace'>
+                                    <MarketPlace authorised={authorised} userSessionData={userSessionData} account={account} />
+                                </Route>
+                                <Route exact path="/login">
+                                    <Login showAlert={showAlert} />
+                                </Route>
+                                <Route exact path="/register">
+                                    <Register showAlert={showAlert} />
+                                </Route>
+                                <Route exact path="/profile">
+                                    <Profile showAlert={showAlert} userSessionData={userSessionData} />
+                                </Route>
+                                <Route exact path="/updateprofile">
+                                    <UpdateProfile showAlert={showAlert} userSessionData={userSessionData} />
+                                </Route>
+                                <Route exact path="/info">
+                                    <Info />
+                                </Route>
+                                <Route exact path="/inventory">
+                                    <Inventory authorised={authorised} account={account} />
+                                </Route>
+                                <Route exact path="/sell">
+                                    <Sell showAlert={showAlert} authorised={authorised} component={Sell} account={account} />
+                                </Route>
+                                <Route exact path="/buy">
+                                    <Buy showAlert={showAlert} authorised={authorised} component={Buy} account={account} userSessionData={userSessionData} />
+                                </Route>
+                                <Route exact path="/createTokens">
+                                    <CreateTokens authorised={authorised} showAlert={showAlert} account={account} />
+                                </Route>
+                                <Route exact path="/faq">
+                                    <Faq />
+                                </Route>
+                                <Route exact path="/watch">
+                                    <Watch userSessionData={userSessionData} showAlert={showAlert} />
+                                </Route>
 
-                            <Route exact path="/forgot-password">
-                                <ForgotPassword showAlert={showAlert} />
-                            </Route>
-                            <Route render={() => <Redirect to={{ pathname: "/" }} />} />
-                        </Switch>
-                    </BrowserRouter>
+                                <Route exact path="/forgot-password">
+                                    <ForgotPassword showAlert={showAlert} />
+                                </Route>
+                                <Route render={() => <Redirect to={{ pathname: "/" }} />} />
+                            </Switch>
+                        </AnimatePresence>
+                    {/* </BrowserRouter> */}
                     <Footer />
                 </div>
             </darkThemeContext.Provider>
