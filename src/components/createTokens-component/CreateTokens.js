@@ -7,6 +7,7 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { withStyles } from "@material-ui/core/styles";
+import { motion } from "framer-motion";
 
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -259,22 +260,22 @@ export default function CreateTokens(props) {
             }
         };
         axios.post(process.env.REACT_APP_DATABASE_API_NFT_URL, formData, config)
-        .then(function (data) {
-            if (data.data.errors) {
-                props.showAlert("Error", "An unknown error occurred.", "", "error");
-            } else if (data.status === 200) {
-                props.showAlert(
-                    "Success",
-                    "Game item has been successfully created",
-                    "",
-                    "success"
-                );
-            }
-        })
-        .catch((error) => {
-            props.showAlert("Error", "An unknown error occurred when attempting to do POST request.", "", "error");
-        });
-        
+            .then(function (data) {
+                if (data.data.errors) {
+                    props.showAlert("Error", "An unknown error occurred.", "", "error");
+                } else if (data.status === 200) {
+                    props.showAlert(
+                        "Success",
+                        "Game item has been successfully created",
+                        "",
+                        "success"
+                    );
+                }
+            })
+            .catch((error) => {
+                props.showAlert("Error", "An unknown error occurred when attempting to do POST request.", "", "error");
+            });
+
     };
 
     // only admin adresses can call this
@@ -303,7 +304,7 @@ export default function CreateTokens(props) {
     const darkThemeProps = { darkTheme: darkTheme }
 
     const classes = useStyles(darkThemeProps);
-    
+
     // source: https://stackoverflow.com/questions/46040973/how-to-upload-image-using-reactjs-and-save-into-local-storage
     const imageUpload = (e) => {
         const file = e.target.files[0];
@@ -323,188 +324,62 @@ export default function CreateTokens(props) {
     }
 
     return (
-        <div>
-            <div className="token-banner">
-                <div className="token-banner-background"></div>
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+            <div>
+                <div className="token-banner">
+                    <div className="token-banner-background"></div>
 
-                <div className={classes.root}>
-                    <AppBar position="static">
-                        <Tabs value={value} onChange={handleChange} centered>
-                            <Tab label="Add Game" {...a11yProps(0)} />
-                            <Tab label="Add Item" {...a11yProps(1)} />
-                            <Tab label="Mint Token" {...a11yProps(2)} />
-                        </Tabs>
-                    </AppBar>
-                    <TabPanel value={value} index={0}>
-                        <h4 className="token-title">Add A New Game</h4>
+                    <div className={classes.root}>
+                        <AppBar position="static">
+                            <Tabs value={value} onChange={handleChange} centered>
+                                <Tab label="Add Game" {...a11yProps(0)} />
+                                <Tab label="Add Item" {...a11yProps(1)} />
+                                <Tab label="Mint Token" {...a11yProps(2)} />
+                            </Tabs>
+                        </AppBar>
+                        <TabPanel value={value} index={0}>
+                            <h4 className="token-title">Add A New Game</h4>
 
-                        <div className="form-align">
-                            <h4></h4>
-                            <form className={classes.root} noValidate autoComplete="off">
-                                <TextField
-                                    InputProps={{
-                                        classes: {
-                                            root: classes.textFieldStyleRoot
-                                        }
-                                    }}
-                                    InputLabelProps={{
-                                        classes: {
-                                            root: classes.textFieldLabel,
-                                            focused: classes.textFieldLabelFocused
-                                        }
-                                    }}
-                                    id="game-name"
-                                    label="Game Name"
-                                    value={addGameForm}
-                                    onChange={addGameFormHandler}
-                                    required
-                                />
-                                <br /> <br />
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    className={classes.submit}
-                                    startIcon={<AddIcon />}
-                                    onClick={() => {
-                                        createGame(addGameForm)
-                                    }}
-                                >
-                                    Add Game
-                                </Button>
-                            </form>
-                        </div>
-                    </TabPanel>
-
-                    {/* ADD A NEW ITEM */}
-                    <TabPanel value={value} index={1}>
-                        <h4 className="token-title">Add A New Item</h4>
-                        <form className={classes.root} noValidate autoComplete="off">
-                            <TextField
-                                InputProps={{
-                                    classes: {
-                                        root: classes.textFieldStyleRoot
-                                    }
-                                }}
-                                InputLabelProps={{
-                                    classes: {
-                                        root: classes.textFieldLabel,
-                                        focused: classes.textFieldLabelFocused
-                                    }
-                                }}
-                                id="select-game"
-                                select
-                                label="Game ID"
-                                value={addItemGameId}
-                                onChange={addItemGameIdHandler}
-                                variant="outlined"
-                                required
-                            >
-                                {gamesList &&
-                                    gamesList.map((option) => (
-                                        <MenuItem key={option.value} value={option._id}>
-                                            {option._id} - {option.game_name}
-                                        </MenuItem>
-                                    ))}
-                            </TextField>
-                            <br />
-                            <TextField
-                                InputProps={{
-                                    classes: {
-                                        root: classes.textFieldStyleRoot
-                                    }
-                                }}
-                                InputLabelProps={{
-                                    classes: {
-                                        root: classes.textFieldLabel,
-                                        focused: classes.textFieldLabelFocused
-                                    }
-                                }}
-                                required
-                                id="item-id"
-                                label="Item ID"
-                                type="text"
-                                value={addItemId}
-                                onChange={addItemIdHandler}
-                                // InputLabelProps={{
-                                //     shrink: true,
-                                // }}
-                            />
-                            <TextField
-                                InputProps={{
-                                    classes: {
-                                        root: classes.textFieldStyleRoot
-                                    }
-                                }}
-                                InputLabelProps={{
-                                    classes: {
-                                        root: classes.textFieldLabel,
-                                        focused: classes.textFieldLabelFocused
-                                    }
-                                }}
-                                required
-                                id="item-name"
-                                label="Item Name"
-                                type="text"
-                                value={addItemName}
-                                onChange={addItemNameHandler}
-                                // InputLabelProps={{
-                                //     shrink: true,
-                                // }}
-                            />
-                            <br /> <br />
-                            <TextField
-                                InputProps={{
-                                    classes: {
-                                        root: classes.textFieldStyleRoot
-                                    }
-                                }}
-                                InputLabelProps={{
-                                    classes: {
-                                        root: classes.textFieldLabel,
-                                        focused: classes.textFieldLabelFocused
-                                    }
-                                }}
-                                id="item-description"
-                                className="item-description"
-                                label="Item Description"
-                                placeholder="Item Description"
-                                multiline
-                                variant="filled"
-                                value={addItemDescription}
-                                onChange={addItemDescriptionHandler}
-                            />
-                            <br />
-                            <br />
-                            <div className={classes.root}>
-                                <span className="upload-title">Upload Image </span>
-                                <label htmlFor="contained-button-file"></label>
-                                <input
-                                    type="file"
-                                    id="imageFile"
-                                    name='imageFile'
-                                    onChange={imageUpload} />
+                            <div className="form-align">
+                                <h4></h4>
+                                <form className={classes.root} noValidate autoComplete="off">
+                                    <TextField
+                                        InputProps={{
+                                            classes: {
+                                                root: classes.textFieldStyleRoot
+                                            }
+                                        }}
+                                        InputLabelProps={{
+                                            classes: {
+                                                root: classes.textFieldLabel,
+                                                focused: classes.textFieldLabelFocused
+                                            }
+                                        }}
+                                        id="game-name"
+                                        label="Game Name"
+                                        value={addGameForm}
+                                        onChange={addGameFormHandler}
+                                        required
+                                    />
+                                    <br /> <br />
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        className={classes.submit}
+                                        startIcon={<AddIcon />}
+                                        onClick={() => {
+                                            createGame(addGameForm)
+                                        }}
+                                    >
+                                        Add Game
+                                    </Button>
+                                </form>
                             </div>
-                            <br />
-                            <br />
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                className={classes.submit}
-                                startIcon={<CloudUploadIcon />}
-                                onClick={() => {
-                                    createGameItem(addItemGameId, addItemId, addItemName, addItemDescription, addItemImage);
-                                }}
-                            >
-                                Create Game Item
-                            </Button>
-                        </form>
-                    </TabPanel>
+                        </TabPanel>
 
-                    {/* Mint NFT tokens */}
-                    <TabPanel value={value} index={2}>
-                        <h4 className="token-title">Mint NFTs to Wallet</h4>
-
-                        <div className="form-align">
+                        {/* ADD A NEW ITEM */}
+                        <TabPanel value={value} index={1}>
+                            <h4 className="token-title">Add A New Item</h4>
                             <form className={classes.root} noValidate autoComplete="off">
                                 <TextField
                                     InputProps={{
@@ -518,22 +393,22 @@ export default function CreateTokens(props) {
                                             focused: classes.textFieldLabelFocused
                                         }
                                     }}
-                                    id="game-id"
+                                    id="select-game"
                                     select
-                                    label="Select Game"
+                                    label="Game ID"
+                                    value={addItemGameId}
+                                    onChange={addItemGameIdHandler}
                                     variant="outlined"
-                                    value={mintGameId}
                                     required
-                                    onChange={mintGameIdHandler}
                                 >
                                     {gamesList &&
                                         gamesList.map((option) => (
                                             <MenuItem key={option.value} value={option._id}>
                                                 {option._id} - {option.game_name}
                                             </MenuItem>
-                                        ))
-                                    }
+                                        ))}
                                 </TextField>
+                                <br />
                                 <TextField
                                     InputProps={{
                                         classes: {
@@ -547,49 +422,177 @@ export default function CreateTokens(props) {
                                         }
                                     }}
                                     required
-                                    select
                                     id="item-id"
-                                    label="Select Game Item"
-                                    className="margin-rght"
-                                    variant="outlined"
-                                    value={mintItemId}
-                                    onChange={mintItemIdHandler}
-                                >
-                                    {nftMetadatasList &&
-                                        nftMetadatasList.map((option) => (
-                                            <MenuItem key={option.item_id} value={option.item_id}>
-                                                {option.item_id} - {option.item_name}
-                                            </MenuItem>
-                                        ))
-                                    }
-                                </TextField>
-                                <br></br>
-                                <CssTextField
-                                    required
-                                    id="wallet-address"
-                                    label="Wallet Address"
-                                    className="margin-rght"
-                                    value={receiverAddress}
-                                    onChange={receiverAddressHandler}
+                                    label="Item ID"
+                                    type="text"
+                                    value={addItemId}
+                                    onChange={addItemIdHandler}
+                                // InputLabelProps={{
+                                //     shrink: true,
+                                // }}
                                 />
+                                <TextField
+                                    InputProps={{
+                                        classes: {
+                                            root: classes.textFieldStyleRoot
+                                        }
+                                    }}
+                                    InputLabelProps={{
+                                        classes: {
+                                            root: classes.textFieldLabel,
+                                            focused: classes.textFieldLabelFocused
+                                        }
+                                    }}
+                                    required
+                                    id="item-name"
+                                    label="Item Name"
+                                    type="text"
+                                    value={addItemName}
+                                    onChange={addItemNameHandler}
+                                // InputLabelProps={{
+                                //     shrink: true,
+                                // }}
+                                />
+                                <br /> <br />
+                                <TextField
+                                    InputProps={{
+                                        classes: {
+                                            root: classes.textFieldStyleRoot
+                                        }
+                                    }}
+                                    InputLabelProps={{
+                                        classes: {
+                                            root: classes.textFieldLabel,
+                                            focused: classes.textFieldLabelFocused
+                                        }
+                                    }}
+                                    id="item-description"
+                                    className="item-description"
+                                    label="Item Description"
+                                    placeholder="Item Description"
+                                    multiline
+                                    variant="filled"
+                                    value={addItemDescription}
+                                    onChange={addItemDescriptionHandler}
+                                />
+                                <br />
+                                <br />
+                                <div className={classes.root}>
+                                    <span className="upload-title">Upload Image </span>
+                                    <label htmlFor="contained-button-file"></label>
+                                    <input
+                                        type="file"
+                                        id="imageFile"
+                                        name='imageFile'
+                                        onChange={imageUpload} />
+                                </div>
                                 <br />
                                 <br />
                                 <Button
                                     variant="contained"
                                     color="primary"
-                                    className={classes.button}
+                                    className={classes.submit}
+                                    startIcon={<CloudUploadIcon />}
                                     onClick={() => {
-                                        mintNFT(receiverAddress, mintGameId, mintItemId)
+                                        createGameItem(addItemGameId, addItemId, addItemName, addItemDescription, addItemImage);
                                     }}
-                                    startIcon={<SendIcon />}
                                 >
-                                    Mint Token
+                                    Create Game Item
                                 </Button>
                             </form>
-                        </div>
-                    </TabPanel>
+                        </TabPanel>
+
+                        {/* Mint NFT tokens */}
+                        <TabPanel value={value} index={2}>
+                            <h4 className="token-title">Mint NFTs to Wallet</h4>
+
+                            <div className="form-align">
+                                <form className={classes.root} noValidate autoComplete="off">
+                                    <TextField
+                                        InputProps={{
+                                            classes: {
+                                                root: classes.textFieldStyleRoot
+                                            }
+                                        }}
+                                        InputLabelProps={{
+                                            classes: {
+                                                root: classes.textFieldLabel,
+                                                focused: classes.textFieldLabelFocused
+                                            }
+                                        }}
+                                        id="game-id"
+                                        select
+                                        label="Select Game"
+                                        variant="outlined"
+                                        value={mintGameId}
+                                        required
+                                        onChange={mintGameIdHandler}
+                                    >
+                                        {gamesList &&
+                                            gamesList.map((option) => (
+                                                <MenuItem key={option.value} value={option._id}>
+                                                    {option._id} - {option.game_name}
+                                                </MenuItem>
+                                            ))
+                                        }
+                                    </TextField>
+                                    <TextField
+                                        InputProps={{
+                                            classes: {
+                                                root: classes.textFieldStyleRoot
+                                            }
+                                        }}
+                                        InputLabelProps={{
+                                            classes: {
+                                                root: classes.textFieldLabel,
+                                                focused: classes.textFieldLabelFocused
+                                            }
+                                        }}
+                                        required
+                                        select
+                                        id="item-id"
+                                        label="Select Game Item"
+                                        className="margin-rght"
+                                        variant="outlined"
+                                        value={mintItemId}
+                                        onChange={mintItemIdHandler}
+                                    >
+                                        {nftMetadatasList &&
+                                            nftMetadatasList.map((option) => (
+                                                <MenuItem key={option.item_id} value={option.item_id}>
+                                                    {option.item_id} - {option.item_name}
+                                                </MenuItem>
+                                            ))
+                                        }
+                                    </TextField>
+                                    <br></br>
+                                    <CssTextField
+                                        required
+                                        id="wallet-address"
+                                        label="Wallet Address"
+                                        className="margin-rght"
+                                        value={receiverAddress}
+                                        onChange={receiverAddressHandler}
+                                    />
+                                    <br />
+                                    <br />
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        className={classes.button}
+                                        onClick={() => {
+                                            mintNFT(receiverAddress, mintGameId, mintItemId)
+                                        }}
+                                        startIcon={<SendIcon />}
+                                    >
+                                        Mint Token
+                                    </Button>
+                                </form>
+                            </div>
+                        </TabPanel>
+                    </div>
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 }

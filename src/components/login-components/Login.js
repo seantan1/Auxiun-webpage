@@ -17,6 +17,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { Redirect, useHistory } from "react-router-dom";
+import { motion } from "framer-motion";
 
 import darkThemeContext from "../darkThemeContext";
 
@@ -46,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
     // https://stackoverflow.com/questions/65152941/how-to-change-material-ui-textfileds-border-text-color-and-border-color-on-hov
     textFieldStyleRoot: props => ({
         color: props.darkTheme === true ? '#EBEBEB' : "blue",
-        
+
         "&:hover": {
             color: props.darkTheme === true ? '#EBEBEB' : "blue"
         },
@@ -70,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
             color: props.darkTheme === true ? '#EBEBEB' : "blue"
         },
     }),
-    
+
     textFieldLabelFocused: () => ({}),
 
 }));
@@ -145,70 +146,71 @@ const Login = (props) => {
     };
 
     // For the dark theme props (to be passed in useStyles)
-    const darkThemeProps = {darkTheme: darkTheme}
-    
+    const darkThemeProps = { darkTheme: darkTheme }
+
     const classes = useStyles(darkThemeProps);
 
     return (
-        <Container component="main" maxWidth="xs">
-            <CssBaseline />
-            <div className={classes.paper}>
-                <Avatar className={classes.avatar}>
-                    <LockOutlinedIcon />
-                </Avatar>
-                <Typography component="h1" variant="h5">
-                    Sign in
-                </Typography>
-                <form className={classes.form} noValidate>
-                    <TextField 
-                        InputProps={{ 
-                            classes: {
-                                root: classes.textFieldStyleRoot
-                            }
-                        }}
-                        InputLabelProps={{ 
-                            classes: {
-                                root: classes.textFieldLabel,
-                                focused: classes.textFieldLabelFocused
-                            }
-                        }}
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        id="Email"
-                        label="Email"
-                        autoComplete="email"
-                        autoFocus
-                        value={userEmailLoginForm}
-                        onChange={userEmailLoginFormHandler}
-                    />
-                     <TextField
-                        InputProps={{ 
-                            classes: {
-                                root: classes.textFieldStyleRoot
-                            }
-                        }}
-                        InputLabelProps={{ 
-                            classes: {
-                                root: classes.textFieldLabel,
-                                focused: classes.textFieldLabelFocused
-                            }
-                        }}
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        name="password"
-                        label="Password"
-                        type="password"
-                        id="password"
-                        value={userPasswordLoginForm}
-                        onChange={userPasswordLoginFormHandler}
-                        autoComplete="current-password"
-                    />
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+            <Container component="main" maxWidth="xs">
+                <CssBaseline />
+                <div className={classes.paper}>
+                    <Avatar className={classes.avatar}>
+                        <LockOutlinedIcon />
+                    </Avatar>
+                    <Typography component="h1" variant="h5">
+                        Sign in
+                    </Typography>
+                    <form className={classes.form} noValidate>
+                        <TextField
+                            InputProps={{
+                                classes: {
+                                    root: classes.textFieldStyleRoot
+                                }
+                            }}
+                            InputLabelProps={{
+                                classes: {
+                                    root: classes.textFieldLabel,
+                                    focused: classes.textFieldLabelFocused
+                                }
+                            }}
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="Email"
+                            label="Email"
+                            autoComplete="email"
+                            autoFocus
+                            value={userEmailLoginForm}
+                            onChange={userEmailLoginFormHandler}
+                        />
+                        <TextField
+                            InputProps={{
+                                classes: {
+                                    root: classes.textFieldStyleRoot
+                                }
+                            }}
+                            InputLabelProps={{
+                                classes: {
+                                    root: classes.textFieldLabel,
+                                    focused: classes.textFieldLabelFocused
+                                }
+                            }}
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="password"
+                            label="Password"
+                            type="password"
+                            id="password"
+                            value={userPasswordLoginForm}
+                            onChange={userPasswordLoginFormHandler}
+                            autoComplete="current-password"
+                        />
 
-                    {/* <CssTextField
+                        {/* <CssTextField
                         variant="outlined"
                         margin="normal"
                         required
@@ -233,35 +235,36 @@ const Login = (props) => {
                         onChange={userPasswordLoginFormHandler}
                         autoComplete="current-password"
                     /> */}
-                    <FormControlLabel
-                        control={<Checkbox value="remember" color="primary" style ={{ color: darkTheme ? "gray" : '' }} />}
-                        label="Remember me"
-                    />
-                    <Button
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        className={classes.submit}
-                        onClick={login}
-                    >
-                        Sign In
-                    </Button>
-                    <Grid container>
-                        <Grid item xs>
-                            <Link href="/forgot-password" variant="body2">
-                                Forgot password?
-                            </Link>
+                        <FormControlLabel
+                            control={<Checkbox value="remember" color="primary" style={{ color: darkTheme ? "gray" : '' }} />}
+                            label="Remember me"
+                        />
+                        <Button
+                            fullWidth
+                            variant="contained"
+                            color="primary"
+                            className={classes.submit}
+                            onClick={login}
+                        >
+                            Sign In
+                        </Button>
+                        <Grid container>
+                            <Grid item xs>
+                                <Link href="/forgot-password" variant="body2">
+                                    Forgot password?
+                                </Link>
+                            </Grid>
+                            <Grid item>
+                                <Link href="/register" variant="body2">
+                                    {"Don't have an account? Sign Up"}
+                                </Link>
+                            </Grid>
                         </Grid>
-                        <Grid item>
-                            <Link href="/register" variant="body2">
-                                {"Don't have an account? Sign Up"}
-                            </Link>
-                        </Grid>
-                    </Grid>
-                </form>
-            </div>
+                    </form>
+                </div>
 
-        </Container>
+            </Container>
+        </motion.div>
     );
 };
 

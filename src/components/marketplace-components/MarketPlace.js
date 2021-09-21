@@ -231,7 +231,7 @@ function MarketPlace(props) {
                     <Skeleton animation="wave" />
 
                 </Card>
-
+                <br />
             </Grid>)
         }
         return data;
@@ -253,6 +253,7 @@ function MarketPlace(props) {
                         <Grid item xs={12} sm={12} md={10}>
                             <MarketplaceCarousel loadItems={loadTrendingItems} item={item} />
                             <Typography variant="subtitle">Displaying {filtered.length} Results</Typography>
+                            <br /><br />
                             <Grid
                                 container
                                 className={(xs ? classes.gridItemContainer : classes.gridContainer)}

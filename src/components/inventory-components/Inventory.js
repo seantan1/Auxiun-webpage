@@ -14,6 +14,8 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import moment from 'moment'
+import { motion } from 'framer-motion';
+
 // web3 and axios for NFT data & metadata
 import Web3 from 'web3';
 // contract data
@@ -184,44 +186,44 @@ const Inventory = (props) => {
 
 
     return (
-
-        <div className="inventory-page">
-            <div className='inventory-content'>
-                <div className='inventory-header'>
-                    <div className='selector-switch'>
-                        <Button variant="contained" color="primary" className='selector-switch__button' onClick={handleBoughtButtons}>
-                            Owned
-                        </Button>
-                        <Button variant="contained" color="primary" className='selector-switch__button' onClick={handleSellingButtons}>
-                            Selling
-                        </Button>
-                        <Button variant="contained" color="primary" className='selector-switch__button' onClick={handleSoldButtons}>
-                            Transactions
-                        </Button>
-                        <br></br><br></br>
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+            <div className="inventory-page">
+                <div className='inventory-content'>
+                    <div className='inventory-header'>
+                        <div className='selector-switch'>
+                            <Button variant="contained" color="primary" className='selector-switch__button' onClick={handleBoughtButtons}>
+                                Owned
+                            </Button>
+                            <Button variant="contained" color="primary" className='selector-switch__button' onClick={handleSellingButtons}>
+                                Selling
+                            </Button>
+                            <Button variant="contained" color="primary" className='selector-switch__button' onClick={handleSoldButtons}>
+                                Transactions
+                            </Button>
+                            <br></br><br></br>
+                        </div>
+                        <div className='inventory-status'>
+                            {showBought ?
+                                <Chip label="Showing Bought" onDelete={handleBoughtButtons} color="primary" variant="outlined" className='selector-switch__button' />
+                                : ""}
+                            {showSelling ?
+                                <Chip label="Showing Selling" onDelete={handleSellingButtons} color="primary" variant="outlined" className='selector-switch__button' />
+                                : ""}
+                            {showSold ?
+                                <Chip label="Showing Sold" onDelete={handleSoldButtons} color="primary" variant="outlined" className='selector-switch__button' />
+                                : ""}
+                            <br></br><br></br><br></br>
+                        </div>
                     </div>
-                    <div className='inventory-status'>
-                        {showBought ?
-                            <Chip label="Showing Bought" onDelete={handleBoughtButtons} color="primary" variant="outlined" className='selector-switch__button' />
-                            : ""}
-                        {showSelling ?
-                            <Chip label="Showing Selling" onDelete={handleSellingButtons} color="primary" variant="outlined" className='selector-switch__button' />
-                            : ""}
-                        {showSold ?
-                            <Chip label="Showing Sold" onDelete={handleSoldButtons} color="primary" variant="outlined" className='selector-switch__button' />
-                            : ""}
-                        <br></br><br></br><br></br>
-                    </div>
-                </div>
 
-                <Card style={{backgroundColor: darkTheme ? '#272727' : ''}}>
-                    <Grid container spacing={2} className='inventory-items'>
+                    <Card style={{ backgroundColor: darkTheme ? '#272727' : '' }}>
+                        <Grid container spacing={2} className='inventory-items'>
 
-                        {!showSold ? loadItems(filteredData) :
+                            {!showSold ? loadItems(filteredData) :
                                 <Table aria-label="simple table">
                                     <TableHead>
                                         <TableRow>
-                                            <TableCell>Token ID</TableCell> 
+                                            <TableCell>Token ID</TableCell>
                                             <TableCell align="right">NFT Name</TableCell>
                                             <TableCell align="right">Buyer Address</TableCell>
                                             <TableCell align="right">Seller Address</TableCell>
@@ -232,7 +234,7 @@ const Inventory = (props) => {
                                     </TableHead>
                                     <TableBody>
                                         {[...transactions].reverse().map((transaction) => (
-                                            <TableRow key={transaction.timestamps+ transaction.tokenBuyers}>
+                                            <TableRow key={transaction.timestamps + transaction.tokenBuyers}>
                                                 <TableCell component="th" scope="row">
                                                     {transaction.tokenIds}
                                                 </TableCell>
@@ -241,15 +243,16 @@ const Inventory = (props) => {
                                                 <TableCell align="right">{transaction.tokenSellers}</TableCell>
                                                 <TableCell align="right">{transaction.prices}</TableCell>
                                                 <TableCell align="right">{moment.unix(transaction.timestamps).format('LLLL')}</TableCell>
-                                                <TableCell align="right">{transaction.transactionType? "PURCHASED" : "SOLD"}</TableCell>
+                                                <TableCell align="right">{transaction.transactionType ? "PURCHASED" : "SOLD"}</TableCell>
                                             </TableRow>
                                         ))}
                                     </TableBody>
                                 </Table>}
-                    </Grid>
-                </Card>
+                        </Grid>
+                    </Card>
+                </div>
             </div>
-        </div>
+        </motion.div>
     );
 }
 
