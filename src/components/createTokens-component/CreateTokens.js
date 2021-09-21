@@ -243,6 +243,25 @@ export default function CreateTokens(props) {
             });
     };
 
+    const addAdmin = (address) => {
+        let web3 = new Web3(window.ethereum);
+        let contract = new web3.eth.Contract(
+            TOKEN_CONTRACT_ABI,
+            TOKEN_CONTRACT_ADDRESS
+        );
+        contract.methods.addAdminAddress(address).send({
+            from: props.account
+        })
+        .then(function (result) {
+            props.showAlert(
+                "Success",
+                "Address has been set as admin",
+                "",
+                "success"
+            );
+        });
+    }
+
     // create game item AKA create NFT Metadata
     // DEV NOTE: itemImage variable here is the file for upload, not sure if it will work as is, on Postman is saves as variable type "File"
     const createGameItem = (gameId, itemId, itemName, itemDescription, itemImage) => {
