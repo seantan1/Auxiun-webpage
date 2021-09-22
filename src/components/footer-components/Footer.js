@@ -18,15 +18,19 @@ import darkThemeContext from "../darkThemeContext";
 import { withStyles } from "@material-ui/core/styles";
 
 //image imports
-import background from '../../assets/background.png'
-import backgroundDark from '../../assets/background_dark.png'
+import background from "../../assets/background.png";
+import backgroundDark from "../../assets/background_dark.png";
 
 import "./css/Footer.css";
 
 function Copyright() {
   const { darkTheme } = useContext(darkThemeContext);
   return (
-    <Typography variant="body2" style={{color: darkTheme ? 'aliciablue' : '#AAAAAA'}} align="center">
+    <Typography
+      variant="body2"
+      style={{ color: darkTheme ? "aliciablue" : "#AAAAAA" }}
+      align="center"
+    >
       {"Copyright © "}
       <Link color="inherit" href="https://material-ui.com/">
         Capstone NFT
@@ -61,6 +65,8 @@ export default function Pricing() {
   const useStyles = makeStyles((theme) => ({
     "@global": {
       ul: {
+        // height: "20vh",
+        backgroundColour: "lightblue",
         margin: 0,
         padding: 0,
         listStyle: "none",
@@ -68,7 +74,6 @@ export default function Pricing() {
     },
     appBar: {
       borderBottom: `1px solid ${theme.palette.divider}`,
-      
     },
     toolbar: {
       flexWrap: "wrap",
@@ -84,111 +89,114 @@ export default function Pricing() {
     },
 
     helperText: {
-      color: darkTheme ? 'aliciablue' : '#AAAAAA'
+      color: darkTheme ? "aliciablue" : "#AAAAAA",
     },
 
     footer: {
-      borderTop: darkTheme ? '1px solid white' : '1px solid #AAAAAA',
-      marginTop: theme.spacing(40),
-      paddingTop: theme.spacing(3),
-      // paddingBottom: theme.spacing(0),
+      borderTop: darkTheme ? "1px solid white" : "1px solid #AAAAAA",
+      // marginTop: theme.spacing(30),
+      // height: "10vh",
       [theme.breakpoints.up("sm")]: {
         paddingTop: theme.spacing(6),
-        paddingBottom: theme.spacing(6),
       },
     },
   }));
 
   const classes = useStyles();
 
-   // CssTextField
-   const CssTextField = withStyles({
+  // CssTextField
+  const CssTextField = withStyles({
     root: {
-        "& input": {
-            color: darkTheme === true ? '#EBEBEB' : "blue"
+      "& input": {
+        color: darkTheme === true ? "#EBEBEB" : "blue",
+      },
+      "& label": {
+        color: darkTheme === true ? "#EBEBEB" : "#b3b3b3",
+      },
+      "&:hover label": {
+        color: darkTheme === true ? "#EBEBEB" : "blue",
+      },
+      "& label.Mui-focused": {
+        color: darkTheme === true ? "#EBEBEB" : "blue",
+      },
+      "& .MuiOutlinedInput-root": {
+        "& fieldset": {
+          borderColor: darkTheme === true ? "#EBEBEB" : "#b3b3b3",
         },
-        "& label": {
-            color: darkTheme === true ? '#EBEBEB' : "#b3b3b3"
+        "&:hover fieldset": {
+          borderColor: darkTheme === true ? "#EBEBEB" : "blue",
         },
-        "&:hover label": {
-            color: darkTheme === true ? '#EBEBEB' : "blue"
+        "&.Mui-focused fieldset": {
+          borderColor: darkTheme === true ? "#EBEBEB" : "blue",
         },
-        "& label.Mui-focused": {
-            color: darkTheme === true ? '#EBEBEB' : "blue"
-        },
-        "& .MuiOutlinedInput-root": {
-            "& fieldset": {
-                borderColor: darkTheme === true ? '#EBEBEB' : "#b3b3b3"
-            },
-            "&:hover fieldset": {
-                borderColor: darkTheme === true ? '#EBEBEB' : "blue"
-            },
-            "&.Mui-focused fieldset": {
-                borderColor: darkTheme === true ? '#EBEBEB' : "blue"
-            }
-        },
+      },
       "& .MuiFormHelperText-root": {
         "&.MuiFormHelperText-contained": {
-          color: darkTheme ? 'aliceblue' : ""
-        }
-      }
+          color: darkTheme ? "aliceblue" : "",
+        },
+      },
     },
-})(TextField);
+  })(TextField);
 
   return (
     <React.Fragment>
-      <Container maxWidth="md" component="footer" className={classes.footer}>
-        <Grid container spacing={4} justifyContent="space-evenly">
-          {footers.map((footer) => (
-            <Grid item xs={6} sm={3} key={footer.title}>
-              <Typography variant="h6" gutterBottom>
-                {footer.title}
+      <div className="footer">
+        <Container maxWidth="md" component="footer" className={classes.footer}>
+          <Grid container spacing={4} justifyContent="space-evenly">
+            {footers.map((footer) => (
+              <Grid item xs={6} sm={3} key={footer.title}>
+                <Typography variant="h6" gutterBottom>
+                  {footer.title}
+                </Typography>
+                <ul>
+                  {footer.description.map((item) => (
+                    <li key={item}>
+                      <Link
+                        href="#"
+                        variant="subtitle1"
+                        style={{ color: darkTheme ? "aliceblue" : "#AAAAAA" }}
+                      >
+                        {item}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </Grid>
+            ))}
+          </Grid>
+          <hr />
+          <Grid container spacing={3}>
+            <Grid item xs={12} sm={5}>
+              <Typography variant="h6">Stay Up To Date</Typography>
+              <Typography variant="caption">
+                Don't miss the latest news, guides and insights.
               </Typography>
-              <ul>
-                {footer.description.map((item) => (
-                  <li key={item}>
-                    <Link href="#" variant="subtitle1" style={{color: darkTheme ? 'aliceblue' : '#AAAAAA'}}>
-                      {item}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
             </Grid>
-          ))}
-        </Grid>
-        <hr />
-        {/* NEED TO ALIGN SUBSCRIBE BTN PROPERLY */}
-        <Grid container spacing={3}>
-          <Grid item xs={12} sm={5}>
-            <Typography variant="h6">Stay Up To Date</Typography>
-            <Typography variant="caption">
-              Don't miss the latest news, guides and insights.
-            </Typography>
+            <Grid item xs={12} sm={6}>
+              <CssTextField
+                id="outlined-basic"
+                label="Email Address"
+                variant="outlined"
+                helperText="We will never share your email with anyone else"
+              />
+
+              <Button
+                className={darkTheme ? "subscribe-btn-dark" : "subscribe-btn"}
+                variant="contained"
+                color="primary"
+              >
+                Subscribe
+              </Button>
+            </Grid>
           </Grid>
-          <Grid item xs={12} sm={6}>
-            <CssTextField
-              id="outlined-basic"
-              label="Email Address"
-              variant="outlined"
-              helperText="We will never share your email with anyone else"
-            />
 
-            <Button
-              className={darkTheme ? 'subscribe-btn-dark' : "subscribe-btn"}
-              variant="contained"
-              color="primary"
-            >
-              Subscribe
-            </Button>
-          </Grid>
-        </Grid>
+          <hr />
 
-        <hr />
-
-        <Box mt={5}>
-          <Copyright />
-        </Box>
-      </Container>
+          <Box mt={5}>
+            <Copyright />
+          </Box>
+        </Container>
+      </div>
     </React.Fragment>
   );
 }

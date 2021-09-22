@@ -1,72 +1,71 @@
-html,body
-{
-    width: 100%;
-    height: 100%;
-    margin: 0px;
-    padding: 0px;
-    /* Commented this out as it interfers with animation scrolling */
-    /* overflow-x: hidden;  */
-    
+html,
+body {
+  display: flex;
+  flex-direction: column; /* creates rows out of the elements main and footer */
+  height: 100vh; 
+  margin:0;
 }
 
 .App {
-    /* background-image: url("./assets/background.png") !important;
-    background-size: 30%; */
-    overflow-x: hidden; 
+  /* background-image: url("./assets/background.png") !important;
+  background-size: 30%; */
+  min-height: 100vh !important;
+  height: 100vh;
 
+  overflow-x: hidden;
 }
 
 .App-logo {
-    height: 40vmin;
-    pointer-events: none;
+  /* height: 40vmin; */
+  pointer-events: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-        animation: App-logo-spin infinite 20s linear;
-    }
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
 }
 
 .App-header {
-    background-color: white;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
-    /* position: relative; */
+  background-color: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  /* position: relative; */
 }
 
 .App-link {
-    color: #61dafb;
+  color: #61dafb;
 }
 
 @keyframes App-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .sticky-navbar {
-    position: fixed;
-    width: 100%;
-    /* top: 0; */
-    z-index: 50;
+  position: fixed;
+  width: 100%;
+  /* top: 0; */
+  z-index: 50;
 }
 
 .page-content-container {
-    transition: margin-right 0.2s;
+  transition: margin-right 0.2s;
 }
 
 .tx-alert {
-    width: 300px;
-    margin: auto;
-    margin-top: 20px;
-    margin-right: 20px;
-    word-break: break-word;
+  width: 300px;
+  margin: auto;
+  margin-top: 20px;
+  margin-right: 20px;
+  word-break: break-word;
 }

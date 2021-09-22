@@ -1,6 +1,7 @@
 .marketplace-container {
     /* remove this padding later */
     padding-top: 200px;
+    padding-bottom: 20%;
 }
 
 .animate:hover {
