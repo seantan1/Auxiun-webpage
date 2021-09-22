@@ -12,6 +12,8 @@ html,body
 .App {
     /* background-image: url("./assets/background.png") !important;
     background-size: 30%; */
+    overflow-x: hidden; 
+
 }
 
 .App-logo {
