@@ -7,6 +7,9 @@ import Alert from "@material-ui/lab/Alert";
 import AlertTitle from "@material-ui/lab/AlertTitle";
 import { AnimatePresence } from "framer-motion";
 
+import AOS from "aos";
+import "aos/dist/aos.css";
+
 // component imports
 // global
 import Navbar from "./components/navbar-components/Navbar";
@@ -131,6 +134,7 @@ function App() {
     const location = useLocation();
 
     const useStyles = makeStyles({
+        
         darkTheme: {
             backgroundImage: darkTheme !== true ? `url(${background})` : `url(${backgroundDark})`,
             backgroundSize: '30%',

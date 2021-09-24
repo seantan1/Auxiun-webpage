@@ -1,18 +1,19 @@
-html,
-body {
+html, body {
   display: flex;
-  flex-direction: column; /* creates rows out of the elements main and footer */
-  height: 100vh; 
-  margin:0;
+  flex-direction: column;
+  height: 100vh;
+  max-width: 100vw !important;
+  margin: 0;
+  padding: 0;
+  /* max-width: 1500px;   */
+  width: 100%;  
 }
-
 .App {
   /* background-image: url("./assets/background.png") !important;
   background-size: 30%; */
-  min-height: 100vh !important;
-  height: 100vh;
-
+  /* min-height: 100vh !important; */
   overflow-x: hidden;
+  /* height: 100vh; */
 }
 
 .App-logo {
