@@ -13,6 +13,7 @@ import "aos/dist/aos.css";
 // component imports
 // global
 import Navbar from "./components/navbar-components/Navbar";
+// import Navbar from "./components/navbar/Navbar";
 import Footer from "./components/footer-components/Footer";
 import NavlinksWindow from "./components/navbar-components/NavlinksWindow";
 import WalletProviderWindow from "./components/navbar-components/WalletProviderWindow";
