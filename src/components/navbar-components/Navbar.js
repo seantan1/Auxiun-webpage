@@ -262,7 +262,7 @@ const Navbar = (props) => {
 {/* FavoriteRoundedIcon */}
 
           {localStorage.userSessionData ? (
-            <a className="dot-links" href="/wishlist">
+            <a className="dot-links" href="/watch">
               <StyledMenuItem>
                 <ListItemIcon>
                   <FavoriteRoundedIcon fontSize="small" />
