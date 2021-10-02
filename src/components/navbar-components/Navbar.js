@@ -145,8 +145,33 @@ const Navbar = (props) => {
               FAQs
             </Link>
           </li>
-
           <div className="display-in-mobileView">
+            <li className="nav-item">
+              <Link
+                to="/profile"
+                className="nav-links"
+                onClick={closeMobileMenu}
+              >
+                Profile
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link
+                to="/inventory"
+                className="nav-links"
+                onClick={closeMobileMenu}
+              >
+                Inventory
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link to="/watch" className="nav-links" onClick={closeMobileMenu}>
+                Wishlist
+              </Link>
+            </li>
+
             {localStorage.userSessionData ? (
               <a className="nav-links" href="/" onClick={props.logOut}>
                 Logout
@@ -259,7 +284,7 @@ const Navbar = (props) => {
             </a>
           ) : null}
 
-{/* FavoriteRoundedIcon */}
+          {/* FavoriteRoundedIcon */}
 
           {localStorage.userSessionData ? (
             <a className="dot-links" href="/watch">
