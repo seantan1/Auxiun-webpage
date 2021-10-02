@@ -116,7 +116,7 @@ const Navbar = (props) => {
         </div>
 
         {/* hamburger menu when resizing */}
-        <ul className={click ? "nav-menu active" : "nav-menu"}>
+        <ul className={click ? "nav-menu active"  : "nav-menu"}>
           <div className="display-in-mobileView">
             {!localStorage.userSessionData ? (
               <Link className="nav-links" to="/login" onClick={closeMobileMenu}>
@@ -140,10 +140,7 @@ const Navbar = (props) => {
               Marketplace
             </Link>
           </li>
-
-          {/* code to check if they're signed in */}
-          {/* {localStorage.userSessionData ? (
-           ) : null} */}
+          
           {localStorage.userSessionData ? (
             <li
               className="nav-item"
@@ -185,12 +182,31 @@ const Navbar = (props) => {
           </div>
         </ul>
 
-        <button
+        <div className="connect-wallet-button-container">
+              {localStorage.userSessionData &&
+                <div>
+                  {
+                    props.authorised ?
+                      <div>
+                        {
+                          props.networkValid ?
+                            <button className="connect-wallet-button" onClick={props.toggleWalletWindow}>{props.account.substring(0, 11)}...</button>
+                            :
+                            <button className="connect-wallet-button" style={{"width" : "250px"}} onClick={props.switchNetworks}>Switch to Rinkeby Network</button>
+                        }
+                      </div>
+                      :
+                      <button className="connect-wallet-button" onClick={props.toggleWalletWindow}>Connect Wallet</button>
+                  }
+                </div>
+              }
+              </div>
+        {/* <button
           className="connect-wallet-button"
           onClick={props.toggleWalletWindow}
         >
           Connect Wallet
-        </button>
+        </button> */}
 
         <DarkModeToggle
           onChange={darkThemeToggle}

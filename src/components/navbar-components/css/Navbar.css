@@ -27,8 +27,9 @@
   list-style: none;
   text-align: center;
   width: 100vw;
+  /* margin-left: 80px; */
   justify-content: center;
-  padding-left: 220px;
+  /* padding-left: 90px; */
 }
 
 .nav-item {
@@ -74,11 +75,12 @@
   text-align: center;
   height: 40px;
   font-size: px;
-  width: 200px;
+  width: 160px;
   text-decoration: none;
   margin: 20px 40px;
   cursor: pointer;
   border-radius: 300px;
+  margin-left: -160px;
 }
 .horiz-icon {
   background-color: rgb(64, 64, 64);
@@ -176,11 +178,7 @@
     color: #1888ff;
     transition: 250ms;
   }
-  .connect-wallet-button {
-    width: 120px;
-    font-size: 10px;
-    margin-left: 120px;
-  }
+ 
 
   .display-in-mobileView {
     display: block;
