@@ -38,7 +38,7 @@ const Inventory = (props) => {
     const [onMarket, setOnMarket] = useState([])
     const [pageCount, setPageCount] = useState(0);
     const [chips, setChips] = useState([{}]);
-    const [showBought, setBought] = useState(false);
+    const [showBought, setBought] = useState(true);
     const [showSelling, setSelling] = useState(false);
     const [showSold, setSold] = useState(false);
     const [item, setItem] = useState([])
@@ -220,6 +220,10 @@ const Inventory = (props) => {
                         <Grid container spacing={2} className='inventory-items'>
 
                             {!showSold ? loadItems(filteredData) :
+                                <TableContainer  style={{
+                                    overflow: "auto",
+                                    display: "block",
+                                }}>
                                 <Table aria-label="simple table">
                                     <TableHead>
                                         <TableRow>
@@ -247,7 +251,8 @@ const Inventory = (props) => {
                                             </TableRow>
                                         ))}
                                     </TableBody>
-                                </Table>}
+                                </Table>
+                                </TableContainer>}
                         </Grid>
                     </Card>
                 </div>
