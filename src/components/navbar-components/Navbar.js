@@ -16,7 +16,6 @@ import ThreeDRotation from "@material-ui/icons/ThreeDRotation";
 import SvgIcon from "@material-ui/core/SvgIcon";
 import Icon from "@material-ui/core/Icon";
 import ArrowDropDownRoundedIcon from "@material-ui/icons/ArrowDropDownRounded";
-import PersonRoundedIcon from "@material-ui/icons/PersonRounded";
 import MoreHorizRoundedIcon from "@material-ui/icons/MoreHorizRounded";
 import PolymerRoundedIcon from "@material-ui/icons/PolymerRounded";
 import LocalMallRoundedIcon from "@material-ui/icons/LocalMallRounded";
@@ -116,7 +115,7 @@ const Navbar = (props) => {
         </div>
 
         {/* hamburger menu when resizing */}
-        <ul className={click ? "nav-menu active"  : "nav-menu"}>
+        <ul className={click ? "nav-menu active" : "nav-menu"}>
           <div className="display-in-mobileView">
             {!localStorage.userSessionData ? (
               <Link className="nav-links" to="/login" onClick={closeMobileMenu}>
@@ -140,8 +139,8 @@ const Navbar = (props) => {
               Marketplace
             </Link>
           </li>
-          
-          {localStorage.userSessionData ? (
+
+          {/* {localStorage.userSessionData ? (
             <li
               className="nav-item"
               onMouseEnter={onMouseEnter}
@@ -156,7 +155,7 @@ const Navbar = (props) => {
               </Link>
               {dropdown && <Dropdown />}
             </li>
-          ) : null}
+          ) : null} */}
 
           <li className="nav-item">
             <Link to="/faq" className="nav-links" onClick={closeMobileMenu}>
@@ -171,36 +170,55 @@ const Navbar = (props) => {
               </a>
             ) : null}
           </div>
-          
-          {/* Only admins should be able to see this */}
-          <div className="display-in-mobileView">
-          <li className="nav-item">
-            <Link to="/createTokens" className="nav-links" onClick={closeMobileMenu}>
-              Create Tokens & Add Admin Wallet
-            </Link>
-          </li>
-          </div>
+
+          {props.isAdmin && (
+            <div className="display-in-mobileView">
+              <li className="nav-item">
+                <Link
+                  to="/createTokens"
+                  className="nav-links"
+                  onClick={closeMobileMenu}
+                >
+                  Create Tokens & Add Admin Wallet
+                </Link>
+              </li>
+            </div>
+          )}
         </ul>
 
         <div className="connect-wallet-button-container">
-              {localStorage.userSessionData &&
+          {localStorage.userSessionData && (
+            <div>
+              {props.authorised ? (
                 <div>
-                  {
-                    props.authorised ?
-                      <div>
-                        {
-                          props.networkValid ?
-                            <button className="connect-wallet-button" onClick={props.toggleWalletWindow}>{props.account.substring(0, 11)}...</button>
-                            :
-                            <button className="connect-wallet-button" style={{"width" : "250px"}} onClick={props.switchNetworks}>Switch to Rinkeby Network</button>
-                        }
-                      </div>
-                      :
-                      <button className="connect-wallet-button" onClick={props.toggleWalletWindow}>Connect Wallet</button>
-                  }
+                  {props.networkValid ? (
+                    <button
+                      className="connect-wallet-button"
+                      onClick={props.toggleWalletWindow}
+                    >
+                      {props.account.substring(0, 11)}...
+                    </button>
+                  ) : (
+                    <button
+                      className="connect-wallet-button"
+                      style={{ width: "250px" }}
+                      onClick={props.switchNetworks}
+                    >
+                      Switch to Rinkeby Network
+                    </button>
+                  )}
                 </div>
-              }
-              </div>
+              ) : (
+                <button
+                  className="connect-wallet-button"
+                  onClick={props.toggleWalletWindow}
+                >
+                  Connect Wallet
+                </button>
+              )}
+            </div>
+          )}
+        </div>
         {/* <button
           className="connect-wallet-button"
           onClick={props.toggleWalletWindow}
@@ -219,14 +237,14 @@ const Navbar = (props) => {
           }
         />
 
-          <div className="hide-in-mobileView"> 
-        <Button
-          aria-controls="customized-menu"
-          aria-haspopup="true"
-          onClick={handleHorizClick}
-        >
-          <MoreHorizRoundedIcon className="horiz-icon" />
-        </Button>
+        <div className="hide-in-mobileView">
+          <Button
+            aria-controls="customized-menu"
+            aria-haspopup="true"
+            onClick={handleHorizClick}
+          >
+            <MoreHorizRoundedIcon className="horiz-icon" />
+          </Button>
         </div>
 
         <StyledMenu
@@ -236,6 +254,41 @@ const Navbar = (props) => {
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
+          {localStorage.userSessionData ? (
+            <a className="dot-links" href="/profile">
+              <StyledMenuItem>
+                <ListItemIcon>
+                  <PolymerRoundedIcon fontSize="small" />
+                </ListItemIcon>
+                <ListItemText primary="Profile" />
+              </StyledMenuItem>
+            </a>
+          ) : null}
+
+          {localStorage.userSessionData ? (
+            <a className="dot-links" href="/inventory">
+              <StyledMenuItem>
+                <ListItemIcon>
+                  <LocalMallRoundedIcon fontSize="small" />
+                </ListItemIcon>
+                <ListItemText primary="Inventory" />
+              </StyledMenuItem>
+            </a>
+          ) : null}
+
+{/* FavoriteRoundedIcon */}
+
+          {localStorage.userSessionData ? (
+            <a className="dot-links" href="/wishlist">
+              <StyledMenuItem>
+                <ListItemIcon>
+                  <FavoriteRoundedIcon fontSize="small" />
+                </ListItemIcon>
+                <ListItemText primary="Wishlist" />
+              </StyledMenuItem>
+            </a>
+          ) : null}
+
           {!localStorage.userSessionData ? (
             <a className="dot-links" href="/login">
               <StyledMenuItem>
@@ -260,18 +313,21 @@ const Navbar = (props) => {
             </a>
           ) : null}
 
-          <hr />
+          {props.isAdmin && (
+            <div>
+              <hr />
+              <h4 className="admin-title">ADMIN PORTAL</h4>
 
-          <h4 className="admin-title">ADMIN PORTAL</h4>
-
-          <a className="dot-links" href="/createTokens">
-            <StyledMenuItem>
-              <ListItemIcon>
-                <AddCircleOutlineIcon fontSize="small" />
-              </ListItemIcon>
-              <ListItemText primary="Create Tokens" />
-            </StyledMenuItem>
-          </a>
+              <a className="dot-links" href="/createTokens">
+                <StyledMenuItem>
+                  <ListItemIcon>
+                    <AddCircleOutlineIcon fontSize="small" />
+                  </ListItemIcon>
+                  <ListItemText primary="Create Tokens" />
+                </StyledMenuItem>
+              </a>
+            </div>
+          )}
         </StyledMenu>
       </nav>
     </>
