@@ -1,238 +1,197 @@
 .navbar {
-    /* position: fixed; */
-    top: 0px;
-    /* padding: 1em; */
-    -webkit-transition: background-color 0.5s ease-out;
-    -moz-transition: background-color 0.5s ease-out;
-    -o-transition: background-color 0.5s ease-out;
-    transition: background-color 0.5s ease-out;
-    /* background-color: grey; */
+  background: linear-gradient(90deg, rgb(28, 27, 27) 0%, rgb(26, 23, 23) 100%);
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
 }
 
-.navbar-inner {
-    /* background-color: grey; */
-    /* margin: auto; */
-    text-align: center;
-    margin: 0 auto;  
-    width: 95%; 
-    display: inline-flex;
-    /* height: 100%; */
+.navbar-logo {
+  color: #fff;
+  justify-self: start;
+  margin-left: 20px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 2rem;
 }
 
-MenuItem {
-    color: white;
+.fa-firstdraft {
+  margin-left: 0.5rem;
+  font-size: 1.6rem;
 }
 
-.brand-image {
-    height: 60px;
+.nav-menu {
+  display: grid;
+  grid-template-columns: repeat(5, auto);
+  list-style: none;
+  text-align: center;
+  width: 100vw;
+  /* margin-left: 80px; */
+  justify-content: center;
+  /* padding-left: 90px; */
 }
 
-.Brand {
-    cursor: pointer;
+.nav-item {
+  display: flex;
+  align-items: center;
+  height: 80px;
 }
 
-.brand-container {
-    width: fit-content;
-    cursor: pointer;
+.nav-links {
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
 }
 
-.navbar-links {
-    /* background-color: black; */
-    cursor: default;
-    /* width: 50%; */
-    margin: auto;
-    /* margin-left: 33%; */
-    font-size: 10px;
+.nav-links:hover {
+  background-color: #1888ff;
+  border-radius: 4px;
+  transition: all 0.2s ease-out;
 }
 
-.navbar-links a {
-    padding-left: 1em;
-    padding-right: 1em;
-    text-decoration: none;
-    font-size: 1rem;
+.fa-bars {
+  color: #fff;
 }
 
-.navbar-links-dark {
-    /* background-color: black; */
-    cursor: default;
-    /* width: 50%; */
-    margin: auto;
-    /* margin-left: 33%; */
-    font-size: 10px;
+.nav-links-mobile {
+  display: none;
 }
 
-.navbar-links-dark a {
-    padding-left: 1em;
-    padding-right: 1em;
-    text-decoration: none;
-    font-size: 1rem;
+.menu-icon {
+  display: none;
+  /* top: 100px; */
 }
 
-.navbar-links a:hover {
-    color: rgba(40, 32, 159, 0.489) !important;
-    transition: 0.2s;
-}
-
-.navbar-links-dark a:hover {
-    color: gray !important;
-    transition: 0.2s;
-}
-
-.nav-bar-links-display-in-mobile {
-    display: none;
-}
-
-.tx-pending-container {
-    position: fixed;
-    display: inline-flex;
-    top: 68px;
-    right: 38px;
-}
-
-.tx-pending-container img {
-    margin: auto;
-    padding-right: 5px;
-}
-
-.connect-wallet-button-container {
-    /* background-color: black; */
-    position: fixed;
-    top: 10px;
-    right: 20px;
-    display:inline-flex;
+.display-in-mobileView {
+  display: none;
 }
 
 .connect-wallet-button {
-    margin-right: 20px;
-    background-color: #f1f1f1;
-    font-weight: 700;
-    border: none;
-    /* color: rgb(0, 0, 0); */
-    padding: 13px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 50px;
+  background-color: rgb(26, 83, 255);
+  color: rgb(3, 15, 50);
+  font-weight: 700;
+  border: none;
+  padding: 13px;
+  text-align: center;
+  height: 40px;
+  font-size: px;
+  width: 160px;
+  text-decoration: none;
+  margin: 20px 40px;
+  cursor: pointer;
+  border-radius: 300px;
+  margin-left: -160px;
 }
-
-.connect-wallet-button {
-    background-color: rgb(26, 83, 255);
-    font-size: 10px;
-    text-transform: uppercase;
-    color: rgb(3, 15, 50);
-}
-
-.nav-title {
-    color: rgb(64, 64, 64);
-    /* color: black; */
-    /* text-transform: uppercase; */
-    font-weight: bolder;
-    /* font-size: 100px; */
-    /* font-size: 0.5rem; */
-}
-
-.nav-title-dark {
-    font-weight: bolder;
-    color: aliceblue;
-}
-
 .horiz-icon {
-    font-size: 16px;
-    background-color: rgb(64, 64, 64);
-    color: white;
-    border-radius: 25px;
-    padding: 5px;
-    width: 100px;
-    height: 5px;
+  background-color: rgb(64, 64, 64);
+  color: white;
+  border-radius: 125px;
+  padding: 5px;
+  width: 100px;
+  height: 5px;
 }
 
-.dot-menu {
-    background-color: rgb(51, 51, 51);
+.hide-in-mobileView {
+  display: block;
 }
 
-.dot-icon {
-    margin-right: 30px;
-}
+@media screen and (max-width: 960px) {
+  .NavbarItems {
+    position: relative;
+  }
 
-.dot-links {
-    font-size: 10px;
-    color: black;
-    text-decoration: none;
-}
+  .nav-menu {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    /* height: 90vh; */
+    position: absolute;
+    top: 80px;
+    left: -100%;
+    opacity: 1;
+    padding-left: 0;
+    /* transition: all 0.5s ease; */
+  }
 
-.admin-title{
+  .nav-menu.active {
+    background: #242222;
+    left: 0;
+    opacity: 1;
+    transition: all 0.5s ease;
+    z-index: 1;
+  }
+
+  .nav-links {
     text-align: center;
-    margin-top: 0;
-}
+    padding: 2rem;
+    width: 100%;
+    display: table;
+  }
 
-#loading-gif {
-    height: 20px;
-}
+  .nav-links:hover {
+    background-color: #1888ff;
+    border-radius: 0;
+  }
 
-.profile-container {
-    position: fixed;
-    top: 27px;
-    right: 225px;
+  .navbar-logo {
+    position: absolute;
+    display: block;
+    top: 10px;
+    left: 0;
+    transform: translate(10%, 100%);
+    font-size: 1.8rem;
+  }
+
+  .menu-icon {
+    display: block;
+    position: absolute;
+    top: 10px;
+    right: 0;
+    transform: translate(-100%, 60%);
+    font-size: 1.8rem;
     cursor: pointer;
-}
+  }
 
-.profile-image {
-    height: 50px;
-}
+  .brand-image {
+    /* height: 10px !important; */
+  }
 
-.toggle_logged_in {
-    position: fixed;
-    top: 23px;
-    right: 210px;
-}
+  .fa-times {
+    color: #fff;
+    font-size: 2rem;
+  }
 
-.toggle_logged_out {
-    position: fixed;
-    top: 16px;
-    right: 100px;
-}
+  .nav-links-mobile {
+    display: block;
+    text-align: center;
+    padding: 1.5rem;
+    margin: 2rem auto;
+    border-radius: 4px;
+    width: 80%;
+    background: #1888ff;
+    text-decoration: none;
+    color: #fff;
+    font-size: 1.5rem;
+  }
 
-/* Responsive NavBar */
+  .nav-links-mobile:hover {
+    background: #fff;
+    color: #1888ff;
+    transition: 250ms;
+  }
+ 
 
+  .display-in-mobileView {
+    display: block;
+  }
 
-/* navbar links font incremental adjustments*/
+  .hide-in-mobileView {
+    display: none;
+  }
 
-@media (max-width: 1300px) {
-    .navbar-links a {
-        font-size: 1.5em;
-    }
-}
+  .connect-wallet-button{
+    margin-left: 140px;
 
-@media (max-width: 1100px) {
-    .navbar-links a {
-        /* padding-left: 1em;
-        padding-right: 1em; */
-        font-size: 1.3em;
-    }
-}
-
-
-/* hide navbar links */
-
-@media (max-width: 990px) {
-    .navbar-links {
-        display: none;
-    }
-}
-
-
-/* hide profile button */
-
-@media (max-width: 450px) {
-    .profile-container {
-        display: none;
-    }
-}
-
-.logoutButton {
-    font-weight: bold !important;
-    color: red;
+  }
 }

@@ -2,7 +2,8 @@ import { Card, Grid } from "@material-ui/core";
 import { useState, useEffect } from "react";
 import { useContext } from "react";
 import darkThemeContext from "../darkThemeContext";
-import Item from './Item'
+import Item from './Item';
+import { motion } from "framer-motion";
 
 import "./css/Watch.css";
 
@@ -59,13 +60,15 @@ export default function Watch(props) {
     }
 
     return (
-        <div className='watch-content'>
-            <h1 style={{ paddingLeft: '15%' }}>You're Currently Watching</h1>
-            <Card className='watch-card' style={{ backgroundColor: darkTheme ? '#424242' : '' }}>
-                <Grid container spacing={2}>
-                    {loadItems(data, deleteWatchItem)}
-                </Grid>
-            </Card>
-        </div>
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+            <div className='watch-content'>
+                <h1 style={{ paddingLeft: '15%' }}>You're Currently Watching</h1>
+                <Card className='watch-card' style={{ backgroundColor: darkTheme ? '#424242' : '' }}>
+                    <Grid container spacing={2}>
+                        {loadItems(data, deleteWatchItem)}
+                    </Grid>
+                </Card>
+            </div>
+        </motion.div>
     );
 }

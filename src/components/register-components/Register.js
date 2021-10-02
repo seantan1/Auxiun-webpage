@@ -8,6 +8,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Grid from '@material-ui/core/Grid';
 import darkThemeContext from "../darkThemeContext";
 import { makeStyles } from "@material-ui/core/styles";
+import { motion } from "framer-motion";
 
 const axios = require('axios');
 
@@ -138,119 +139,121 @@ export default function Register(props) {
     const classes = useStyles(darkThemeProps);
 
     return (
-        <div className={`register-page`}>
-            <div className="content">
-                <h1 className="title-text">Sign Up Today!</h1>
-                <TextField
-                    InputProps={{
-                        classes: {
-                            root: classes.textFieldStyleRoot
-                        }
-                    }}
-                    InputLabelProps={{
-                        classes: {
-                            root: classes.textFieldLabel,
-                            focused: classes.textFieldLabelFocused
-                        }
-                    }}
-                    className="text-field"
-                    label="First Name"
-                    style={{ width: '300px' }}
-                    required variant="outlined"
-                    onChange={userFirstNameRegisterFormHandler}
-                /><br></br><br></br>
-                <TextField
-                    InputProps={{
-                        classes: {
-                            root: classes.textFieldStyleRoot
-                        }
-                    }}
-                    InputLabelProps={{
-                        classes: {
-                            root: classes.textFieldLabel,
-                            focused: classes.textFieldLabelFocused
-                        }
-                    }}
-                    className="text-field"
-                    label="Last Name"
-                    style={{ width: '300px' }}
-                    required
-                    variant="outlined"
-                    onChange={userLastNameRegisterFormHandler}
-                />
-                <br></br><br></br>
-                <TextField
-                    InputProps={{
-                        classes: {
-                            root: classes.textFieldStyleRoot
-                        }
-                    }}
-                    InputLabelProps={{
-                        classes: {
-                            root: classes.textFieldLabel,
-                            focused: classes.textFieldLabelFocused
-                        }
-                    }}
-                    className="text-field"
-                    label="Email"
-                    style={{ width: '300px' }}
-                    required
-                    variant="outlined"
-                    onChange={userEmailRegisterFormHandler}
-                />
-                <br></br><br></br>
-                <TextField
-                    InputProps={{
-                        classes: {
-                            root: classes.textFieldStyleRoot
-                        }
-                    }}
-                    InputLabelProps={{
-                        classes: {
-                            root: classes.textFieldLabel,
-                            focused: classes.textFieldLabelFocused
-                        }
-                    }}
-                    className="text-field"
-                    label="Password"
-                    style={{ width: '300px' }}
-                    required
-                    type="password"
-                    variant="outlined"
-                    onChange={userPasswordRegisterFormHandler}
-                /><br></br><br></br>
-                <TextField
-                    InputProps={{
-                        classes: {
-                            root: classes.textFieldStyleRoot
-                        }
-                    }}
-                    InputLabelProps={{
-                        classes: {
-                            root: classes.textFieldLabel,
-                            focused: classes.textFieldLabelFocused
-                        }
-                    }}
-                    className="text-field"
-                    label="Confirm Password"
-                    style={{ width: '300px' }}
-                    required
-                    type="password"
-                    variant="outlined"
-                    onChange={userConfirmPasswordRegisterFormHandler}
-                />
-                <br></br><br></br>
-                <Grid container spacing={1} justify="center">
-                    <Grid item>
-                        <Button id="sign-up-button" className="sign-up-button" variant="contained" color="primary" onClick={register}>Register</Button>
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+            <div className={`register-page`}>
+                <div className="content">
+                    <h1 className="title-text">Sign Up Today!</h1>
+                    <TextField
+                        InputProps={{
+                            classes: {
+                                root: classes.textFieldStyleRoot
+                            }
+                        }}
+                        InputLabelProps={{
+                            classes: {
+                                root: classes.textFieldLabel,
+                                focused: classes.textFieldLabelFocused
+                            }
+                        }}
+                        className="text-field"
+                        label="First Name"
+                        style={{ width: '300px' }}
+                        required variant="outlined"
+                        onChange={userFirstNameRegisterFormHandler}
+                    /><br></br><br></br>
+                    <TextField
+                        InputProps={{
+                            classes: {
+                                root: classes.textFieldStyleRoot
+                            }
+                        }}
+                        InputLabelProps={{
+                            classes: {
+                                root: classes.textFieldLabel,
+                                focused: classes.textFieldLabelFocused
+                            }
+                        }}
+                        className="text-field"
+                        label="Last Name"
+                        style={{ width: '300px' }}
+                        required
+                        variant="outlined"
+                        onChange={userLastNameRegisterFormHandler}
+                    />
+                    <br></br><br></br>
+                    <TextField
+                        InputProps={{
+                            classes: {
+                                root: classes.textFieldStyleRoot
+                            }
+                        }}
+                        InputLabelProps={{
+                            classes: {
+                                root: classes.textFieldLabel,
+                                focused: classes.textFieldLabelFocused
+                            }
+                        }}
+                        className="text-field"
+                        label="Email"
+                        style={{ width: '300px' }}
+                        required
+                        variant="outlined"
+                        onChange={userEmailRegisterFormHandler}
+                    />
+                    <br></br><br></br>
+                    <TextField
+                        InputProps={{
+                            classes: {
+                                root: classes.textFieldStyleRoot
+                            }
+                        }}
+                        InputLabelProps={{
+                            classes: {
+                                root: classes.textFieldLabel,
+                                focused: classes.textFieldLabelFocused
+                            }
+                        }}
+                        className="text-field"
+                        label="Password"
+                        style={{ width: '300px' }}
+                        required
+                        type="password"
+                        variant="outlined"
+                        onChange={userPasswordRegisterFormHandler}
+                    /><br></br><br></br>
+                    <TextField
+                        InputProps={{
+                            classes: {
+                                root: classes.textFieldStyleRoot
+                            }
+                        }}
+                        InputLabelProps={{
+                            classes: {
+                                root: classes.textFieldLabel,
+                                focused: classes.textFieldLabelFocused
+                            }
+                        }}
+                        className="text-field"
+                        label="Confirm Password"
+                        style={{ width: '300px' }}
+                        required
+                        type="password"
+                        variant="outlined"
+                        onChange={userConfirmPasswordRegisterFormHandler}
+                    />
+                    <br></br><br></br>
+                    <Grid container spacing={1} justify="center">
+                        <Grid item>
+                            <Button id="sign-up-button" className="sign-up-button" variant="contained" color="primary" onClick={register}>Register</Button>
+                        </Grid>
+                        <Grid item>
+                            <Button id="return-button" variant="contained" color="secondary" href="/login">Back</Button>
+                        </Grid>
                     </Grid>
-                    <Grid item>
-                        <Button id="return-button" variant="contained" color="secondary" href="/login">Back</Button>
-                    </Grid>
-                </Grid>
+                </div>
+                <br></br>
+                <br></br>
             </div>
-            <br></br>
-            <br></br>
-        </div>
+        </motion.div>
     );
 }

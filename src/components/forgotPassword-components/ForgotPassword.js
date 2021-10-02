@@ -7,6 +7,7 @@ import { useState, useContext } from 'react';
 import darkThemeContext from "../darkThemeContext";
 import { Link } from 'react-router-dom';
 import { makeStyles } from "@material-ui/core/styles";
+import { motion } from 'framer-motion';
 
 export default function ForgotPassword(props) {
     const { darkTheme } = useContext(darkThemeContext);
@@ -109,78 +110,80 @@ export default function ForgotPassword(props) {
     const classes = useStyles(darkThemeProps);
 
     return (
-        <div className="forgotPassword-page">
-            <div className="fp-content">
-                <h1 className="title-text">Password Reset</h1>
-                <TextField
-                    InputProps={{
-                        classes: {
-                            root: classes.textFieldStyleRoot
-                        }
-                    }}
-                    InputLabelProps={{
-                        classes: {
-                            root: classes.textFieldLabel,
-                            focused: classes.textFieldLabelFocused
-                        }
-                    }}
-                    className="text-field"
-                    style={{ width: '300px' }}
-                    label="Email"
-                    required
-                    variant="outlined"
-                />
-                <br></br><br></br>
-                <TextField
-                    InputProps={{
-                        classes: {
-                            root: classes.textFieldStyleRoot
-                        }
-                    }}
-                    InputLabelProps={{
-                        classes: {
-                            root: classes.textFieldLabel,
-                            focused: classes.textFieldLabelFocused
-                        }
-                    }}
-                    className="text-field"
-                    style={{ width: '300px' }}
-                    label="New Password"
-                    required
-                    type="password"
-                    variant="outlined"
-                    onChange={onPasswordUpdate}
-                />
-                <br></br><br></br>
-                <TextField
-                    InputProps={{
-                        classes: {
-                            root: classes.textFieldStyleRoot
-                        }
-                    }}
-                    InputLabelProps={{
-                        classes: {
-                            root: classes.textFieldLabel,
-                            focused: classes.textFieldLabelFocused
-                        }
-                    }}
-                    className="text-field"
-                    style={{ width: '300px' }}
-                    label="Confirm New Password"
-                    required type="password"
-                    variant="outlined"
-                    onChange={onConfirmPasswordUpdate}
-                />
-                <br></br><br></br>
-                <Link to={{
-                    pathname: "/login",
-                }}>
-                    <span>Return to Login</span> <br /><br />
-                </Link>
-                <Button id="change-password-button" variant="contained" required color="primary" onClick={submitHandler}>Change Password</Button>
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+            <div className="forgotPassword-page">
+                <div className="fp-content">
+                    <h1 className="title-text">Password Reset</h1>
+                    <TextField
+                        InputProps={{
+                            classes: {
+                                root: classes.textFieldStyleRoot
+                            }
+                        }}
+                        InputLabelProps={{
+                            classes: {
+                                root: classes.textFieldLabel,
+                                focused: classes.textFieldLabelFocused
+                            }
+                        }}
+                        className="text-field"
+                        style={{ width: '300px' }}
+                        label="Email"
+                        required
+                        variant="outlined"
+                    />
+                    <br></br><br></br>
+                    <TextField
+                        InputProps={{
+                            classes: {
+                                root: classes.textFieldStyleRoot
+                            }
+                        }}
+                        InputLabelProps={{
+                            classes: {
+                                root: classes.textFieldLabel,
+                                focused: classes.textFieldLabelFocused
+                            }
+                        }}
+                        className="text-field"
+                        style={{ width: '300px' }}
+                        label="New Password"
+                        required
+                        type="password"
+                        variant="outlined"
+                        onChange={onPasswordUpdate}
+                    />
+                    <br></br><br></br>
+                    <TextField
+                        InputProps={{
+                            classes: {
+                                root: classes.textFieldStyleRoot
+                            }
+                        }}
+                        InputLabelProps={{
+                            classes: {
+                                root: classes.textFieldLabel,
+                                focused: classes.textFieldLabelFocused
+                            }
+                        }}
+                        className="text-field"
+                        style={{ width: '300px' }}
+                        label="Confirm New Password"
+                        required type="password"
+                        variant="outlined"
+                        onChange={onConfirmPasswordUpdate}
+                    />
+                    <br></br><br></br>
+                    <Link to={{
+                        pathname: "/login",
+                    }}>
+                        <span>Return to Login</span> <br /><br />
+                    </Link>
+                    <Button id="change-password-button" variant="contained" required color="primary" onClick={submitHandler}>Change Password</Button>
+                </div>
+                <br></br>
+                <br></br>
             </div>
-            <br></br>
-            <br></br>
-        </div>
+        </motion.div>
     );
 }
