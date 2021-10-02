@@ -3,6 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from "@material-ui/core/styles";
 import AddIcon from '@material-ui/icons/Add';
+
 import Fab from '@material-ui/core/Fab';
 import { motion } from 'framer-motion';
 import './css/Buy.css'
@@ -18,7 +19,7 @@ import {
     TOKEN_CONTRACT_ADDRESS,
     TOKEN_CONTRACT_ABI,
 } from "../../contract-data/token-contract-data";
-import { Typography } from '@material-ui/core';
+import { TextField, Typography } from '@material-ui/core';
 import darkThemeContext from "../darkThemeContext";
 
 // axios
@@ -45,6 +46,10 @@ function Buy(props) {
             borderRadius: "5px",
             width: "100%",
             objectFit: "scale-down",
+        },
+        fullWidth: {
+            width: "100%",
+            marginBottom: "1rem"
         }
     }));
 
@@ -108,33 +113,86 @@ function Buy(props) {
                         </Grid>
                         <Grid item xs={12} md={6} style={{ display: 'flex', flexDirection: 'column', alignItems: "flex-start" }} className={classes.details}>
                             <Typography variant="h3" display="block" gutterBottom>Buy this NFT</Typography>
-                            <Typography variant="h6" display="block" gutterBottom>{"NAME"}</Typography>
-                            <Typography variant="body1" display="block" gutterBottom>{props.location.state.data.data.item_name}</Typography>
-                            <Typography variant="h6" display="block" gutterBottom>{"POPULARITY"}</Typography>
-                            <Typography variant="body1" display="block" gutterBottom>{props.location.state.data.data.item_popularity}</Typography>
-                            <Typography variant="h6" component="p" display="block" gutterBottom>{"CURRENTLY OWNED BY"}</Typography>
-                            <Typography variant="body1" display="block" gutterBottom>{props.location.state.data.seller}</Typography>
-                            <Typography variant="h6" component="p" display="block" gutterBottom>{"DESCRIPTION"}</Typography>
-                            <Typography variant="body1" display="block" gutterBottom>
-                                {props.location.state.data.data.item_description}
-                            </Typography>
-                            <Typography variant="h6" component="p" display="block" gutterBottom>{"GameID"}</Typography>
-                            <Typography variant="body1" display="block" gutterBottom>{props.location.state.data.data.game_id}</Typography>
-                            <Typography variant="h6" component="p" display="block" gutterBottom>{"TokenID"}</Typography>
-                            <Typography variant="body1" display="block" gutterBottom>{props.location.state.data.token_id}</Typography>
-                            <Typography variant="h6" component="p" display="block" gutterBottom>{"PRICE"}</Typography>
-                            <Typography variant="body2" display="block" gutterBottom>
-                                {props.location.state.data.price + " ETH"}
-                            </Typography>
-                            <div style={{ display: 'flex' }}>
+                            <TextField
+                                label="NAME"
+                                defaultValue={props.location.state.data.data.item_name}
+                                variant="filled"
+                                size="large"
+                                className={classes.fullWidth}
+                                InputProps={{
+                                    readOnly: true,
+                                }}
+                            />
+                                                        <TextField
+                                label="POPULARITY"
+                                defaultValue={props.location.state.data.data.item_popularity}
+                                variant="filled"
+                                size="large"
+                                className={classes.fullWidth}
+                                InputProps={{
+                                    readOnly: true,
+                                }}
+                            />
+                                                                                    <TextField
+                                label="CURRENTLY OWNED BY"
+                                defaultValue={props.location.state.data.seller}
+                                variant="filled"
+                                size="large"
+                                className={classes.fullWidth}
+                                InputProps={{
+                                    readOnly: true,
+                                }}
+                            />
+                                                                                    <TextField
+                                label="DESCRIPTION"
+                                defaultValue={props.location.state.data.data.item_description}
+                                variant="filled"
+                                size="large"
+                                className={classes.fullWidth}
+                                InputProps={{
+                                    readOnly: true,
+                                }}
+                            />
+                                                                                                       <TextField
+                                label="Game ID"
+                                defaultValue={props.location.state.data.data.game_id}
+                                variant="filled"
+                                size="large"
+                                className={classes.fullWidth}
+                                InputProps={{
+                                    readOnly: true,
+                                }}
+                            />
+                                                                                                           <TextField
+                                label="Token ID"
+                                defaultValue={props.location.state.data.token_id}
+                                variant="filled"
+                                size="large"
+                                className={classes.fullWidth}
+                                InputProps={{
+                                    readOnly: true,
+                                }}
+                            />
+                                                                                                           <TextField
+                                label="Price"
+                                defaultValue={props.location.state.data.price + " ETH"}
+                                variant="filled"
+                                size="large"
+                                className={classes.fullWidth}
+                                InputProps={{
+                                    readOnly: true,
+                                }}
+                            />
+                            <div style={{ display: 'flex', width: "100%" }}>
                                 <Button
                                     variant={"contained"}
                                     size={"large"}
                                     color={"primary"}
+                                    style={{width: "100%"}}
                                     onClick={onClick}>
                                     {"Buy"}
                                 </Button>
-                                <Fab color="primary" aria-label="add" size='small' style={{ position: 'relative', left: '10%' }}>
+                                <Fab color="primary" aria-label="add" size='small' style={{ position: 'relative', margin: "0 1rem" }}>
                                     <AddIcon onClick={() => {
                                         addToWatchList(props.userSessionData._id, props.location.state.data.data._id)
                                     }} />

@@ -258,7 +258,7 @@ function MarketPlace(props) {
                                 container
                                 className={(xs ? classes.gridItemContainer : classes.gridContainer)}
                             >
-                                {loading ? loadingCards(nftSize) : <LoadCards minValue={minValue} maxValue={maxValue} filtered={filtered} />}
+                                {loading ? loadingCards(nftSize|| 5) : <LoadCards minValue={minValue} maxValue={maxValue} filtered={filtered} />}
 
                             </Grid>
                             <br></br><br></br>

@@ -39,7 +39,7 @@
 }
 
 .nav-links {
-  color: white;
+  /* color: white; */
   text-decoration: none;
   padding: 0.5rem 1rem;
 }
@@ -176,8 +176,8 @@
   }
 
   .nav-links-mobile:hover {
-    background: #fff;
-    color: #1888ff;
+    /* background: #fff; */
+    color: #838f9d;
     transition: 250ms;
   }
  

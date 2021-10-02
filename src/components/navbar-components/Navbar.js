@@ -140,23 +140,6 @@ const Navbar = (props) => {
             </Link>
           </li>
 
-          {/* {localStorage.userSessionData ? (
-            <li
-              className="nav-item"
-              onMouseEnter={onMouseEnter}
-              onMouseLeave={onMouseLeave}
-            >
-              <Link
-                to="/profile"
-                className="nav-links"
-                onClick={closeMobileMenu}
-              >
-                Profile <i className="fas fa-caret-down" />
-              </Link>
-              {dropdown && <Dropdown />}
-            </li>
-          ) : null} */}
-
           <li className="nav-item">
             <Link to="/faq" className="nav-links" onClick={closeMobileMenu}>
               FAQs
