@@ -16,7 +16,6 @@ import ThreeDRotation from "@material-ui/icons/ThreeDRotation";
 import SvgIcon from "@material-ui/core/SvgIcon";
 import Icon from "@material-ui/core/Icon";
 import ArrowDropDownRoundedIcon from "@material-ui/icons/ArrowDropDownRounded";
-import PersonRoundedIcon from "@material-ui/icons/PersonRounded";
 import MoreHorizRoundedIcon from "@material-ui/icons/MoreHorizRounded";
 import PolymerRoundedIcon from "@material-ui/icons/PolymerRounded";
 import LocalMallRoundedIcon from "@material-ui/icons/LocalMallRounded";
@@ -141,23 +140,6 @@ const Navbar = (props) => {
             </Link>
           </li>
 
-          {localStorage.userSessionData ? (
-            <li
-              className="nav-item"
-              onMouseEnter={onMouseEnter}
-              onMouseLeave={onMouseLeave}
-            >
-              <Link
-                to="/profile"
-                className="nav-links"
-                onClick={closeMobileMenu}
-              >
-                Profile <i className="fas fa-caret-down" />
-              </Link>
-              {dropdown && <Dropdown />}
-            </li>
-          ) : null}
-
           <li className="nav-item">
             <Link to="/faq" className="nav-links" onClick={closeMobileMenu}>
               FAQs
@@ -255,6 +237,41 @@ const Navbar = (props) => {
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
+          {localStorage.userSessionData ? (
+            <a className="dot-links" href="/profile">
+              <StyledMenuItem>
+                <ListItemIcon>
+                  <PolymerRoundedIcon fontSize="small" />
+                </ListItemIcon>
+                <ListItemText primary="Profile" />
+              </StyledMenuItem>
+            </a>
+          ) : null}
+
+          {localStorage.userSessionData ? (
+            <a className="dot-links" href="/inventory">
+              <StyledMenuItem>
+                <ListItemIcon>
+                  <LocalMallRoundedIcon fontSize="small" />
+                </ListItemIcon>
+                <ListItemText primary="Inventory" />
+              </StyledMenuItem>
+            </a>
+          ) : null}
+
+{/* FavoriteRoundedIcon */}
+
+          {localStorage.userSessionData ? (
+            <a className="dot-links" href="/wishlist">
+              <StyledMenuItem>
+                <ListItemIcon>
+                  <FavoriteRoundedIcon fontSize="small" />
+                </ListItemIcon>
+                <ListItemText primary="Wishlist" />
+              </StyledMenuItem>
+            </a>
+          ) : null}
+
           {!localStorage.userSessionData ? (
             <a className="dot-links" href="/login">
               <StyledMenuItem>
