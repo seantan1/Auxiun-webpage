@@ -9,7 +9,10 @@ import MetamaskIcon from '../../assets/metamaskIcon.png';
 import OutsideAlerter from "../hooks/OutsideAlerter";
 
 export default function WalletProviderWindow({ toggleWindow, signInMetamask, signInOneWallet }) {
-
+    const handleMetamaskSignin = () => {
+        signInMetamask()
+        window.location.reload()
+    }
     const handleCloseButton = () => {
         toggleWindow();
     };
@@ -22,7 +25,7 @@ export default function WalletProviderWindow({ toggleWindow, signInMetamask, sig
                         &times;
                     </span>
                     <div className="pop-up-window-inner">
-                        <div className="wallet-option-container" onClick={() => { signInMetamask(); handleCloseButton(); }}>
+                        <div className="wallet-option-container" onClick={handleMetamaskSignin}>
                             <img src={MetamaskIcon} alt="Metamask" className="wallet-image-icon"></img>
                             <p className="wallet-text">MetaMask</p>
                         </div>
