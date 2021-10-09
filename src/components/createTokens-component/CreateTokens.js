@@ -223,7 +223,6 @@ export default function CreateTokens(props) {
   // get nftMetadatasList for specific gameId
   // If there is no data for the spcified game, then set nftMetadataList to null.
   useEffect(() => {
-    console.log("get nft metadata")
     if (mintGameId !== "") {
       axios
         .get(
@@ -231,7 +230,6 @@ export default function CreateTokens(props) {
             mintGameId
         )
         .then(function (data) {
-          console.log(data)
           if(data.data.status === "error"){
             setNftMetadatasList(null);
           } else {
@@ -379,7 +377,6 @@ export default function CreateTokens(props) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      {console.log(gamesList)}
       <div>
         <div className="token-banner">
           <div className="token-banner-background"></div>
