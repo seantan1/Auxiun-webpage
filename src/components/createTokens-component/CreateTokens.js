@@ -29,6 +29,8 @@ import {
   TOKEN_CONTRACT_ADDRESS,
   TOKEN_CONTRACT_ABI,
 } from "../../contract-data/token-contract-data";
+import { Menu } from "@material-ui/core";
+import { List } from "semantic-ui-react";
 
 const axios = require("axios");
 
@@ -213,7 +215,9 @@ export default function CreateTokens(props) {
       .get(process.env.REACT_APP_DATABASE_API_GAME_URL)
       .then(function (data) {
         setGamesList(data.data.data);
+        // console.log(gamesList)
       });
+  
   }, []);
 
   // get nftMetadatasList for specific gameId
@@ -246,6 +250,7 @@ export default function CreateTokens(props) {
             "",
             "success"
           );
+          window.location.reload()
         }
       });
   };
@@ -365,6 +370,7 @@ export default function CreateTokens(props) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
+      {console.log(gamesList)}
       <div>
         <div className="token-banner">
           <div className="token-banner-background"></div>
@@ -442,12 +448,17 @@ export default function CreateTokens(props) {
                   variant="outlined"
                   required
                 >
+                  {/* <List> */}
                   {gamesList &&
                     gamesList.map((option) => (
                       <MenuItem key={option.value} value={option._id}>
                         {option._id} - {option.game_name}
                       </MenuItem>
                     ))}
+                  
+                  {/* </List> */}
+                
+                 
                 </TextField>
                 <br />
                 <TextField
@@ -576,12 +587,12 @@ export default function CreateTokens(props) {
                     required
                     onChange={mintGameIdHandler}
                   >
-                    {gamesList &&
-                      gamesList.map((option) => (
-                        <MenuItem key={option.value} value={option._id}>
-                          {option._id} - {option.game_name}
-                        </MenuItem>
-                      ))}
+                  {gamesList &&
+                    gamesList.map((option) => (
+                      <MenuItem key={option.value} value={option._id}>
+                        {option._id} - {option.game_name}
+                      </MenuItem>
+                    ))}
                   </TextField>
                   <TextField
                     InputProps={{
