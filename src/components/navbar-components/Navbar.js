@@ -123,13 +123,13 @@ const Navbar = (props) => {
               </Link>
             ) : null}
           </div>
-          {localStorage.userSessionData ? (
+          {/* {localStorage.userSessionData ? ( */}
             <li className="nav-item">
               <Link to="/about" className="nav-links" onClick={closeMobileMenu}>
                 About
               </Link>
             </li>
-          ) : null}
+          {/* ) : null} */}
 
           <li className="nav-item">
             <Link
