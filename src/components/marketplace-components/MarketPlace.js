@@ -55,14 +55,6 @@ function MarketPlace(props) {
         }
     }));
 
-    useEffect(() => {
-        console.log(props)
-    }, [props])
-    useEffect(() => {
-        console.log("yep")
-        setFiltered(item)
-        setNftSize(nftSize => nftSize - 1)
-    }, [item])
     const totalPageCount = () => {
         return (Math.ceil(item.length / pageSize))
     }
