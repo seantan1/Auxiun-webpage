@@ -221,7 +221,9 @@ export default function CreateTokens(props) {
   }, []);
 
   // get nftMetadatasList for specific gameId
+  // If there is no data for the spcified game, then set nftMetadataList to null.
   useEffect(() => {
+    console.log("get nft metadata")
     if (mintGameId !== "") {
       axios
         .get(
@@ -229,7 +231,14 @@ export default function CreateTokens(props) {
             mintGameId
         )
         .then(function (data) {
-          setNftMetadatasList(data.data);
+          console.log(data)
+          if(data.data.status === "error"){
+            setNftMetadatasList(null);
+          } else {
+            setNftMetadatasList(data.data);
+          }
+        }).catch(e => {
+          console.log(e)
         });
     }
   }, [mintGameId]);
@@ -448,17 +457,12 @@ export default function CreateTokens(props) {
                   variant="outlined"
                   required
                 >
-                  {/* <List> */}
                   {gamesList &&
                     gamesList.map((option) => (
                       <MenuItem key={option.value} value={option._id}>
                         {option._id} - {option.game_name}
                       </MenuItem>
                     ))}
-                  
-                  {/* </List> */}
-                
-                 
                 </TextField>
                 <br />
                 <TextField
@@ -586,13 +590,14 @@ export default function CreateTokens(props) {
                     value={mintGameId}
                     required
                     onChange={mintGameIdHandler}
+                    children={gamesList &&
+                      gamesList.map((option) => (
+                        <MenuItem key={option.value} value={option._id}>
+                          {option._id} - {option.game_name}
+                        </MenuItem>
+                      ))}
                   >
-                  {gamesList &&
-                    gamesList.map((option) => (
-                      <MenuItem key={option.value} value={option._id}>
-                        {option._id} - {option.game_name}
-                      </MenuItem>
-                    ))}
+                  
                   </TextField>
                   <TextField
                     InputProps={{
@@ -614,13 +619,14 @@ export default function CreateTokens(props) {
                     variant="outlined"
                     value={mintItemId}
                     onChange={mintItemIdHandler}
-                  >
-                    {nftMetadatasList &&
+                    children={nftMetadatasList &&
                       nftMetadatasList.map((option) => (
                         <MenuItem key={option.item_id} value={option.item_id}>
                           {option.item_id} - {option.item_name}
                         </MenuItem>
                       ))}
+                  >
+                    
                   </TextField>
                   <br></br>
                   <CssTextField
