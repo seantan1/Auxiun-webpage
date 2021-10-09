@@ -29,10 +29,6 @@ const MarketplaceCarousel = (props) => {
                     showArrows={!isMobile}
                 >
                     {props.loadItems(props.item)}
-                    {props.loadItems(props.item)}
-                    {props.loadItems(props.item)}
-                    {props.loadItems(props.item)}
-                    {props.loadItems(props.item)}
                 </ReactElasticCarousel>
             </Card>
         </div>

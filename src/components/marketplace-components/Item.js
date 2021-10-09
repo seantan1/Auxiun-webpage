@@ -13,7 +13,7 @@ import {
 } from "react-router-dom";
 import darkThemeContext from "../darkThemeContext";
 import { useContext } from "react";
-
+import { Skeleton } from '@material-ui/lab';
 function Item(props) {
     const { darkTheme } = useContext(darkThemeContext);
     const [item, setItem] = useState()
@@ -50,11 +50,19 @@ function Item(props) {
     const classes = useStyles();
     if (!item) {
         return (
-            <Card className={`${classes.root} animate`} variant="outlined">
-                <CardContent>
-                    <Typography varient={"h3"} component="p">Loading...</Typography>
-                </CardContent>
+            <Card style={{
+                backgroundColor: darkTheme ? '#2c2c2c' : '',
+                padding: 10
+            }}>
+                <Skeleton variant="rect" width={230} height={230} />
+                <br />
+                <br />
+                <Skeleton animation="wave" />
+                <Skeleton animation="wave" />
+                <Skeleton animation="wave" />
+
             </Card>
+
         )
     } else {
         return (
