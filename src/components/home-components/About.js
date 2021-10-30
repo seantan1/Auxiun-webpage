@@ -14,8 +14,8 @@ const About = () => {
   });
   const { darkTheme } = useContext(darkThemeContext);
   return (
-    <div>
-      <div className="about-banner" id="about" data-aos="fade-up" data-aos-anchor-placement="top-center">
+    <div id="about">
+      <div className="about-banner" data-aos="fade-up" data-aos-anchor-placement="top-center">
         <div id="page-name-bar-heading">
           <p className="about-banner-title">About Us</p>
           <p
